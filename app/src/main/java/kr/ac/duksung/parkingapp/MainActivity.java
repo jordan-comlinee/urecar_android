@@ -9,6 +9,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.naver.maps.geometry.LatLng;
@@ -17,9 +19,12 @@ import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private  static final String TAG = "MainActivity";
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private FusedLocationSource mLocationSource;
     private NaverMap mNaverMap;
+
+    private InfoWindow mInfoWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // 지도 상에 마커 표시하기
         // 영근터 밑 주차장1
         Marker marker = new Marker();
+        marker.setTag("영근터 주차장");
         marker.setPosition(new LatLng(37.6506005, 127.0158205));
         marker.setMap(naverMap);
         //////////
@@ -69,25 +77,43 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //////////
         // 영근터 밑 주차장2
         Marker marker2 = new Marker();
+        marker2.setTag("영근터 주차장");
         marker2.setPosition(new LatLng(37.650972, 127.015213));
         marker2.setMap(naverMap);
+        marker2.setOnClickListener(this);
         //자취집 사유 주차장
         Marker marker3 = new Marker();
+        marker3.setTag("사유 주차장");
         marker3.setPosition(new LatLng(37.654109, 127.014669));
         marker3.setMap(naverMap);
+        marker3.setOnClickListener(this);
         //하나누리관 주차장
         Marker marker4 = new Marker();
+        marker4.setTag("하나누리관 주차장");
         marker4.setPosition(new LatLng(37.6502939, 127.0193974));
         marker4.setMap(naverMap);
+        marker4.setOnClickListener(this);
+        //우이동 공영 주차장
+        Marker marker5 = new Marker();
+        marker5.setTag("우이동 공영 주차장");
+        marker5.setPosition(new LatLng(37.656725, 127.011576));
+        marker5.setMap(naverMap);
+        marker5.setOnClickListener(this);
         //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
         mNaverMap = naverMap;
         mNaverMap.setLocationSource(mLocationSource);
-
-
-
         //권한확인. 결과는 onRequesetPermissionsResult 콜백 매서드 호출
         ActivityCompat.requestPermissions(this, PERMSSIONS, PERMISSION_REQUEST_CODE);
 
+        //InfoWindow 객체 생성
+        mInfoWindow = new InfoWindow();
+        mInfoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(this){
+            @NonNull
+            @Override
+            public CharSequence getText(@NonNull InfoWindow infoWindow){
+                return (CharSequence)infoWindow.getMarker().getTag();
+            }
+        });
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -104,7 +130,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onClick(@NonNull Overlay overlay) {
         if(overlay instanceof Marker) {
-            Toast.makeText(this.getApplicationContext(),"마커가 선택되었습니다.", Toast.LENGTH_LONG).show();
+            Marker marker = (Marker) overlay;
+            if (marker.getInfoWindow() != null){
+                mInfoWindow.close();
+                //Toast.makeText(this.getApplicationContext(),"InfoWindow Close.", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                mInfoWindow.open(marker);
+               // Toast.makeText(this.getApplicationContext(),"InfoWindow Open.", Toast.LENGTH_SHORT).show();
+            }
+            //Toast.makeText(this.getApplicationContext(),"마커가 선택되었습니다.", Toast.LENGTH_LONG).show();
             return true;
         }
         return false;

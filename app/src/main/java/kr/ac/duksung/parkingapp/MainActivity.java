@@ -1,11 +1,13 @@
 package kr.ac.duksung.parkingapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +29,11 @@ import com.naver.maps.map.util.FusedLocationSource;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
-    private  static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
+
+    private static double[][] location = {{37.6506005, 127.0158205}, {37.650972, 127.015213}, {37.654109, 127.014669}, {37.6502939, 127.0193974}, {37.656725, 127.011576}};
+    private static String[] placeName = {"영근터 주차장", "영근터 소형 주차장", "사유 주차장", "하나누리관 주차장", "우이동 공영 주차장"};
+
 
     // 위치 권한을 받아오기 위함
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -67,38 +73,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.d( TAG, "onMapReady");
 
         // 지도 상에 마커 표시하기
-        // 영근터 밑 주차장1
-        Marker marker = new Marker();
-        marker.setTag("영근터 주차장");
-        marker.setPosition(new LatLng(37.6506005, 127.0158205));
-        marker.setMap(naverMap);
-        //////////
-        marker.setOnClickListener(this);
-        //////////
-        // 영근터 밑 주차장2
-        Marker marker2 = new Marker();
-        marker2.setTag("영근터 주차장");
-        marker2.setPosition(new LatLng(37.650972, 127.015213));
-        marker2.setMap(naverMap);
-        marker2.setOnClickListener(this);
-        //자취집 사유 주차장
-        Marker marker3 = new Marker();
-        marker3.setTag("사유 주차장");
-        marker3.setPosition(new LatLng(37.654109, 127.014669));
-        marker3.setMap(naverMap);
-        marker3.setOnClickListener(this);
-        //하나누리관 주차장
-        Marker marker4 = new Marker();
-        marker4.setTag("하나누리관 주차장");
-        marker4.setPosition(new LatLng(37.6502939, 127.0193974));
-        marker4.setMap(naverMap);
-        marker4.setOnClickListener(this);
-        //우이동 공영 주차장
-        Marker marker5 = new Marker();
-        marker5.setTag("우이동 공영 주차장");
-        marker5.setPosition(new LatLng(37.656725, 127.011576));
-        marker5.setMap(naverMap);
-        marker5.setOnClickListener(this);
+        Marker [] markerList = new Marker[5];
+        // 리스트 별로 마커 차례대로 표시함
+        for (int i=0; i<5; i++) {
+            markerList[i] = new Marker();
+            markerList[i].setTag(placeName[i]);
+            markerList[i].setPosition(new LatLng(location[i][0], location[i][1]));
+            markerList[i].setMap(naverMap);
+            markerList[i].setOnClickListener(this);
+        }
+
         //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
         mNaverMap = naverMap;
         mNaverMap.setLocationSource(mLocationSource);
@@ -115,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -131,15 +116,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onClick(@NonNull Overlay overlay) {
         if(overlay instanceof Marker) {
             Marker marker = (Marker) overlay;
+            // 클릭 시 다이얼로그 생성
+            AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
+            //제목
+            d.setTitle("상세 정보");
+            //상세 내용
+            d.setMessage("주차 남는자리\n잔여: 5\n");
+            // 버튼 생성
+            d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
+                // 버튼 누를 때 act
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
+                }
+            });
             if (marker.getInfoWindow() != null){
                 mInfoWindow.close();
-                //Toast.makeText(this.getApplicationContext(),"InfoWindow Close.", Toast.LENGTH_SHORT).show();
             }
             else{
+                d.show();
                 mInfoWindow.open(marker);
                // Toast.makeText(this.getApplicationContext(),"InfoWindow Open.", Toast.LENGTH_SHORT).show();
             }
-            //Toast.makeText(this.getApplicationContext(),"마커가 선택되었습니다.", Toast.LENGTH_LONG).show();
             return true;
         }
         return false;

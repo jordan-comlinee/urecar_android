@@ -39,4 +39,10 @@ dependencies {
     implementation 'com.naver.maps:map-sdk:3.16.0'
     // 현 위치 얻기 기능
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+
+    /*gif 이미지를 넣기 위해 dependency 추가*/
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

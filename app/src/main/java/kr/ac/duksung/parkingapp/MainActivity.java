@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static double[][] location = {{37.6506005, 127.0158205}, {37.650972, 127.015213}, {37.654109, 127.014669}, {37.6502939, 127.0193974}, {37.656725, 127.011576}};
     private static String[] placeName = {"영근터 주차장", "영근터 소형 주차장", "사유 주차장", "하나누리관 주차장", "우이동 공영 주차장"};
-
+    private static String[] address = {"서울특별시 삼양로144길 33", "서울 도봉구 쌍문1동 420-13", "서울특별시 도봉구 삼양로144가길" , "서울특별시 도봉구 삼양로144길 33" , "서울특별시 강북구 우이동 105-2"};
 
     // 위치 권한을 받아오기 위함
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (int i=0; i<5; i++) {
             markerList[i] = new Marker();
             markerList[i].setTag(placeName[i]);
+            markerList[i].setSubCaptionText(address[i]);
             markerList[i].setPosition(new LatLng(location[i][0], location[i][1]));
             markerList[i].setMap(naverMap);
             markerList[i].setOnClickListener(this);
@@ -121,13 +122,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             //제목
             d.setTitle("상세 정보");
             //상세 내용
-            d.setMessage("주차 남는자리\n잔여: 5\n");
+            d.setMessage((CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: 5\n");
             // 버튼 생성
             d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
                 // 버튼 누를 때 act
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
+                }
+            });
+            d.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
                 }
             });
             if (marker.getInfoWindow() != null){

@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // 클릭 시 다이얼로그 생성
             AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
             //제목
-            d.setTitle("상세 정보");
+            d.setTitle((CharSequence) marker.getTag());
             //상세 내용
             d.setMessage((CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: 5\n");
             // 버튼 생성

@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             else{
                 d.show();
                 mInfoWindow.open(marker);
-               // Toast.makeText(this.getApplicationContext(),"InfoWindow Open.", Toast.LENGTH_SHORT).show();
             }
             return true;
         }

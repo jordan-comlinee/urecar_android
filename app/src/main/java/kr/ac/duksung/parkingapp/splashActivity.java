@@ -13,7 +13,7 @@ public class splashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        moveHome(3);
+        moveHome(5);
 
     }
 

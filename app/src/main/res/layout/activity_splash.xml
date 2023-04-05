@@ -9,6 +9,7 @@
     <!--dependency에 추가한 태그 사용...gif 입력시 추천해줌-->
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/splash"
+        android:scaleType="centerCrop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/splash_img"

@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onClick(@NonNull Overlay overlay) {
         if(overlay instanceof Marker) {
             Marker marker = (Marker) overlay;
+
             // 클릭 시 다이얼로그 생성
             AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
             //제목
@@ -141,8 +142,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mInfoWindow.close();
             }
             else{
-                d.show();
                 mInfoWindow.open(marker);
+                // mInfoWindow 클릭 시 상세정보 띄우기
+                mInfoWindow.setOnClickListener(new Overlay.OnClickListener() {
+                    @Override
+                    public boolean onClick(@NonNull Overlay overlay) {
+                        d.show();
+                        return true;
+                    }
+                });
             }
             return true;
         }

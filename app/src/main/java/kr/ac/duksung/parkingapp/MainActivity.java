@@ -11,7 +11,10 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerList[i].setPosition(new LatLng(location[i][0], location[i][1]));
             markerList[i].setMap(naverMap);
             markerList[i].setOnClickListener(this);
+            // ##############색상 변경 예정
+            markerList[i].setIconTintColor(getResources().getColor(R.color.light_violet));
         }
 
         //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
@@ -113,18 +118,61 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
+
+    public void showAlertDialog(Marker marker) {
+
+        // 클릭 시 다이얼로그 생성
+        AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
+        View view = LayoutInflater.from(MainActivity.this).inflate(
+                R.layout.layout_dialog,
+                (LinearLayout)findViewById(R.id.layoutDialog)
+        );
+        d.setView(view);
+        //제목
+        ((TextView)view.findViewById(R.id.textTitle)).setText((CharSequence) marker.getTag());
+        //상세 내용
+        ((TextView)view.findViewById(R.id.textContent)).setText((CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: 5\n");
+        // 버튼 생성
+        d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
+            // 버튼 누를 때 act
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
+            }
+        });
+        d.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //((Button)view.findViewById(R.id.button)).setText("예약하기");
+        // 버튼 생성
+        /*
+        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
+            }
+        });
+        */
+        d.show();
+
+    }
+
     @Override
     public boolean onClick(@NonNull Overlay overlay) {
         if(overlay instanceof Marker) {
             Marker marker = (Marker) overlay;
-
+            /*
             // 클릭 시 다이얼로그 생성
             AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
             //제목
             d.setTitle((CharSequence) marker.getTag());
             //상세 내용
             d.setMessage((CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: 5\n");
-            // 버튼 생성
+
             d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
                 // 버튼 누를 때 act
                 @Override
@@ -138,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
                 }
             });
+             */
+
             if (marker.getInfoWindow() != null){
                 mInfoWindow.close();
             }
@@ -147,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mInfoWindow.setOnClickListener(new Overlay.OnClickListener() {
                     @Override
                     public boolean onClick(@NonNull Overlay overlay) {
-                        d.show();
+                        showAlertDialog(marker);
                         return true;
                     }
                 });

@@ -30,6 +30,8 @@ import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static double[][] location = {{37.6506005, 127.0158205}, {37.650972, 127.015213}, {37.654109, 127.014669}, {37.6502939, 127.0193974}, {37.656725, 127.011576}};
     private static String[] placeName = {"영근터 주차장", "영근터 소형 주차장", "사유 주차장", "하나누리관 주차장", "우이동 공영 주차장"};
     private static String[] address = {"서울특별시 삼양로144길 33", "서울 도봉구 쌍문1동 420-13", "서울특별시 도봉구 삼양로144가길" , "서울특별시 도봉구 삼양로144길 33" , "서울특별시 강북구 우이동 105-2"};
+    private static int[] leftover={0,2,5,1,0};
+
+    private static Map< String, Integer > leftoverarr = new HashMap<>();
 
     // 위치 권한을 받아오기 위함
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerList[i].setOnClickListener(this);
             // ##############색상 변경 예정
             markerList[i].setIconTintColor(getResources().getColor(R.color.light_violet));
+            leftoverarr.put(placeName[i], leftover[i]);
         }
 
         //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
@@ -131,15 +137,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //제목
         ((TextView)view.findViewById(R.id.textTitle)).setText((CharSequence) marker.getTag());
         //상세 내용
-        ((TextView)view.findViewById(R.id.textContent)).setText((CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: 5\n");
+        ((TextView)view.findViewById(R.id.textContent)).setText((CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: "+leftoverarr.get((CharSequence)marker.getTag())+"\n");
         // 버튼 생성
-        d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
-            // 버튼 누를 때 act
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
-            }
-        });
+        if (leftoverarr.get((CharSequence)marker.getTag())>0) {
+            d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
+                // 버튼 누를 때 act
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
         d.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

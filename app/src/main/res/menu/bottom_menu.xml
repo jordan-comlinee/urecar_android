@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/group"
+        android:icon="@drawable/search"
+        android:title="검색"
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/star"
+        android:icon="@drawable/star"
+        android:title="최근 주차"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="로그아웃"
+        android:enabled="true"
+        />
+</menu>

@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="#AAB8E4"
+        android:background="@color/light_violet"
         android:text="LOGIN"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

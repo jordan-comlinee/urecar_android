@@ -4,20 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -27,6 +32,7 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
@@ -55,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private InfoWindow mInfoWindow;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +70,37 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         NaverMapSdk.getInstance(this).setClient(
                 new NaverMapSdk.NaverCloudPlatformClient("s7xoj8yasp"));
+
+        // 하단 네비게이션 바
+        BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
+        bottomNaView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.logout) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("로그아웃");
+                    builder.setMessage("로그아웃 하시겠습니까?");
+                    builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intentLogOut = new Intent(getApplicationContext(),LoginActivity.class);
+                            startActivity(intentLogOut);
+                        }
+                    });
+                    builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.show();
+                    return true;
+
+
+                }
+                return true;
+            }
+        });
 
         //지도 객체 생성
         FragmentManager fm = getSupportFragmentManager();
@@ -90,8 +129,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerList[i].setPosition(new LatLng(location[i][0], location[i][1]));
             markerList[i].setMap(naverMap);
             markerList[i].setOnClickListener(this);
-            // ##############색상 변경 예정
-            markerList[i].setIconTintColor(getResources().getColor(R.color.light_violet));
+            markerList[i].setWidth(200);
+            markerList[i].setHeight(200);
+            // marker2 = 노란색 marker3 = 보라색
+            markerList[i].setIcon(OverlayImage.fromResource(R.drawable.marker3));
             leftoverarr.put(placeName[i], leftover[i]);
         }
 
@@ -145,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
+                    Intent intentBook = new Intent(getApplicationContext(), BookActivity.class);
+                    startActivity(intentBook);
                 }
             });
         }
@@ -154,17 +197,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
             }
         });
-
-        //((Button)view.findViewById(R.id.button)).setText("예약하기");
-        // 버튼 생성
-        /*
-        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
-            }
-        });
-        */
         d.show();
 
     }

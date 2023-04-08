@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private InfoWindow mInfoWindow;
 
+    private long time = 0;
 
 
     @Override
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         NaverMapSdk.getInstance(this).setClient(
                 new NaverMapSdk.NaverCloudPlatformClient("s7xoj8yasp"));
+
 
         // 하단 네비게이션 바
         BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
@@ -201,33 +203,49 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    // Back Button 클릭 시 종료
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - time >= 2000) {
+            time = System.currentTimeMillis();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("종료");
+            builder.setMessage("시스템을 종료하시겠습니까?");
+            builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    try {
+                        // finish 후 다른 Activity 뜨지 않도록 함
+                        moveTaskToBack(true);
+                        // 현재 액티비티 종료
+                        finish();
+                        // 모든 루트 액티비티 종료
+                        finishAffinity();
+                        // 인텐트 애니 종료
+                        overridePendingTransition(0, 0);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            });
+            builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    return;
+                }
+            });
+            builder.show();
+        }
+    }
+
     @Override
     public boolean onClick(@NonNull Overlay overlay) {
         if(overlay instanceof Marker) {
             Marker marker = (Marker) overlay;
-            /*
-            // 클릭 시 다이얼로그 생성
-            AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
-            //제목
-            d.setTitle((CharSequence) marker.getTag());
-            //상세 내용
-            d.setMessage((CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: 5\n");
-
-            d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
-                // 버튼 누를 때 act
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
-                }
-            });
-            d.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
-                }
-            });
-             */
-
             if (marker.getInfoWindow() != null){
                 mInfoWindow.close();
             }

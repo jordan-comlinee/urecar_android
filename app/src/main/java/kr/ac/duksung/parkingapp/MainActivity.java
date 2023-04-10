@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         NaverMapSdk.getInstance(this).setClient(
                 new NaverMapSdk.NaverCloudPlatformClient("s7xoj8yasp"));
 
-
         // 하단 네비게이션 바
         BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
         bottomNaView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

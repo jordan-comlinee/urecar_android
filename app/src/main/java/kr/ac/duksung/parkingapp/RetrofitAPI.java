@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -13,9 +12,13 @@ import retrofit2.http.Query;
 
 public interface RetrofitAPI {
     @GET("marker/")
-    Call<List<Post>> getData(@Query("plotid") int id);
-
+    Call<List<Post>> getmarkerData(@Query("plotid") int id);
+    @GET("login/")
+    Call<List<Post>> getloginData(@Query("plotid") int id);
     @FormUrlEncoded
     @POST("marker/")
-    Call<Post> postData(@FieldMap HashMap<Integer, Object> param);
+    Call<Post> postmarekrData(@FieldMap HashMap<String, Object> param);
+    @FormUrlEncoded
+    @POST("login/")
+    Call<Post> postloginData(@FieldMap HashMap<String, Object> param);
 }

@@ -35,9 +35,18 @@ import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -66,6 +75,45 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.d("TEST", "시작");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://172.20.10.4:5500/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+
+        //Call<List<Post>> call = RetrofitAPI.getData();
+
+        retrofitAPI.getData(1).enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if(response.isSuccessful()) {
+                    List<Post> data = response.body();
+                    Log.d("TEST", "POST 성공"+data.get(0).getPlotid()+data.get(0).getLatitude()+data.get(0).getLongitude());
+                    Log.d("TEST", "POST 성공"+data.get(1).getPlotid());
+                    Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Log.d("TEST", "POST 실패");
+                    Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                Log.d("TEST", "POST 실패");
+                StringWriter sw = new StringWriter();
+                t.printStackTrace(new PrintWriter(sw));
+                String exceptionAsString = sw.toString();
+                Log.e("TEST", exceptionAsString);
+                t.printStackTrace();
+            }
+        });
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

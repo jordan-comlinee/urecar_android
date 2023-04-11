@@ -13,17 +13,17 @@ import retrofit2.http.Path;
 public interface MyAPI{
 
     @POST("/posts/")
-    Call<PostItem> post_posts(@Body PostItem post);
+    Call<Post> post_posts(@Body Post post);
 
     @PATCH("/posts/{pk}/")
-    Call<PostItem> patch_posts(@Path("pk") int pk, @Body PostItem post);
+    Call<Post> patch_posts(@Path("pk") int pk, @Body Post post);
 
     @DELETE("/posts/{pk}/")
-    Call<PostItem> delete_posts(@Path("pk") int pk);
+    Call<Post> delete_posts(@Path("pk") int pk);
 
     @GET("/posts/")
-    Call<List<PostItem>> get_posts();
+    Call<List<Post>> get_posts();
 
     @GET("/posts/{pk}/")
-    Call<PostItem> get_post_pk(@Path("pk") int pk);
+    Call<Post> get_post_pk(@Path("pk") int pk);
 }

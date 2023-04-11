@@ -16,9 +16,9 @@ public class Post {
     @SerializedName("location")
     private String location;
     @SerializedName("total_space")
-    private String total_space;
+    private int total_space;
     @SerializedName("available_space")
-    private String available_space;
+    private int available_space;
 
     public int getPlotid() {
         return plotid;
@@ -34,10 +34,13 @@ public class Post {
     public String getPlotname(){
         return plotname;
     }
-    public String getTotal_space(){
+    public String getLocation(){
+        return location;
+    }
+    public int getTotal_space(){
         return total_space;
     }
-    public String getAvailable_space(){
+    public int getAvailable_space(){
         return available_space;
     }
 
@@ -52,4 +55,9 @@ public class Post {
     public void setLongitude(double longitude){
         this.longitude = longitude;
     }
+
+    public void setPlotname(String plotname){ this.plotname = plotname;  }
+    public void setLocation(String location){ this.location=location; }
+    public void setTotal_space(int total_space){ this.total_space=total_space;}
+    public void setAvailable_space(int available_space){  this.available_space=available_space; }
 }

@@ -51,10 +51,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
 
-    private double[][] location ;//= {{37.6506005, 127.0158205}, {37.650972, 127.015213}, {37.654109, 127.014669}, {37.6502939, 127.0193974}, {37.656725, 127.011576}};
-    private String[] placeName ;// = {"영근터 주차장", "영근터 소형 주차장", "사유 주차장", "하나누리관 주차장", "우이동 공영 주차장"};
-    private String[] address ;//= {"서울특별시 삼양로144길 33", "서울 도봉구 쌍문1동 420-13", "서울특별시 도봉구 삼양로144가길" , "서울특별시 도봉구 삼양로144길 33" , "서울특별시 강북구 우이동 105-2"};
-    private int[] leftover={0,2,5,1,0};
+    private double[][] location ;
+    private String[] placeName ;
+    private String[] address ;
+    private int[] leftover;
 
     private static Map< String, Integer > leftoverarr = new HashMap<>();
 
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         location = new double[5][2];
         placeName = new String[5];
         address = new String[5];
+        leftover = new int[5];
         Log.d("TEST", "시작");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://172.20.10.11:5500/")
@@ -99,8 +100,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     for (int i =0;i<data.size();i++) {
                         location[i][0] = Double.valueOf(data.get(i).getLatitude());
                         location[i][1] = Double.valueOf(data.get(i).getLongitude());
-                        //placeName[i]=data.get(i).get;
-                        //address
+                        placeName[i]=data.get(i).getPlotname();
+                        address[i]=data.get(i).getLocation();
+                        leftover[i]=Integer.valueOf(data.get(i).getTotal_space())-Integer.valueOf(data.get(i).getAvailable_space());
                     }
                 }
                 else {

@@ -12,10 +12,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface RetrofitAPI {
-    @GET("plot_list/")
+    @GET("marker/")
     Call<List<Post>> getData(@Query("plotid") int id);
 
     @FormUrlEncoded
-    @POST("plot_list/")
+    @POST("marker/")
     Call<Post> postData(@FieldMap HashMap<Integer, Object> param);
 }

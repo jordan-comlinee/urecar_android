@@ -5,46 +5,54 @@
     android:id="@+id/fragment_parkinglot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C2C2C2"
     android:orientation="vertical"
     tools:context=".ParkingLotFragment">
 
     <Button
+        android:background="@drawable/yes_car_button"
+        android:id="@+id/button1"
+        android:layout_width="165dp"
+        android:layout_height="79dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="165dp"
+        android:layout_height="79dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/no_car_button"
+        android:text="입차시간: 11:32"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:background="@drawable/yes_car_button"
+        android:id="@+id/button3"
+        android:layout_width="165dp"
+        android:layout_height="79dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text=" " />
+
+    <Button
+        android:background="@drawable/yes_car_button"
         android:id="@+id/button4"
         android:layout_width="165dp"
         android:layout_height="79dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="45dp"
-        android:text="Button" />
+        android:layout_marginTop="30dp"
+        android:text="" />
 
     <Button
-        android:id="@+id/button9"
+        android:background="@drawable/yes_car_button"
+        android:id="@+id/button5"
         android:layout_width="165dp"
         android:layout_height="79dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="45dp"
-        android:text="Button" />
+        android:layout_marginTop="30dp"
+        android:text="" />
 
-    <Button
-        android:id="@+id/button10"
-        android:layout_width="165dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="45dp"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button11"
-        android:layout_width="165dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="45dp"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button12"
-        android:layout_width="165dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="45dp"
-        android:text="Button" />
 </LinearLayout>

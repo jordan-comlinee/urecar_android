@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // 버튼 누를 때 act
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
                     Intent intentBook = new Intent(getApplicationContext(), BookActivity.class);
                     startActivity(intentBook);
                 }

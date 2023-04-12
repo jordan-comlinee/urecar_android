@@ -20,6 +20,11 @@ public class Post {
     @SerializedName("available_space")
     private int available_space;
 
+    @SerializedName("userid")
+    private String userid;
+    @SerializedName("password")
+    private String password;
+
     public int getPlotid() {
         return plotid;
     }
@@ -44,18 +49,24 @@ public class Post {
         return available_space;
     }
 
-    public void setPlotid(int plotid) {
-        this.plotid = plotid;
+    public String getUserid() { return userid; }
+    public String getPassword() { return password; }
+
+    public void setuserid(String userid){
+        this.userid = userid;
     }
 
+    public void setloginpw(String loginpw){
+        this.password = password;
+    }
+
+    public void setPlotid(int plotid) { this.plotid = plotid; }
     public void setLatitude(double latitude){
         this.latitude = latitude;
     }
-
     public void setLongitude(double longitude){
         this.longitude = longitude;
     }
-
     public void setPlotname(String plotname){ this.plotname = plotname;  }
     public void setLocation(String location){ this.location=location; }
     public void setTotal_space(int total_space){ this.total_space=total_space;}

@@ -18,4 +18,11 @@ public interface RetrofitAPI {
     @FormUrlEncoded
     @POST("marker/")
     Call<Post> postData(@FieldMap HashMap<Integer, Object> param);
+
+    @GET("login/")
+    Call<List<Post>> getLoginData(@Query("userid") String id);
+
+    @FormUrlEncoded
+    @POST("login/")
+    Call<Post> postLoginData(@FieldMap HashMap<String, Object> param);
 }

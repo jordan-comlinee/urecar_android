@@ -13,10 +13,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
@@ -30,6 +43,43 @@ public class LoginActivity extends AppCompatActivity {
         TextView loginId = (TextView) findViewById(R.id.IdText);
         TextView loginPw = (TextView) findViewById(R.id.PasswordText);
         Button loginButton = (Button) findViewById(R.id.loginButton);
+
+        Log.d("TEST", "시작");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://172.20.10.11:5500/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        HashMap<String, Object> input = new HashMap<>();
+        input.put("userid", "로그인");
+        input.put("password", "비밀번호");
+        retrofitAPI.postLoginData(input).enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(response.isSuccessful()) {
+                    Post data = response.body();
+                    Log.d("TEST", "POST SUCCESS");
+                    Log.d("TEST", data.getUserid());
+                }
+            }
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Log.d("TEST", "LogIn POST 실패");
+                StringWriter sw = new StringWriter();
+                t.printStackTrace(new PrintWriter(sw));
+                String exceptionAsString = sw.toString();
+                Log.e("TEST", exceptionAsString);
+                t.printStackTrace();
+            }
+        });
+
+
+
+
+
+
+
 
 
         View.OnKeyListener keyListener = new View.OnKeyListener() {

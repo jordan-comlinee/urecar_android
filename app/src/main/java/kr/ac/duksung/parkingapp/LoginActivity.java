@@ -31,6 +31,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class LoginActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
     private long time;
@@ -39,7 +47,29 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://172.20.10.11:5500/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        HashMap<String, Object> input = new HashMap<>();
+        input.put("userid", "2");
+        input.put("passwork","2222");
+        retrofitAPI.postloginData(input).enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(response.isSuccessful()){
+                    Post data = response.body();
+                    Log.d("TEST","POST 성공성공");
+                    Log.d("TEST",data.getPassword());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+
+            }
+        });
         TextView loginId = (TextView) findViewById(R.id.IdText);
         TextView loginPw = (TextView) findViewById(R.id.PasswordText);
         Button loginButton = (Button) findViewById(R.id.loginButton);

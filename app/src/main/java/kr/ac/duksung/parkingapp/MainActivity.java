@@ -85,11 +85,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-
-
-        //Call<List<Post>> call = RetrofitAPI.getData();
-
-        retrofitAPI.getData(1).enqueue(new Callback<List<Post>>() {
+        retrofitAPI.getmarkerData(1).enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 if(response.isSuccessful()) {

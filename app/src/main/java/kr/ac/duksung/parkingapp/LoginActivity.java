@@ -20,17 +20,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -47,15 +36,53 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        TextView loginId = (TextView) findViewById(R.id.IdText);
+        TextView loginPw = (TextView) findViewById(R.id.PasswordText);
+        Button loginButton = (Button) findViewById(R.id.loginButton);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.11:5500/")
+                //.baseUrl("http://172.20.10.11:5500/") //나래
+                .baseUrl("http://192.168.235.195:5500/")//소영
+                //.baseUrl("http://172.20.10.4:5500/") //세림
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        HashMap<String, Object> input = new HashMap<>();
-        input.put("userid", "2");
-        input.put("passwork","2222");
-        retrofitAPI.postloginData(input).enqueue(new Callback<Post>() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id = loginId.getText().toString();
+                String pw = loginPw.getText().toString();
+                RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+                Call<Post> call = retrofitAPI.getloginData(id, pw);
+
+                call.enqueue(new Callback<Post>() {
+                    @Override
+                    public void onResponse(Call<Post> call, Response<Post> response) {
+
+                        if(response.isSuccessful())
+                        {
+                            Post logindata = response.body();
+                            if(logindata!=null) {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"회원이 아닙니다.",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Post> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(),"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }
+        });
+/*
+        //HashMap<String, Object> input = new HashMap<>();
+        //input.put("userid", "2");
+        //input.put("passwork","2222");
+        retrofitAPI.postloginData("2","2222").enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if(response.isSuccessful()){
@@ -70,47 +97,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        TextView loginId = (TextView) findViewById(R.id.IdText);
-        TextView loginPw = (TextView) findViewById(R.id.PasswordText);
-        Button loginButton = (Button) findViewById(R.id.loginButton);
 
-        Log.d("TEST", "시작");
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.11:5500/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-
-        HashMap<String, Object> input = new HashMap<>();
-        input.put("userid", "로그인");
-        input.put("password", "비밀번호");
-        retrofitAPI.postLoginData(input).enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                if(response.isSuccessful()) {
-                    Post data = response.body();
-                    Log.d("TEST", "POST SUCCESS");
-                    Log.d("TEST", data.getUserid());
-                }
-            }
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                Log.d("TEST", "LogIn POST 실패");
-                StringWriter sw = new StringWriter();
-                t.printStackTrace(new PrintWriter(sw));
-                String exceptionAsString = sw.toString();
-                Log.e("TEST", exceptionAsString);
-                t.printStackTrace();
-            }
-        });
-
-
-
-
-
-
-
-
+*/
 
         View.OnKeyListener keyListener = new View.OnKeyListener() {
             @Override

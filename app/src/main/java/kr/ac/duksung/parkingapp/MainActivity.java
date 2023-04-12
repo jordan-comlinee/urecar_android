@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,10 +52,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
 
-    private double[][] location ;
-    private String[] placeName ;
-    private String[] address ;
-    private int[] leftover;
+    private double[][] location ={{37.6506, 127.0158},{37.65097, 127.0152},{37.65411, 127.0147},{37.65029,  127.0194},{37.65673, 127.0116}};
+    private String[] placeName ={"영근터 주차장","영근터 소형 주차장","사유 주차장","하나누리관 주차장","우이동 공영 주차장"};
+    private String[] address ={"서울특별시 삼양로144길 33","서울특별시 도봉구 쌍문1동 420-13","서울특별시 도봉구 삼양로144가길","서울특별시 도봉구 삼양로144길 33","서울특별시 강북구 우이동 105-2"};
+    private int[] leftover={1,0,3,2,4};
 
     private static Map< String, Integer > leftoverarr = new HashMap<>();
 
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*
         location = new double[5][2];
         placeName = new String[5];
         address = new String[5];
@@ -118,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-
+*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -233,7 +235,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //제목
         ((TextView)view.findViewById(R.id.textTitle)).setText((CharSequence) marker.getTag());
         //상세 내용
-        ((TextView)view.findViewById(R.id.textContent)).setText((CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: "+leftoverarr.get((CharSequence)marker.getTag())+"\n");
+        ((TextView)view.findViewById(R.id.textContent)).setText("주소: "+(CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: "+leftoverarr.get((CharSequence)marker.getTag())+"\n");
+        //이미지
+        ImageView iv = (ImageView) view.findViewById(R.id.parkimage);
+        if (marker.getTag()=="영근터 소형 주차장") {
+            iv.setImageResource(R.drawable.park_1);
+        } else if (marker.getTag()=="영근터 주차장") {
+            iv.setImageResource(R.drawable.park_2);
+        }else if (marker.getTag()=="사유 주차장") {
+            iv.setImageResource(R.drawable.park_3);
+        }else if (marker.getTag()=="하나누리관 주차장") {
+            iv.setImageResource(R.drawable.park_4);
+        }else if (marker.getTag()=="우이동 공영 주차장") {
+            iv.setImageResource(R.drawable.park5);
+        }
+
         // 버튼 생성
         if (leftoverarr.get((CharSequence)marker.getTag())>0) {
             d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {

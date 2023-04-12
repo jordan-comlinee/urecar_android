@@ -24,11 +24,6 @@ public class Post {
     @SerializedName("password")
     private String password;
 
-    @SerializedName("userid")
-    private String userid;
-    @SerializedName("password")
-    private String password;
-
     public int getPlotid() {
         return plotid;
     }
@@ -52,14 +47,6 @@ public class Post {
     public int getAvailable_space(){
         return available_space;
     }
-<<<<<<< HEAD
-
-    public String getUserid() { return userid; }
-    public String getPassword() { return password; }
-
-    public void setuserid(String userid){
-        this.userid = userid;
-=======
     public String getUserid(){
         return userid;
     }
@@ -68,24 +55,25 @@ public class Post {
     }
     public void setPlotid(int plotid) {
         this.plotid = plotid;
->>>>>>> 60546a1fa19d6f0277165fd048dd0d24e36c13a1
     }
 
-    public void setloginpw(String loginpw){
-        this.password = password;
-    }
-
-    public void setPlotid(int plotid) { this.plotid = plotid; }
     public void setLatitude(double latitude){
         this.latitude = latitude;
     }
+
     public void setLongitude(double longitude){
         this.longitude = longitude;
     }
+
     public void setPlotname(String plotname){ this.plotname = plotname;  }
     public void setLocation(String location){ this.location=location; }
     public void setTotal_space(int total_space){ this.total_space=total_space;}
     public void setAvailable_space(int available_space){  this.available_space=available_space; }
     public void setUserid(String userid){ this.userid = userid;  }
     public void setPassword(String password){ this.password=password; }
+
+    public Post(String userid, String password){
+        this.userid = userid;
+        this.password=password;
+    }
 }

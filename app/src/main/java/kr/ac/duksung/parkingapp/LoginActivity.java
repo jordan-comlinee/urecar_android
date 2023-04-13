@@ -132,9 +132,9 @@ public class LoginActivity extends AppCompatActivity {
                 id=loginId.getText().toString();
                 pw=loginPw.getText().toString();
                 if(id.equals("urecar")&&pw.equals("urecar")) {
-                    Toast.makeText(getApplicationContext(), "urecar 님 환영합니다!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    moveHome(2);
+
+
                 } else {
                     Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show();
                 }
@@ -142,6 +142,19 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    private void moveHome(int sec) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "urecar 님 환영합니다!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }, 1000 * sec); //sec 초만큼 딜레이를 준 후 시작한다는 뜻
+    }
+
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() - time >= 2000) {

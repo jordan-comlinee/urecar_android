@@ -1,5 +1,6 @@
 package kr.ac.duksung.parkingapp;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class ParkingLotFragment extends Fragment {
                     builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
                             return;
                         }
                     });

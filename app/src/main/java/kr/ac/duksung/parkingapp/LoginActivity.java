@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
     private long time;
     EditText loginId, loginPw;
-    String id, pw;
+    private String id, pw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,64 +53,18 @@ public class LoginActivity extends AppCompatActivity {
         loginPw = (EditText) findViewById(R.id.PasswordText);
         Button loginButton = (Button) findViewById(R.id.loginButton);
 
-        /*
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.11:5500/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        HashMap<String, Object> input = new HashMap<>();
-        input.put("userid", "2");
-        input.put("passwork","2222");
-        retrofitAPI.postloginData("2","2222").enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                if(response.isSuccessful()){
-                    Post data = response.body();
-                    Log.d("TEST","POST 성공성공");
-                    Log.d("TEST",data.getPassword());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-
-            }
-        });
-
-
         Log.d("TEST", "시작");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.11:5500/")
+                .baseUrl("http://172.20.27.74:5500/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        HashMap<String, Object> input = new HashMap<>();
-        input.put("userid", "로그인");
-        input.put("password", "비밀번호");
-        retrofitAPI.postLoginData(input).enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                if(response.isSuccessful()) {
-                    Post data = response.body();
-                    Log.d("TEST", "POST SUCCESS");
-                    Log.d("TEST", data.getUserid());
-                }
-            }
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                Log.d("TEST", "LogIn POST 실패");
-                StringWriter sw = new StringWriter();
-                t.printStackTrace(new PrintWriter(sw));
-                String exceptionAsString = sw.toString();
-                Log.e("TEST", exceptionAsString);
-                t.printStackTrace();
-            }
-        });
+        RetrofitAPI lresult = retrofit.create(RetrofitAPI.class);
 
+        HashMap<String, Object> lparam = new HashMap<String, Object>();
 
-*/
+        Log.d("POST", "ongoing");
+
         View.OnKeyListener keyListener = new View.OnKeyListener() {
             String id = loginId.getText().toString();
             String pw = loginPw.getText().toString();
@@ -131,13 +85,26 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 id=loginId.getText().toString();
                 pw=loginPw.getText().toString();
-                if(id.equals("urecar")&&pw.equals("urecar")) {
-                    moveHome(2);
+                lparam.put("userid",id);
+                lparam.put("password",pw);
+                lresult.postloginData(lparam).enqueue(new Callback<LoginResult>() {
+                    @Override
+                    public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+                        if(response.isSuccessful()){
+                            LoginResult data = response.body();
+                            Log.d("POST: ", "로그인 되었습니다!");
+                            moveHome(1);
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<LoginResult> call, Throwable t) {
+                        Log.d("POST: ", "Failed!!!!");
+                        t.printStackTrace();
+                        Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                } else {
-                    Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -149,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(), "urecar 님 환영합니다!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), id+" 님 환영합니다!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }, 1000 * sec); //sec 초만큼 딜레이를 준 후 시작한다는 뜻

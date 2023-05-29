@@ -8,26 +8,36 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener  {
-
-
-
     SwipeRefreshLayout swipeRefreshLayout;
 
-
+    private int plotid;
+    private String slotid;
+    private String userid;
+    private String carnum;
+    private int usagetime;
+    private String parking_lot_name;
+    private String parking_lot_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
+
 
         ViewPager vp =findViewById(R.id.viewpager);
         VPAdapter adapter = new VPAdapter(getSupportFragmentManager());
@@ -35,8 +45,6 @@ public class BookActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         TabLayout tab = findViewById(R.id.tab);
         tab.setupWithViewPager(vp);
-
-
 
 
         // 위로 끌어올리면 새로고침되도록 구현하였음

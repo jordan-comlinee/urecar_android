@@ -16,14 +16,20 @@ public interface RetrofitAPI {
     @GET("marker/")
     Call<List<Post>> getmarkerData(@Query("plotid") int id);
     @GET("login/")
-    Call<Post> getloginData(@Query("userid") String userid, @Query("password") String password);
+    Call<LoginResult> getloginData(@Query("userid") String userid, @Query("password") String password);
     @FormUrlEncoded
     @POST("marker/")
     Call<Post> postmarekrData(@FieldMap HashMap<String, Object> param);
     @FormUrlEncoded
     @POST("login/")
-    Call<Post> postloginData(@Field("userid") String userid, @Field("password") String password);
+    Call<LoginResult> postloginData(@FieldMap HashMap<String, Object> lparam);
 
+    @FormUrlEncoded
+    @POST("update_reservation/")
+    Call<BookResult> postBookData(@FieldMap HashMap<String, Object> param);
+
+    @GET("update_reservation/")
+    Call<BookResult> getBookData(@Query("parking_lot_name") String parking_lot_name, @Query("parking_lot_location") String parking_lot_location, @Query("slotid") String slotid, @Query("usagetime") int usagetime);
     /*
      POST 방식으로 myPage 보내기
     */

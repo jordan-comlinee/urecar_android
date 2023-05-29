@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,14 @@ import com.naver.maps.map.overlay.Marker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ParkingLotFragment extends Fragment {
 
@@ -44,6 +52,17 @@ public class ParkingLotFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d("TEST","시작");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://172.20.27.74:5500/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI result = retrofit.create(RetrofitAPI.class);
+        HashMap<String, Object> param = new HashMap<String, Object>();
+
+        Log.d("POST: ","ongoing");
+
         View v = inflater.inflate(R.layout.fragment_parking_lot, container, false);
         View v2 = inflater.inflate(R.layout.layout_dialog_book, container, false);
         button1 = (Button) v.findViewById(R.id.button1);
@@ -87,6 +106,30 @@ public class ParkingLotFragment extends Fragment {
                                         carnum_result = carnum.getText().toString();
                                         //booktime.set(i, Integer.parseInt(str));
                                         Toast.makeText(view.getContext(), str+"/"+carnum_result, Toast.LENGTH_SHORT).show();
+                                        param.put("plotid","1");
+                                        param.put("slotid","1_A1");
+                                        param.put("userid","2");
+                                        param.put("carnum",carnum_result);
+                                        param.put("usagetime",str);
+                                        result.postBookData(param).enqueue(new Callback<BookResult>() {
+                                            @Override
+                                            public void onResponse(Call<BookResult> call, Response<BookResult> response) {
+                                                if(response.isSuccessful()) {
+                                                    BookResult data = response.body();
+                                                    Log.d("POST: ", data.getParking_lot_location());
+                                                    Log.d("POST: ", data.getParking_lot_name());
+                                                    Log.d("POST: ", data.getSlotid());
+                                                    Log.d("POST: ", String.valueOf(data.getUsagetime()));
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<BookResult> call, Throwable t) {
+                                                Log.d("POST: ", "Failed!!!!");
+                                                Log.d("TEST: ", "Failed!!!!");
+                                                t.printStackTrace();
+                                            }
+                                        });
                                     }
                                 });
                                 book.setNegativeButton("취소", new DialogInterface.OnClickListener() {

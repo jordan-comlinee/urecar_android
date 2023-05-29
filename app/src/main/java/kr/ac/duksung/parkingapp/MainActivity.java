@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -130,9 +131,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // 하단 네비게이션 바
         BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
+        Menu menu = bottomNaView.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.home);
+        menuItem.setChecked(true);
         bottomNaView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // 마이페이지 버튼 클릭한 경우
+                if(item.getItemId() == R.id.profile) {
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                // 로그아웃 버튼 클릭한 경우
                 if(item.getItemId() == R.id.logout) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("로그아웃");
@@ -152,7 +163,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     });
                     builder.show();
                     return true;
-
 
                 }
                 return true;

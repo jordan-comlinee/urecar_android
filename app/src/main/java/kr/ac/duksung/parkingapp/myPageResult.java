@@ -11,12 +11,13 @@ public class myPageResult {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return username;
-    }
 
     public String getCarNum() {
         return carnum;
+    }
+
+    public String getUserName() {
+        return username;
     }
 
     public String getPhoneNum() {

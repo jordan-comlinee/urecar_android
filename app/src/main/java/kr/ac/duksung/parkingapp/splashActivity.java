@@ -28,7 +28,7 @@ public class splashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                    startActivity(new Intent(splashActivity.this, LoginActivity.class));
+                    startActivity(new Intent(splashActivity.this, ProfileActivity.class));
             }
 
             @Override
@@ -44,7 +44,7 @@ public class splashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
             }

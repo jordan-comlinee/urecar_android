@@ -9,6 +9,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitAPI {
@@ -22,4 +23,16 @@ public interface RetrofitAPI {
     @FormUrlEncoded
     @POST("login/")
     Call<Post> postloginData(@Field("userid") String userid, @Field("password") String password);
+
+    /*
+     POST 방식으로 myPage 보내기
+    */
+    @FormUrlEncoded
+    @POST("mypage/")
+    Call<myPageResult> postData(@FieldMap HashMap<String, Object> param);
+
+    @GET("mypage/")
+    Call<myPageResult> getMyPageData(@Query("userid") int id, @Query("carnum") String carnum, @Query("username") String username, @Query("phone") String phone, @Query("address") String address);
+
+
 }

@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         location[i][1] = Double.valueOf(data.get(i).getLongitude());
                         placeName[i]=data.get(i).getPlotname();
                         address[i]=data.get(i).getLocation();
-                        leftover[i]=Integer.valueOf(data.get(i).getTotal_space())-Integer.valueOf(data.get(i).getAvailable_space());
+                        leftover[i]=Integer.valueOf(data.get(i).getAvailable_space());
                     }
                 }
             }

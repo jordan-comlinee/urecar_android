@@ -102,16 +102,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.d("TEST", "POST 성공"+data.get(1).getPlotid());
                     Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
                     for (int i =0;i<data.size();i++) {
+                        Log.d("GET: ", data.get(i).getPlotname());
+                        Log.d("GET: ", data.get(i).getLatitude()+" "+ data.get(i).getLongitude());
+                        Log.d("GET: ", data.get(i).getLocation());
+                        Log.d("GET: ", String.valueOf(Integer.valueOf(data.get(i).getTotal_space())-Integer.valueOf(data.get(i).getAvailable_space())));
                         location[i][0] = Double.valueOf(data.get(i).getLatitude());
                         location[i][1] = Double.valueOf(data.get(i).getLongitude());
                         placeName[i]=data.get(i).getPlotname();
                         address[i]=data.get(i).getLocation();
                         leftover[i]=Integer.valueOf(data.get(i).getTotal_space())-Integer.valueOf(data.get(i).getAvailable_space());
                     }
-                }
-                else {
-                    Log.d("TEST", "POST 실패");
-                    Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
                 }
             }
 

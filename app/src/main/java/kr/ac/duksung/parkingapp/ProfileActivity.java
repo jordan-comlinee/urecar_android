@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        // 서버 연결 시작
         Log.d("TEST", "시작");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.ip))

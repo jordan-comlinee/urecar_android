@@ -45,23 +45,59 @@ public class ParkingLotFragment extends Fragment {
 
     private Button button1, button2, button3, button4, button5;
     private TextView carnum;
-    private int[] YN={0,1,1,0,0};
+    private int[] YN;
     private String carnum_result;
     List<Integer> booktime = new ArrayList<>(Arrays.asList(1,1,1,1,1));
     @SuppressLint("ResourceAsColor")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("TEST","시작");
+        YN = new int[4];
+        // 서버 연결 시작
+        Log.d("PLOT","plot시작");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.27.74:5500/")
+                .baseUrl(getString(R.string.ip))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         RetrofitAPI result = retrofit.create(RetrofitAPI.class);
         HashMap<String, Object> param = new HashMap<String, Object>();
+        param.put("plotid", 1);
+        Log.d("PLOT: ","ongoing");
 
-        Log.d("POST: ","ongoing");
+        result.postSlotData(param).enqueue(new Callback<List<slotResult>>() {
+            @Override
+            public void onResponse(Call<List<slotResult>> call, Response<List<slotResult>> response) {
+                List<slotResult> data = response.body();
+                Log.d("POST: ", "SUCCESS!");
+                for(int i = 0; i < data.size(); i++) {
+                    Log.d("POST: ", Integer.toString(i));
+                    Log.d("POST: ", data.get(i).getSlotId());
+                    Log.d("POST: ", data.get(i).getAvailable());
+                    if(data.get(i).getAvailable().equals("y")) {
+                        Log.d("POST: ", "YY!!");
+                        YN[i] = 1;
+                    }
+                    else{
+                        Log.d("POST", "NN!");
+                        YN[i] = 0;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<slotResult>> call, Throwable t) {
+                Log.d("POST", "POST 실패");
+                t.printStackTrace();
+            }
+        });
+
+        //super.onCreateView(inflater, container, savedInstanceState);
+        Log.d("RESULT: ", Arrays.toString(YN));
+
+
+
+
 
         View v = inflater.inflate(R.layout.fragment_parking_lot, container, false);
         View v2 = inflater.inflate(R.layout.layout_dialog_book, container, false);
@@ -69,16 +105,15 @@ public class ParkingLotFragment extends Fragment {
         button2 = (Button) v.findViewById(R.id.button2);
         button3 = (Button) v.findViewById(R.id.button3);
         button4 = (Button) v.findViewById(R.id.button4);
-        button5 = (Button) v.findViewById(R.id.button5);
         button1.setBackgroundResource(R.drawable.no_car_button);
         button4.setBackgroundResource(R.drawable.no_car_button);
         Button[] buttons = {button1, button2, button3, button4, button5};
-        for(int i=0; i<5; i++) {
+        for(int i=0; i<4; i++) {
             if(YN[i]==0) {
                 buttons[i].setBackgroundResource(R.drawable.yes_car_button);
                 buttons[i].setTextColor(Color.WHITE);
                 buttons[i].setText("p-"+(i+1)+"  예약가능");
-
+                // 버튼 클릭 시 메서드
                 buttons[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

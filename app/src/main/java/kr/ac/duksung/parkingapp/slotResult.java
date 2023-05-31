@@ -1,17 +1,26 @@
 package kr.ac.duksung.parkingapp;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class slotResult {
-    private int plotId;
-    private String slotId;
+    @SerializedName("plotid")
+    @Expose
+    private int plotid;
+    @SerializedName("slotid")
+    @Expose
+    private String slotid;
+    @SerializedName("available")
+    @Expose
     private String available;
 
     public void sendPlotId() {
-        this.plotId = plotId;
+        this.plotid = plotid;
     }
 
 
     public String getSlotId() {
-        return slotId;
+        return slotid;
     }
 
     public String getAvailable() {

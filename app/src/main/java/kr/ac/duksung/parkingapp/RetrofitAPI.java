@@ -38,10 +38,15 @@ public interface RetrofitAPI {
     Call<myPageResult> postData(@FieldMap HashMap<String, Object> param);
 
     @GET("mypage/")
-    Call<myPageResult> getMyPageData(@Query("userid") int id, @Query("carnum") String carnum, @Query("username") String username, @Query("phone") String phone, @Query("address") String address);
+    Call<List<myPageResult>> getMyPageData(@Query("userid") int id, @Query("carnum") String carnum, @Query("username") String username, @Query("phone") String phone, @Query("address") String address);
 
     @FormUrlEncoded
-    @POST("")
+    @POST("get_slot_info/")
+    Call<List<slotResult>> postSlotData(@FieldMap HashMap<String, Object> param);
+
+    @GET("get_sot_info/")
+    Call<List<slotResult>> getSlotData(@Query("slotid") String slotid, @Query("available") String available);
+
 
 
 }

@@ -83,6 +83,7 @@ public class ParkingLotFragment extends Fragment {
                 List<slotResult> data = response.body();
                 Log.d("POST: ", "SUCCESS!");
                 for(int i = 0; i < data.size(); i++) {
+                    int index = i;
                     Log.d("POST: ", Integer.toString(i));
                     Log.d("POST: ", data.get(i).getSlotId());
                     Log.d("POST: ", data.get(i).getAvailable());
@@ -92,7 +93,7 @@ public class ParkingLotFragment extends Fragment {
                         //Log.d("POST: ", Arrays.toString(YN));
                         buttons[i].setBackgroundResource(R.drawable.yes_car_button);
                         buttons[i].setTextColor(Color.WHITE);
-                        buttons[i].setText("p-"+(i+1)+"  예약가능");
+                        buttons[i].setText("A-"+(i+1)+"  예약가능");
                         // 버튼 클릭 시 메서드
                         buttons[i].setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -110,7 +111,7 @@ public class ParkingLotFragment extends Fragment {
                                         ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.time, android.R.layout.simple_spinner_item);
                                         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                         spinner.setAdapter(timeAdapter);
-                                        ((TextView) view.findViewById(R.id.textTitle)).setText("p-"+(i+1));
+                                        ((TextView) view.findViewById(R.id.textTitle)).setText("A-"+(index+1));
                                         carnum = (TextView) view.findViewById(R.id.carnumber);
                                         book.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                             // 버튼 누를 때 act
@@ -122,7 +123,7 @@ public class ParkingLotFragment extends Fragment {
                                                 //booktime.set(i, Integer.parseInt(str));
                                                 Toast.makeText(view.getContext(), str+"/"+carnum_result, Toast.LENGTH_SHORT).show();
                                                 param.put("plotid","1");
-                                                param.put("slotid","1_A1");
+                                                param.put("slotid","1_A"+(index+1));
                                                 param.put("userid","2");
                                                 param.put("carnum",carnum_result);
                                                 param.put("usagetime",str);
@@ -171,8 +172,8 @@ public class ParkingLotFragment extends Fragment {
                         YN.add(i,1);
                         //Log.d("POST: ", Arrays.toString(YN));
                         buttons[i].setBackgroundResource(R.drawable.no_car_button);
-                        buttons[i].setTextColor(Color.RED);
-                        buttons[i].setText("p-"+(i+1)+"  예약중");
+                        buttons[i].setTextColor(Color.BLACK);
+                        buttons[i].setText("A-"+(i+1)+"  예약불가");
                     }
                 }
             }

@@ -44,7 +44,7 @@ public interface RetrofitAPI {
     @POST("get_slot_info/")
     Call<List<slotResult>> postSlotData(@FieldMap HashMap<String, Object> param);
 
-    @GET("get_sot_info/")
+    @GET("get_slot_info/")
     Call<List<slotResult>> getSlotData(@Query("slotid") String slotid, @Query("available") String available);
 
 

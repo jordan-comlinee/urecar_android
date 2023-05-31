@@ -40,5 +40,8 @@ public interface RetrofitAPI {
     @GET("mypage/")
     Call<myPageResult> getMyPageData(@Query("userid") int id, @Query("carnum") String carnum, @Query("username") String username, @Query("phone") String phone, @Query("address") String address);
 
+    @FormUrlEncoded
+    @POST("")
+
 
 }

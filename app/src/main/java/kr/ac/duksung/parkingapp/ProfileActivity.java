@@ -57,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Log.d("TEST", "시작");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.27.74:5500/")
+                .baseUrl(getString(R.string.ip))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

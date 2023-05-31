@@ -52,10 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         loginId = (EditText) findViewById(R.id.IdText);
         loginPw = (EditText) findViewById(R.id.PasswordText);
         Button loginButton = (Button) findViewById(R.id.loginButton);
+        Log.d("IP", getString(R.string.ip));
 
         Log.d("TEST", "시작");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.27.74:5500/")
+                .baseUrl(getString(R.string.ip))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

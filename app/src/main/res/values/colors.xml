@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_blue">#B7CBE8</color>
     <color name="light_violet">#FFAAA3C4</color>
+
+    <!--새로 추가한 색상표 . . . 이걸로 전부 바꿀 것!-->
+    <color name="highlight_green">#FF76FF2F</color>
+    <color name="highlight_violet">#FFE02FFF</color>
+    <color name="dark_black">#FF211E1F</color>
 </resources>

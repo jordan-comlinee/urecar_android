@@ -140,6 +140,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         bottomNaView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // 홈 버튼을 눌렀을 때
+                if(item.getItemId() == R.id.home) {
+                    try {
+                        //액티비티 화면 재갱신 시키는 코드
+                        Intent intent = getIntent();
+                        finish(); //현재 액티비티 종료 실시
+                        overridePendingTransition(0, 0); //인텐트 애니메이션 없애기
+                        startActivity(intent); //현재 액티비티 재실행 실시
+                        overridePendingTransition(0, 0); //인텐트 애니메이션 없애기
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
                 // 마이페이지 버튼 클릭한 경우
                 if(item.getItemId() == R.id.profile) {
                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -201,8 +215,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerList[i].setOnClickListener(this);
             markerList[i].setWidth(200);
             markerList[i].setHeight(200);
-            // marker2 = 노란색 marker3 = 보라색
-            markerList[i].setIcon(OverlayImage.fromResource(R.drawable.marker3));
+            if(leftover[i] == 0)    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.none_marker));
+            // marker2 = 노란색 marker3 = 보라색 none_marker = 회색
+            else markerList[i].setIcon(OverlayImage.fromResource(R.drawable.marker3));
             leftoverarr.put(placeName[i], leftover[i]);
         }
 

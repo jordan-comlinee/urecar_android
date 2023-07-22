@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -13,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -79,10 +84,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private InfoWindow mInfoWindow;
 
     private long time = 0;
-
+    private ImageView ivMenu;
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+    NavigationView NaView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         location = new double[5][2];
         placeName = new String[5];
         address = new String[5];
@@ -132,6 +141,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         NaverMapSdk.getInstance(this).setClient(
                 new NaverMapSdk.NaverCloudPlatformClient("s7xoj8yasp"));
 
+        ivMenu=findViewById(R.id.iv_menu);
+        drawerLayout=findViewById(R.id.drawer);
+        toolbar = findViewById(R.id.toolbar);
+        NaView = findViewById(R.id.bottom_navigation_view);
+
+        //액션바 변경하기( toolbar type)
+        setSupportActionBar(toolbar);
+        ivMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: 클릭됨");
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+
+        /*
         // 하단 네비게이션 바
         BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
         Menu menu = bottomNaView.getMenu();
@@ -155,6 +180,29 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 }
                 // 마이페이지 버튼 클릭한 경우
+                if(item.getItemId() == R.id.home) {
+                    try {
+                        //액티비티 화면 재갱신 시키는 코드
+                        Intent intent = getIntent();
+                        finish(); //현재 액티비티 종료 실시
+                        overridePendingTransition(0, 0); //인텐트 애니메이션 없애기
+                        startActivity(intent); //현재 액티비티 재실행 실시
+                        overridePendingTransition(0, 0); //인텐트 애니메이션 없애기
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }                    try {
+                        //액티비티 화면 재갱신 시키는 코드
+                        Intent intent = getIntent();
+                        finish(); //현재 액티비티 종료 실시
+                        overridePendingTransition(0, 0); //인텐트 애니메이션 없애기
+                        startActivity(intent); //현재 액티비티 재실행 실시
+                        overridePendingTransition(0, 0); //인텐트 애니메이션 없애기
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
                 if(item.getItemId() == R.id.profile) {
                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(intent);
@@ -185,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return true;
             }
         });
-
+*/
         //지도 객체 생성
         FragmentManager fm = getSupportFragmentManager();
         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
@@ -199,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //위치를 반환하는 구현체인 FusedLocationSource 생성
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
     }
+
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         Log.d( TAG, "onMapReady");

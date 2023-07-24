@@ -12,13 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class splashActivity extends AppCompatActivity {
-    Animation anim;
-    ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        logo = (ImageView)findViewById(R.id.imageView);
+
+        moveHome(5);
+
+        /*
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+
         anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -37,6 +42,7 @@ public class splashActivity extends AppCompatActivity {
             }
         });
         logo.startAnimation(anim);
+        */
 
     }
 

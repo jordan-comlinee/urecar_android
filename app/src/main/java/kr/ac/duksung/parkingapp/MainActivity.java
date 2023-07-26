@@ -271,11 +271,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerList[i].setPosition(new LatLng(location[i][0], location[i][1]));
             markerList[i].setMap(naverMap);
             markerList[i].setOnClickListener(this);
-            markerList[i].setWidth(200);
-            markerList[i].setHeight(200);
-            if(leftover[i] == 0)    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.none_marker));
+            markerList[i].setWidth(100);
+            markerList[i].setHeight(100);
             // marker2 = 노란색 marker3 = 보라색 none_marker = 회색
-            else markerList[i].setIcon(OverlayImage.fromResource(R.drawable.marker3));
+            if(leftover[i] == 0)    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_empty_parkinglot));
+            else markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_parkinglot));
             leftoverarr.put(placeName[i], leftover[i]);
         }
 
@@ -337,10 +337,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             iv.setImageResource(R.drawable.park5);
         }
         //버튼 - 취소
-        cancelButton = (Button) findViewById(R.id.cancel);
-        bookButton = (Button) findViewById(R.id.book);
+        cancelButton = (Button) view.findViewById(R.id.cancel);
+        bookButton = (Button) view.findViewById(R.id.book);
 
 
+
+
+        /*
         // 버튼 생성
         if (leftoverarr.get((CharSequence)marker.getTag())>0) {
             d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
@@ -359,12 +362,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
             }
         });
+        */
 
         // 다이얼로그 창
         AlertDialog alertDialog = d.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         alertDialog.show();
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        if (leftoverarr.get((CharSequence)marker.getTag())>0) {
+            bookButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intentBook = new Intent(getApplicationContext(), BookActivity.class);
+                    startActivity(intentBook);
+                }
+            });
+        }
+        else {
+            bookButton.setEnabled(false);
+            bookButton.setTextColor(getResources().getColor(R.color.dark_grey));
+        }
+
 
 
     }

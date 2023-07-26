@@ -14,6 +14,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -57,18 +59,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
-    /* 변수 지정(로컬용)
+    //변수 지정(로컬용)
     private double[][] location ={{37.6506, 127.0158},{37.65097, 127.0152},{37.65411, 127.0147},{37.65029,  127.0194},{37.65673, 127.0116}};
     private String[] placeName ={"영근터 주차장","영근터 소형 주차장","사유 주차장","하나누리관 주차장","우이동 공영 주차장"};
     private String[] address ={"서울특별시 삼양로144길 33","서울특별시 도봉구 쌍문1동 420-13","서울특별시 도봉구 삼양로144가길","서울특별시 도봉구 삼양로144길 33","서울특별시 강북구 우이동 105-2"};
     private int[] leftover={4,0,3,2,4};
-    */
+
+    /*
     // 변수 초기화(서버용)
     private double[][] location;
     private String[] placeName;
     private String[] address;
     private int[] leftover;
-
+    */
     private static Map< String, Integer > leftoverarr = new HashMap<>();
 
     // 위치 권한을 받아오기 위함
@@ -89,9 +92,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Toolbar toolbar;
     NavigationView NaView;
 
+    // 상세화면 팝업창 버튼 정의
+    private Button cancelButton;
+    private Button bookButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        /*
         location = new double[5][2];
         placeName = new String[5];
         address = new String[5];
@@ -134,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 t.printStackTrace();
             }
         });
+        */
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -308,11 +317,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 R.layout.layout_dialog,
                 (LinearLayout)findViewById(R.id.layoutDialog)
         );
+
         d.setView(view);
         //제목
         ((TextView)view.findViewById(R.id.textTitle)).setText((CharSequence) marker.getTag());
         //상세 내용
-        ((TextView)view.findViewById(R.id.textContent)).setText("주소: "+(CharSequence) marker.getSubCaptionText()+"\n주차 남는자리\n잔여: "+leftoverarr.get((CharSequence)marker.getTag())+"\n");
+        ((TextView)view.findViewById(R.id.textContent)).setText("주소: "+(CharSequence) marker.getSubCaptionText()+"\n\n주차 잔여 자리: "+leftoverarr.get((CharSequence)marker.getTag())+"\n");
         //이미지
         ImageView iv = (ImageView) view.findViewById(R.id.parkimage);
         if (marker.getTag()=="영근터 소형 주차장") {
@@ -326,6 +336,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else if (marker.getTag()=="우이동 공영 주차장") {
             iv.setImageResource(R.drawable.park5);
         }
+        //버튼 - 취소
+        cancelButton = (Button) findViewById(R.id.cancel);
+        bookButton = (Button) findViewById(R.id.book);
+
 
         // 버튼 생성
         if (leftoverarr.get((CharSequence)marker.getTag())>0) {
@@ -345,7 +359,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
             }
         });
-        d.show();
+
+        // 다이얼로그 창
+        AlertDialog alertDialog = d.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        alertDialog.show();
+
 
     }
 

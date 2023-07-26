@@ -8,13 +8,16 @@
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/alertdialog.xml" value="0.2605" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/alertdialog_background.xml" value="0.185" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/alertdialog_button.xml" value="0.2605" />
+        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/alertdialog_shape.xml" value="0.235" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/alertdialog_title_background.xml" value="0.2605" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/bottom_navigation_bar.xml" value="0.1" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/home.xml" value="0.3865" />
+        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/ic_baseline_dehaze_48.xml" value="0.321" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2085" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/logout.xml" value="0.215" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/no_car_button.xml" value="0.179" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/search.xml" value="0.1" />
+        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/shape.xml" value="0.235" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/star.xml" value="0.196" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/drawable/yes_car_button.xml" value="0.22" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/font/font.xml" value="0.16041666666666668" />
@@ -26,7 +29,7 @@
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/fragment_info.xml" value="0.26510416666666664" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/fragment_parking_lor.xml" value="0.26510416666666664" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/fragment_parking_lot.xml" value="0.33" />
-        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/layout_dialog.xml" value="0.34322916666666664" />
+        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/layout_dialog.xml" value="0.33" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/layout_dialog_book.xml" value="0.38645833333333335" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/menu/bottom_menu.xml" value="0.25" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

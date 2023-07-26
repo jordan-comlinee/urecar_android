@@ -14,4 +14,5 @@
     <color name="highlight_green">#FF76FF2F</color>
     <color name="highlight_violet">#FFE02FFF</color>
     <color name="dark_black">#FF211E1F</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

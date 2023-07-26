@@ -9,6 +9,11 @@
     android:orientation="vertical"
     tools:context=".ParkingLotFragment">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/dark_black" />
+
     <Button
         android:background="@drawable/yes_car_button"
         android:id="@+id/button1"

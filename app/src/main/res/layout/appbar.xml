@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="60dp"
     android:id="@+id/toolbar"
     android:background="@color/dark_black">
 
@@ -15,8 +15,8 @@
             android:id="@+id/iv_menu"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
@@ -31,10 +31,12 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
+            android:fontFamily="@font/the_gothic_b"
             android:text="U'RECAR" />
 
         <ImageView
@@ -46,6 +48,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginRight="12dp"
             app:srcCompat="@drawable/search" />
 
     </RelativeLayout>

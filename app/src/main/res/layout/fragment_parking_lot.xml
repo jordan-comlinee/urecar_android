@@ -5,50 +5,182 @@
     android:id="@+id/fragment_parkinglot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C2C2C2"
+    android:background="@color/dark_black"
     android:orientation="vertical"
     tools:context=".ParkingLotFragment">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"></LinearLayout>
+
     <View
+        android:id="@+id/slotline1"
         android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:background="@color/dark_black" />
+        android:layout_height="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="192dp"
+        android:background="@color/white" />
 
-    <Button
-        android:background="@drawable/yes_car_button"
-        android:id="@+id/button1"
-        android:layout_width="165dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
-        android:text="" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="165dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/no_car_button"
-        android:text="입차시간: 11:32"
-        android:textColor="@color/white"/>
+        <View
+            android:id="@+id/slotline1_0"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
 
-    <Button
-        android:background="@drawable/yes_car_button"
-        android:id="@+id/button3"
-        android:layout_width="165dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
-        android:text=" " />
 
-    <Button
-        android:background="@drawable/yes_car_button"
-        android:id="@+id/button4"
-        android:layout_width="165dp"
-        android:layout_height="79dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
-        android:text="" />
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="165dp"
+            android:layout_height="79dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/yes_car_button"
+            android:text=""
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+        <View
+            android:id="@+id/slotline1_1"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="200dp"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline2"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="192dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/slotline2_0"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="165dp"
+            android:layout_height="79dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/no_car_button"
+            android:text="입차시간: 11:32"
+            android:textColor="@color/white" />
+
+        <View
+            android:id="@+id/slotline2_1"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="200dp"
+            android:background="@color/white" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline3"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="192dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/slotline3_0"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="165dp"
+            android:layout_height="79dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/yes_car_button"
+            android:text=" "
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <View
+            android:id="@+id/slotline3_1"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="200dp"
+            android:background="@color/white" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline4"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="192dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/slotline4_0"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="165dp"
+            android:layout_height="79dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/yes_car_button"
+            android:text=""
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <View
+            android:id="@+id/slotline4_1"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="200dp"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline5"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="192dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/white" />
 
 </LinearLayout>

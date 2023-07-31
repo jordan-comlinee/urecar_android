@@ -27,6 +27,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,15 +47,14 @@ public class ProfileActivity extends AppCompatActivity {
     // BackPressed 에서 시간 초기 설정
     private long time = 0;
 
-
+    private ImageButton backbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        backbutton = (ImageButton) findViewById(R.id.backbutton);
         // 서버 연결 시작
         Log.d("TEST", "시작");
         Retrofit retrofit = new Retrofit.Builder()
@@ -103,47 +104,13 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
-        // 하단 네비게이션 바 메서드
-        BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
-        bottomNaView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // 홈 버튼을 눌렀을 때
-                if(item.getItemId() == R.id.home) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                // 로그아웃 버튼을 눌렀을 때
-                if(item.getItemId() == R.id.logout) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-                    builder.setTitle("로그아웃");
-                    builder.setMessage("로그아웃 하시겠습니까?");
-                    builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intentLogOut = new Intent(getApplicationContext(),LoginActivity.class);
-                            startActivity(intentLogOut);
-                        }
-                    });
-                    builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            return;
-                        }
-                    });
-                    builder.show();
-                    return true;
-
-
-                }
-                return true;
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
-
-
-
 
     }
 

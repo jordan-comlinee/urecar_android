@@ -32,12 +32,61 @@
         android:fontFamily="@font/gmarketsansbold"
         android:text="U'RECAR"
         android:textColor="@color/highlight_green"
-        android:textSize="24sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/oval1"
+        android:layout_width="190dp"
+        android:layout_height="194dp"
+        android:layout_marginStart="-100dp"
+        android:layout_marginTop="-200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/oval" />
+
+    <ImageView
+        android:id="@+id/oval2"
+        android:layout_width="124dp"
+        android:layout_height="124dp"
+        android:layout_marginEnd="-200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/oval" />
+
+    <ImageView
+        android:id="@+id/oval3"
+        android:layout_width="148dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="-100dp"
+        android:layout_marginBottom="-150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/oval" />
+
+    <ImageView
+        android:id="@+id/oval4"
+        android:layout_width="98dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="-100dp"
+        android:layout_marginBottom="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/oval" />
+
+    <ImageView
+        android:id="@+id/oval5"
+        android:layout_width="133dp"
+        android:layout_height="131dp"
+        android:layout_marginStart="-100dp"
+        android:layout_marginBottom="-150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/oval" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

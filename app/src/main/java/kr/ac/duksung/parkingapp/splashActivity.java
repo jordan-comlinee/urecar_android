@@ -18,6 +18,19 @@ public class splashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        ImageView oval1 = findViewById(R.id.oval1);
+        ImageView oval2 = findViewById(R.id.oval2);
+        ImageView oval3 = findViewById(R.id.oval3);
+        ImageView oval4 = findViewById(R.id.oval4);
+        ImageView oval5 = findViewById(R.id.oval5);
+        final Animation scale = AnimationUtils.loadAnimation(splashActivity.this, R.anim.scale);
+        final Animation scaleSlow = AnimationUtils.loadAnimation(splashActivity.this, R.anim.scale_slow);
+        oval1.startAnimation(scale);
+        oval2.startAnimation(scaleSlow);
+        oval3.startAnimation(scale);
+        oval4.startAnimation(scale);
+        oval5.startAnimation(scaleSlow);
+
         moveHome(5);
 
         /*
@@ -50,7 +63,7 @@ public class splashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
             }

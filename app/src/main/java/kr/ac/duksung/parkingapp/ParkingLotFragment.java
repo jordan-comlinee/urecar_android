@@ -86,6 +86,7 @@ public class ParkingLotFragment extends Fragment {
                         buttons[i].setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                Toast.makeText(getContext(), "clicked", Toast.LENGTH_LONG).show();
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("예약");
                                 builder.setMessage("예약 하시겠습니까?");
@@ -153,8 +154,8 @@ public class ParkingLotFragment extends Fragment {
                                 });
                                 builder.show();
                             }
-                        });
-                    }
+                        });//setOnClickListener
+                    }//if
                     else{
                         Log.d("POST", "NN!");
                         YN.add(i,1);
@@ -163,7 +164,7 @@ public class ParkingLotFragment extends Fragment {
                         buttons[i].setTextColor(Color.BLACK);
                         buttons[i].setText("A-"+(i+1)+"  예약불가");
                     }
-                }
+                }//for
             }
 
             @Override
@@ -172,6 +173,85 @@ public class ParkingLotFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+
+        ////////////////////////////////////////////
+        // 테스트용 코드. 졸전시 삭제 요망!!!
+        for(int i = 0; i < 4; i++) {
+            int index = i;
+            buttons[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "clicked", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("예약");
+                    builder.setMessage("예약 하시겠습니까?");
+                    builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            AlertDialog.Builder book = new AlertDialog.Builder(getActivity());
+                            View view = inflater.inflate(R.layout.layout_dialog_book, container, false);
+                            book.setView(view);
+                            Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+                            ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.time, android.R.layout.simple_spinner_item);
+                            timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinner.setAdapter(timeAdapter);
+                            ((TextView) view.findViewById(R.id.textTitle)).setText("A-"+(index+1));
+                            carnum = (TextView) view.findViewById(R.id.carnumber);
+                            book.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                // 버튼 누를 때 act
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    String str = spinner.getSelectedItem().toString();
+                                    str = str.substring(0,1);
+                                    carnum_result = carnum.getText().toString();
+                                    //booktime.set(i, Integer.parseInt(str));
+                                    Toast.makeText(view.getContext(), str+"/"+carnum_result, Toast.LENGTH_SHORT).show();
+                                    param.put("plotid","1");
+                                    param.put("slotid","1_A"+(index+1));
+                                    param.put("userid","2");
+                                    param.put("carnum",carnum_result);
+                                    param.put("usagetime",str);
+                                    result.postBookData(param).enqueue(new Callback<crud_BookResult>() {
+                                        @Override
+                                        public void onResponse(Call<crud_BookResult> call, Response<crud_BookResult> response) {
+                                            if(response.isSuccessful()) {
+                                                crud_BookResult data = response.body();
+                                                Log.d("POST: ", data.getParking_lot_location());
+                                                Log.d("POST: ", data.getParking_lot_name());
+                                                Log.d("POST: ", data.getSlotid());
+                                                Log.d("POST: ", String.valueOf(data.getUsagetime()));
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<crud_BookResult> call, Throwable t) {
+                                            Log.d("POST: ", "Failed!!!!");
+                                            Log.d("TEST: ", "Failed!!!!");
+                                            t.printStackTrace();
+                                        }
+                                    });
+                                }
+                            });
+                            book.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+                            book.show();
+                        }
+                    });
+                    builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    builder.show();
+                }
+            });//setOnClickListener
+        }//for
+        ////////////////////////////////////////////
 
         //super.onCreateView(inflater, container, savedInstanceState);
         //Log.d("RESULT: ", Arrays.toString(YN));

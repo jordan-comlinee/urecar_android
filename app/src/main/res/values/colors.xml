@@ -16,4 +16,5 @@
     <color name="dark_black">#FF211E1F</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="dark_grey">#92211E1F</color>
+    <color name="light_grey">#505050</color>
 </resources>

@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ivMenu=findViewById(R.id.iv_menu);
         drawerLayout=findViewById(R.id.drawer);
         toolbar = findViewById(R.id.toolbar);
-        NaView = findViewById(R.id.bottom_navigation_view);
+        NaView = findViewById(R.id.navigation);
 
         //액션바 변경하기( toolbar type)
         setSupportActionBar(toolbar);

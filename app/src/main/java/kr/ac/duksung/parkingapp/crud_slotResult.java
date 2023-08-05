@@ -3,7 +3,7 @@ package kr.ac.duksung.parkingapp;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class slotResult {
+public class crud_slotResult {
     @SerializedName("plotid")
     @Expose
     private int plotid;

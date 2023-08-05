@@ -3,16 +3,6 @@ package kr.ac.duksung.parkingapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.HashMap;
 
@@ -28,12 +18,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import javax.xml.transform.Result;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -61,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RetrofitAPI result = retrofit.create(RetrofitAPI.class);
+        crud_RetrofitAPI result = retrofit.create(crud_RetrofitAPI.class);
 
         // POST https://roadrunner.tistory.com/648
 
@@ -69,12 +56,12 @@ public class ProfileActivity extends AppCompatActivity {
         param.put("userid", "2");
         Log.d("POST: ", "ongoing");
 
-        result.postData(param).enqueue(new Callback<myPageResult>() {
+        result.postData(param).enqueue(new Callback<crud_myPageResult>() {
             // 서버 연결 성공 시 메서드
             @Override
-            public void onResponse(Call<myPageResult> call, Response<myPageResult> response) {
+            public void onResponse(Call<crud_myPageResult> call, Response<crud_myPageResult> response) {
                 if(response.isSuccessful()){
-                    myPageResult data = response.body();
+                    crud_myPageResult data = response.body();
                     // userName 등의 객체 xml로부터 불러오기
                     userName = (TextView) findViewById(R.id.userName);
                     carnum = (TextView) findViewById(R.id.carNum);
@@ -96,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
             // 서버 연결 실패 시 메서드
             @Override
-            public void onFailure(Call<myPageResult> call, Throwable t) {
+            public void onFailure(Call<crud_myPageResult> call, Throwable t) {
                     Log.d("POST: ", "Failed!!!!");
                     Log.d("TEST: ", "Failed!!!!");
                     t.printStackTrace();

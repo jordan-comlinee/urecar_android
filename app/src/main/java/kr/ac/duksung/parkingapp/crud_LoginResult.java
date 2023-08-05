@@ -1,6 +1,6 @@
 package kr.ac.duksung.parkingapp;
 
-public class LoginResult {
+public class crud_LoginResult {
     private String userid;
     private String password;
     public void senduserId() {

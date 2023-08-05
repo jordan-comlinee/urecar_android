@@ -1,6 +1,6 @@
 package kr.ac.duksung.parkingapp;
 
-public class BookResult {
+public class crud_BookResult {
     private int plotid;
     private String slotid;
     private String userid;

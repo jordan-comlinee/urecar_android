@@ -1,16 +1,10 @@
 package kr.ac.duksung.parkingapp;
 
-import static kr.ac.duksung.parkingapp.R.drawable.no_car_button;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -22,20 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.naver.maps.map.overlay.Marker;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import kotlin.collections.ArraysKt;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,7 +50,7 @@ public class ParkingLotFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RetrofitAPI result = retrofit.create(RetrofitAPI.class);
+        crud_RetrofitAPI result = retrofit.create(crud_RetrofitAPI.class);
         HashMap<String, Object> param = new HashMap<String, Object>();
         param.put("plotid", 1);
         Log.d("PLOT: ","ongoing");
@@ -77,10 +65,10 @@ public class ParkingLotFragment extends Fragment {
         buttons[1] = button2;
         buttons[2] = button3;
         buttons[3] = button4;
-        result.postSlotData(param).enqueue(new Callback<List<slotResult>>() {
+        result.postSlotData(param).enqueue(new Callback<List<crud_slotResult>>() {
             @Override
-            public void onResponse(Call<List<slotResult>> call, Response<List<slotResult>> response) {
-                List<slotResult> data = response.body();
+            public void onResponse(Call<List<crud_slotResult>> call, Response<List<crud_slotResult>> response) {
+                List<crud_slotResult> data = response.body();
                 Log.d("POST: ", "SUCCESS!");
                 for(int i = 0; i < data.size(); i++) {
                     int index = i;
@@ -127,11 +115,11 @@ public class ParkingLotFragment extends Fragment {
                                                 param.put("userid","2");
                                                 param.put("carnum",carnum_result);
                                                 param.put("usagetime",str);
-                                                result.postBookData(param).enqueue(new Callback<BookResult>() {
+                                                result.postBookData(param).enqueue(new Callback<crud_BookResult>() {
                                                     @Override
-                                                    public void onResponse(Call<BookResult> call, Response<BookResult> response) {
+                                                    public void onResponse(Call<crud_BookResult> call, Response<crud_BookResult> response) {
                                                         if(response.isSuccessful()) {
-                                                            BookResult data = response.body();
+                                                            crud_BookResult data = response.body();
                                                             Log.d("POST: ", data.getParking_lot_location());
                                                             Log.d("POST: ", data.getParking_lot_name());
                                                             Log.d("POST: ", data.getSlotid());
@@ -140,7 +128,7 @@ public class ParkingLotFragment extends Fragment {
                                                     }
 
                                                     @Override
-                                                    public void onFailure(Call<BookResult> call, Throwable t) {
+                                                    public void onFailure(Call<crud_BookResult> call, Throwable t) {
                                                         Log.d("POST: ", "Failed!!!!");
                                                         Log.d("TEST: ", "Failed!!!!");
                                                         t.printStackTrace();
@@ -179,7 +167,7 @@ public class ParkingLotFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<slotResult>> call, Throwable t) {
+            public void onFailure(Call<List<crud_slotResult>> call, Throwable t) {
                 Log.d("POST", "POST 실패");
                 t.printStackTrace();
             }

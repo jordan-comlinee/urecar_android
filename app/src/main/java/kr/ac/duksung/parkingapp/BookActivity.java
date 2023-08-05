@@ -1,5 +1,6 @@
 package kr.ac.duksung.parkingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,8 +11,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +57,28 @@ public class BookActivity extends AppCompatActivity implements SwipeRefreshLayou
         // 위로 끌어올리면 새로고침되도록 구현하였음
         swipeRefreshLayout = findViewById(R.id.bookLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+
+        //Firebase가 잘 동작하는 지 테스트
+        //write
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.setValue("Hello");
+        //read
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String value = snapshot.getValue(String.class);
+                Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), error.toException().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
     }
 
     @Override

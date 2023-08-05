@@ -1,6 +1,6 @@
 package kr.ac.duksung.parkingapp;
 
-public class myPageResult {
+public class crud_myPageResult {
     private int userId;
     private String username;
     private String carnum;

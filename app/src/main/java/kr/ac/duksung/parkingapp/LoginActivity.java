@@ -3,11 +3,7 @@ package kr.ac.duksung.parkingapp;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,19 +14,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.HashMap;
 
@@ -60,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RetrofitAPI lresult = retrofit.create(RetrofitAPI.class);
+        crud_RetrofitAPI lresult = retrofit.create(crud_RetrofitAPI.class);
 
         HashMap<String, Object> lparam = new HashMap<String, Object>();
 
@@ -88,18 +72,18 @@ public class LoginActivity extends AppCompatActivity {
                 pw=loginPw.getText().toString();
                 lparam.put("userid",id);
                 lparam.put("password",pw);
-                lresult.postloginData(lparam).enqueue(new Callback<LoginResult>() {
+                lresult.postloginData(lparam).enqueue(new Callback<crud_LoginResult>() {
                     @Override
-                    public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+                    public void onResponse(Call<crud_LoginResult> call, Response<crud_LoginResult> response) {
                         if(response.isSuccessful()){
-                            LoginResult data = response.body();
+                            crud_LoginResult data = response.body();
                             Log.d("POST: ", "로그인 되었습니다!");
                             moveHome(1);
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<LoginResult> call, Throwable t) {
+                    public void onFailure(Call<crud_LoginResult> call, Throwable t) {
                         Log.d("POST: ", "Failed!!!!");
                         t.printStackTrace();
                         Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show();

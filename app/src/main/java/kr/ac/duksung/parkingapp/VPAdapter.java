@@ -15,7 +15,7 @@ public class VPAdapter extends FragmentPagerAdapter {
         super(fm);
         items = new ArrayList<Fragment>();
         items.add(new ParkingLotFragment());
-        items.add(new InfoFragment());
+        items.add(new InfoFragmentActivity());
 
         itext.add("주차 현황");
         itext.add("상세 정보");

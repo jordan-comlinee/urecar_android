@@ -2,7 +2,7 @@ package kr.ac.duksung.parkingapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Post {
+public class crud_Post {
     @SerializedName("plotid")
     private int plotid;
     @SerializedName("latitude")
@@ -72,7 +72,7 @@ public class Post {
     public void setUserid(String userid){ this.userid = userid;  }
     public void setPassword(String password){ this.password=password; }
 
-    public Post(String userid, String password){
+    public crud_Post(String userid, String password){
         this.userid = userid;
         this.password=password;
     }

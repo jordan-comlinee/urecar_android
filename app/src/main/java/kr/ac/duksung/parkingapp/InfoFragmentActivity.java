@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class InfoFragment extends Fragment {
+public class InfoFragmentActivity extends Fragment {
 
     @Nullable
     @Override

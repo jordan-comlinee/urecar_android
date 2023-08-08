@@ -19,8 +19,8 @@
         android:id="@+id/slotline1"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="192dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
         android:background="@color/white" />
 
     <LinearLayout
@@ -43,7 +43,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/yes_car_button"
-            android:text=""
+            android:text="예약 가능"
+            android:fontFamily="@font/the_gothic_b"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <View
@@ -60,8 +61,8 @@
         android:id="@+id/slotline2"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="192dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
         android:background="@color/white" />
 
     <LinearLayout
@@ -84,6 +85,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/no_car_button"
             android:text="입차시간: 11:32"
+            android:fontFamily="@font/the_gothic_b"
             android:textColor="@color/white" />
 
         <View
@@ -99,8 +101,8 @@
         android:id="@+id/slotline3"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="192dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
         android:background="@color/white" />
 
     <LinearLayout
@@ -122,7 +124,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/yes_car_button"
-            android:text=" "
+            android:text="예약 가능"
+            android:fontFamily="@font/the_gothic_b"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <View
@@ -138,8 +141,8 @@
         android:id="@+id/slotline4"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="192dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
         android:background="@color/white" />
 
     <LinearLayout
@@ -161,7 +164,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/yes_car_button"
-            android:text=""
+            android:text="예약 가능"
+            android:fontFamily="@font/the_gothic_b"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <View
@@ -178,8 +182,92 @@
         android:id="@+id/slotline5"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="192dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
+
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/slotline5_0"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="165dp"
+            android:layout_height="79dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/no_car_button"
+            android:text="입차시간: 10:14"
+            android:textColor="@color/white"
+            android:fontFamily="@font/the_gothic_b"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <View
+            android:id="@+id/slotline5_1"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="200dp"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline6"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/slotline6_0"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="165dp"
+            android:layout_height="79dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/yes_car_button"
+            android:text="예약 가능"
+            android:fontFamily="@font/the_gothic_b"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <View
+            android:id="@+id/slotline6_1"
+            android:layout_width="10dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="200dp"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline7"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
         android:layout_marginBottom="5dp"
         android:background="@color/white" />
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid
-        android:color="#BF7DB249"/>
+        android:color="@color/highlight_green"/>
     <stroke
         android:width="10dp"
-        android:color="#7DB249" />
+        android:color="@color/highlight_green" />
     <size
         android:layout_width="165dp"
         android:layout_height="79dp" />

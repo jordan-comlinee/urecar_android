@@ -3,6 +3,8 @@ pluginManagement {
         google()
         jcenter()
         maven { url 'https://naver.jfrog.io/artifactory/maven/' }
+        //MPAndroidChart
+        maven { url 'https://jitpack.io' }
     }
 }
 dependencyResolutionManagement {
@@ -10,10 +12,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         jcenter()
-        maven {
-            url 'https://naver.jfrog.io/artifactory/maven/'
-        }
+        maven { url 'https://naver.jfrog.io/artifactory/maven/'}
+        //MPAndroidChart
+        maven { url 'https://jitpack.io' }
     }
 }
+
 rootProject.name = "parkingApp"
 include ':app'

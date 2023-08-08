@@ -30,7 +30,6 @@ android {
 
 }
 
-
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
@@ -69,4 +68,6 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0' //Circle ImageView
 
+    //MPAndroidChart
+    implementation 'com.github.PhilJay:MpAndroidChart:v3.1.0'
 }

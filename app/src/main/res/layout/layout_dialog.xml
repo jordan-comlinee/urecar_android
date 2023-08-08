@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/alertDialog_background"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="600dp"
         android:background="@drawable/alertdialog_shape"
         android:orientation="vertical"
         android:padding="10dp">
@@ -26,7 +26,7 @@
             android:padding="10dp"
             android:textAlignment="center"
             android:textColor="@color/dark_black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <View
@@ -37,9 +37,9 @@
         <TextView
             android:id="@+id/textContent"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/the_gothic_l"
             android:padding="10dp"
             android:textColor="@color/dark_black"
@@ -53,14 +53,32 @@
             android:textColor="@color/dark_black"
             android:textSize="16dp"
             android:fontFamily="@font/the_gothic_b"
+            android:text="주차 혼잡 시간" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/linechart_shape"
+            android:layout_above="@+id/seekBar1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/dark_black"
+            android:textSize="16dp"
+            android:fontFamily="@font/the_gothic_b"
             android:text="주차장 전경" />
 
         <ImageView
             android:id="@+id/parkimage"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:padding="10dp"
+            android:padding="0dp"
             tools:srcCompat="@tools:sample/avatars" />
 
 
@@ -68,7 +86,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button

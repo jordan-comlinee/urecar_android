@@ -178,11 +178,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         NaverMapSdk.getInstance(this).setClient(
                 new NaverMapSdk.NaverCloudPlatformClient("s7xoj8yasp"));
 
-        ivMenu=findViewById(R.id.iv_menu);
-        drawerLayout=findViewById(R.id.drawer);
+        //drawerLayout=findViewById(R.id.drawer);
         toolbar = findViewById(R.id.toolbar);
-        NaView = findViewById(R.id.navigation);
-
+        // 사이드바 네비게이션 뷰
+        //NaView = findViewById(R.id.navigation);
+        /*
         //액션바 변경하기( toolbar type)
         setSupportActionBar(toolbar);
         ivMenu.setOnClickListener(new View.OnClickListener() {
@@ -192,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
+        */
 
-        /*
         // 하단 네비게이션 바
         BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
         Menu menu = bottomNaView.getMenu();
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return true;
             }
         });
-*/
+
         //지도 객체 생성
         FragmentManager fm = getSupportFragmentManager();
         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);

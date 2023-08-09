@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.widget.Toolbar;
 
@@ -18,18 +16,22 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -50,18 +52,9 @@ import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -104,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Utils.init(this); // MPAndroidChart 유틸리티 초기화
 
 
         String test = "테스트용 텍스트";
@@ -337,7 +332,42 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    // 상세 정보 띄워주는 코드
     public void showAlertDialog(Marker marker) {
+
+        // 수정 필요*
+        // linechart 생성하기
+        LineChart lineChart = findViewById(R.id.dialogLineChart);
+        if (lineChart != null) {
+            ArrayList<Entry> entries = new ArrayList<>();
+            entries.add(new Entry(0, 4f));
+            entries.add(new Entry(1, 2f));
+            entries.add(new Entry(2, 3f));
+            entries.add(new Entry(3, 5f));
+            entries.add(new Entry(4, 2f));
+            entries.add(new Entry(5, 0f));
+
+            LineDataSet dataset = new LineDataSet(entries, "# of Calls");
+            dataset.setColor(Color.BLUE);
+            dataset.setLineWidth(2f);
+            dataset.setCircleColor(Color.RED);
+            dataset.setCircleRadius(4f);
+            dataset.setDrawCircleHole(true);
+
+            ArrayList<ILineDataSet> datasets = new ArrayList<>();
+            datasets.add(dataset);
+
+            LineData data = new LineData(datasets);
+
+            lineChart.setData(data);
+            lineChart.getDescription().setText("My Line Chart");
+            lineChart.animateY(1000);
+        } else {
+            // lineChart를 찾지 못한 경우 처리
+            Log.d("LINECHART: ", "null 들어감");
+        }
+
+
 
         // 클릭 시 다이얼로그 생성
         AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);

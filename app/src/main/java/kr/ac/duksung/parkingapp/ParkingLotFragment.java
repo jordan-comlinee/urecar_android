@@ -137,7 +137,7 @@ public class ParkingLotFragment extends Fragment {
                                                     }
                                                 });
                                             }
-                                            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
                                         });//setPositiveButton
                                         book.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                             @Override
@@ -232,6 +232,8 @@ public class ParkingLotFragment extends Fragment {
                                             t.printStackTrace();
                                         }
                                     });
+                                    Intent intent = new Intent(getActivity(), BookSuccessActivity.class);
+                                    startActivity(intent);
                                 }
                             });
                             book.setNegativeButton("취소", new DialogInterface.OnClickListener() {

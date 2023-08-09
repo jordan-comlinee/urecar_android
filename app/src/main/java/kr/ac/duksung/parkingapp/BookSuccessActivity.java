@@ -5,8 +5,10 @@ import androidx.core.content.ContextCompat;
 import static nl.dionsegijn.konfetti.core.Position.Relative;
 
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -36,7 +38,11 @@ public class BookSuccessActivity extends AppCompatActivity {
         drawableShape = new Shape.DrawableShape(drawable, true);
 
         konfettiView = findViewById(R.id.konfettiView);
+        //컨페티 효과 주기 시작
         parade();
+        moveHome(3);
+
+
     }
 
 
@@ -96,6 +102,17 @@ public class BookSuccessActivity extends AppCompatActivity {
                         .position(new Relative(0.0, 0.0).between(new Relative(1.0, 0.0)))
                         .build()
         );
+    }
+
+    private void moveHome(int sec) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, 1000 * sec); //sec 초만큼 딜레이를 준 후 시작한다는 뜻
     }
 
 

@@ -24,13 +24,14 @@ import nl.dionsegijn.konfetti.xml.KonfettiView;
 public class BookSuccessActivity extends AppCompatActivity {
 
     private KonfettiView konfettiView = null;
+    // 컨페티 모양 지정하기 위한 drawableShape 객체 생성
     private Shape.DrawableShape drawableShape = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_success);
-
+        // 하트모양 컨페티 만들어보기
         final Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_heart);
         drawableShape = new Shape.DrawableShape(drawable, true);
 
@@ -56,15 +57,22 @@ public class BookSuccessActivity extends AppCompatActivity {
     public void parade() {
         EmitterConfig emitterConfig = new Emitter(2, TimeUnit.SECONDS).perSecond(60);
         konfettiView.start(
-                //
+                // 왼쪽 방향
                 new PartyFactory(emitterConfig)
+                        // 뿌릴 때 각도 지정
                         .angle(Angle.RIGHT - 45)
+                        // 뿌려지는 범위, SMALL/WIDE/ROUND 등이 있음
                         .spread(Spread.WIDE)
+                        //컴페티 모양, 네모, 동그라미, 하트모양
                         .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
+                        // 컨페티 색상, hex코드 앞에 0x 붙여서 넣어주면 된다. 랜덤으로 발생
                         .colors(Arrays.asList(0x76E12F, 0x3B7017, 0x0b1604, 0x5eb425))
+                        //속도 지정
                         .setSpeedBetween(10f, 60f)
+                        // 좌표 지정
                         .position(new Relative(0.0, 0.2))
                         .build(),
+                // 오른쪽 방향
                 new PartyFactory(emitterConfig)
                         .angle(Angle.LEFT + 45)
                         .spread(Spread.WIDE)

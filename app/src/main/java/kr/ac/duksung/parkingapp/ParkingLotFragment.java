@@ -2,6 +2,7 @@ package kr.ac.duksung.parkingapp;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -136,13 +137,14 @@ public class ParkingLotFragment extends Fragment {
                                                     }
                                                 });
                                             }
-                                        });
+                                            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        });//setPositiveButton
                                         book.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
 
                                             }
-                                        });
+                                        });//setNegativeButton
                                         book.show();
                                     }
                                 });

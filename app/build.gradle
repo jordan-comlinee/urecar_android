@@ -70,4 +70,7 @@ dependencies {
 
     //MPAndroidChart
     implementation 'com.github.PhilJay:MpAndroidChart:v3.1.0'
+
+    //konfetti
+    implementation 'nl.dionsegijn:konfetti-xml:2.0.2'
 }

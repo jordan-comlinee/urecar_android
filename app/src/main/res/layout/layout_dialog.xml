@@ -56,12 +56,11 @@
             android:text="주차 혼잡 시간" />
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/dialogLineChart"
+            android:id="@+id/lineChart"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/linechart_shape"
-            android:layout_above="@+id/seekBar1" />
+            android:background="@drawable/linechart_shape" />
 
         <TextView
             android:layout_width="match_parent"

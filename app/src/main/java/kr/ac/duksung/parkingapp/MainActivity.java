@@ -26,11 +26,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.Legend.LegendForm;
+import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.LimitLine.LimitLabelPosition;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -54,6 +65,7 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
@@ -63,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String[] placeName ={"영근터 주차장","영근터 소형 주차장","사유 주차장","하나누리관 주차장","우이동 공영 주차장"};
     private String[] address ={"서울특별시 삼양로144길 33","서울특별시 도봉구 쌍문1동 420-13","서울특별시 도봉구 삼양로144가길","서울특별시 도봉구 삼양로144길 33","서울특별시 강북구 우이동 105-2"};
     private int[] leftover={4,0,3,2,4};
+
+    private LineChart lineChart;
 
     /*
     // 변수 초기화(서버용)
@@ -337,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // 수정 필요*
         // linechart 생성하기
+        /*
         LineChart lineChart = findViewById(R.id.dialogLineChart);
         if (lineChart != null) {
             ArrayList<Entry> entries = new ArrayList<>();
@@ -366,7 +381,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // lineChart를 찾지 못한 경우 처리
             Log.d("LINECHART: ", "null 들어감");
         }
+         */
+        /*
+        lineChart = (LineChart) findViewById(R.id.lineChart);
 
+        List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(1, 1));
+        entries.add(new Entry(2, 2));
+        entries.add(new Entry(3, 0));
+        entries.add(new Entry(4, 4));
+        entries.add(new Entry(5, 3));
+
+        LineDataSet lineDataSet = new LineDataSet(entries, "점유율");
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setCircleHoleRadius(6);
+        lineDataSet.setCircleColor(Color.WHITE);
+        lineDataSet.setDrawCircleHole(true);
+        lineDataSet.setDrawHorizontalHighlightIndicator(false);
+        lineDataSet.setDrawValues(false);
+
+        LineData lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineChart.setDrawGridBackground(false);
+        lineChart.invalidate();
+         */
 
 
         // 클릭 시 다이얼로그 생성

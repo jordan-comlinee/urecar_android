@@ -394,11 +394,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             bookButton.setTextColor(getResources().getColor(R.color.dark_grey));
         }
 
+
+        // lineChart 생성하기
         lineChart = (LineChart) view.findViewById(R.id.chart);
         ArrayList<Entry> entry_chart1 = new ArrayList<>(); // 데이터를 담을 Arraylist
         LineData chartData = new LineData(); // 차트에 담길 데이터
 
-        entry_chart1.add(new Entry(1, 1)); //entry_chart1에 좌표 데이터를 담는다.
+        entry_chart1.add(new Entry(1, 1)); //entry_chart에 좌표 데이터를 담는다.
         entry_chart1.add(new Entry(2, 2));
         entry_chart1.add(new Entry(3, 3));
         entry_chart1.add(new Entry(4, 4));
@@ -406,23 +408,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         entry_chart1.add(new Entry(6, 8));
 
 
-        LineDataSet lineDataSet1 = new LineDataSet(entry_chart1, "LineGraph1"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
+        LineDataSet lineDataSet1 = new LineDataSet(entry_chart1, "LineGraph"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
 
-        lineDataSet1.setColor(Color.RED); // 해당 LineDataSet의 색 설정 :: 각 Line 과 관련된 세팅은 여기서 설정한다.
+        lineDataSet1.setColor(getResources().getColor(R.color.highlight_green)); // 해당 LineDataSet의 색 설정 :: 각 Line 과 관련된 세팅은 여기서 설정한다.
 
         chartData.addDataSet(lineDataSet1); // 해당 LineDataSet 을 적용될 차트에 들어갈 DataSet 에 넣는다.
 
+        // 선 관련 설정만 남기고 나머지 설정 비활성화
+        lineDataSet1.setDrawValues(false); // 선 위의 값 표시 비활성화
+        lineDataSet1.setDrawIcons(false); // 아이콘 표시 비활성화
+        lineDataSet1.setDrawCircles(false); // 데이터 포인트에 원형 표시 비활성화
+        lineDataSet1.setDrawCircleHole(false); // 데이터 포인트에 원형 표시 내부의 원형 표시 비활성화
+        lineDataSet1.setDrawHighlightIndicators(false); // 하이라이트 표시기 비활성화
+        lineDataSet1.setDrawHorizontalHighlightIndicator(false); // 수평 하이라이트 표시 비활성화
+        lineDataSet1.setDrawVerticalHighlightIndicator(false); // 수직 하이라이트 표시 비활성화
+        // X축 그리드 비활성화
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setDrawGridLines(false);
+
+        // Y축 그리드 비활성화
+        YAxis yAxis = lineChart.getAxisLeft(); // 또는 chart.getAxisRight()
+        yAxis.setDrawGridLines(false);
+
+        YAxis yAxis2 = lineChart.getAxisRight(); // 또는 chart.getAxisRight()
+        yAxis2.setDrawGridLines(false);
         try {
             lineChart.setData(chartData); // 차트에 위의 DataSet을 넣는다.
-
             lineChart.invalidate(); // 차트 업데이트
             lineChart.setTouchEnabled(false); // 차트 터치 disable
         } catch (Exception e) {
             Log.e("CHART", "error");
             e.printStackTrace();
         }
-
-
 
     }
 

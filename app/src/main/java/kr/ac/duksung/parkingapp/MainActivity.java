@@ -76,8 +76,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String[] address ={"서울특별시 삼양로144길 33","서울특별시 도봉구 쌍문1동 420-13","서울특별시 도봉구 삼양로144가길","서울특별시 도봉구 삼양로144길 33","서울특별시 강북구 우이동 105-2"};
     private int[] leftover={4,0,3,2,4};
 
-    private LineChart lineChart;
-
     /*
     // 변수 초기화(서버용)
     private double[][] location;
@@ -108,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // 상세화면 팝업창 버튼 정의
     private Button cancelButton;
     private Button bookButton;
+    // 상세화면 라인차트
+    private LineChart lineChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,22 +187,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         NaverMapSdk.getInstance(this).setClient(
                 new NaverMapSdk.NaverCloudPlatformClient("s7xoj8yasp"));
 
-        //drawerLayout=findViewById(R.id.drawer);
         toolbar = findViewById(R.id.toolbar);
-        // 사이드바 네비게이션 뷰
-        //NaView = findViewById(R.id.navigation);
-        /*
-        //액션바 변경하기( toolbar type)
-        setSupportActionBar(toolbar);
-        ivMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: 클릭됨");
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
-        */
-
         // 하단 네비게이션 바
         BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
         Menu menu = bottomNaView.getMenu();
@@ -294,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
     }
 
+    // 지도에 마커 표시하는 함수
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         Log.d( TAG, "onMapReady");
@@ -349,63 +335,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // 상세 정보 띄워주는 코드
     public void showAlertDialog(Marker marker) {
 
-        // 수정 필요*
-        // linechart 생성하기
-        /*
-        LineChart lineChart = findViewById(R.id.dialogLineChart);
-        if (lineChart != null) {
-            ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(0, 4f));
-            entries.add(new Entry(1, 2f));
-            entries.add(new Entry(2, 3f));
-            entries.add(new Entry(3, 5f));
-            entries.add(new Entry(4, 2f));
-            entries.add(new Entry(5, 0f));
 
-            LineDataSet dataset = new LineDataSet(entries, "# of Calls");
-            dataset.setColor(Color.BLUE);
-            dataset.setLineWidth(2f);
-            dataset.setCircleColor(Color.RED);
-            dataset.setCircleRadius(4f);
-            dataset.setDrawCircleHole(true);
-
-            ArrayList<ILineDataSet> datasets = new ArrayList<>();
-            datasets.add(dataset);
-
-            LineData data = new LineData(datasets);
-
-            lineChart.setData(data);
-            lineChart.getDescription().setText("My Line Chart");
-            lineChart.animateY(1000);
-        } else {
-            // lineChart를 찾지 못한 경우 처리
-            Log.d("LINECHART: ", "null 들어감");
-        }
-         */
-        /*
-        lineChart = (LineChart) findViewById(R.id.lineChart);
-
-        List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(1, 1));
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(3, 0));
-        entries.add(new Entry(4, 4));
-        entries.add(new Entry(5, 3));
-
-        LineDataSet lineDataSet = new LineDataSet(entries, "점유율");
-        lineDataSet.setLineWidth(2);
-        lineDataSet.setCircleHoleRadius(6);
-        lineDataSet.setCircleColor(Color.WHITE);
-        lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setDrawHorizontalHighlightIndicator(false);
-        lineDataSet.setDrawValues(false);
-
-        LineData lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
-
-        lineChart.setDrawGridBackground(false);
-        lineChart.invalidate();
-         */
 
 
         // 클릭 시 다이얼로그 생성
@@ -437,30 +367,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         cancelButton = (Button) view.findViewById(R.id.cancel);
         bookButton = (Button) view.findViewById(R.id.book);
 
-
-
-
-        /*
-        // 버튼 생성
-        if (leftoverarr.get((CharSequence)marker.getTag())>0) {
-            d.setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
-                // 버튼 누를 때 act
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    //Toast.makeText(getApplicationContext(), "예약버튼 누름", Toast.LENGTH_LONG).show();
-                    Intent intentBook = new Intent(getApplicationContext(), BookActivity.class);
-                    startActivity(intentBook);
-                }
-            });
-        }
-        d.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_LONG).show();
-            }
-        });
-        */
-
         // 다이얼로그 창
         AlertDialog alertDialog = d.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -486,6 +392,34 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         else {
             bookButton.setEnabled(false);
             bookButton.setTextColor(getResources().getColor(R.color.dark_grey));
+        }
+
+        lineChart = (LineChart) view.findViewById(R.id.chart);
+        ArrayList<Entry> entry_chart1 = new ArrayList<>(); // 데이터를 담을 Arraylist
+        LineData chartData = new LineData(); // 차트에 담길 데이터
+
+        entry_chart1.add(new Entry(1, 1)); //entry_chart1에 좌표 데이터를 담는다.
+        entry_chart1.add(new Entry(2, 2));
+        entry_chart1.add(new Entry(3, 3));
+        entry_chart1.add(new Entry(4, 4));
+        entry_chart1.add(new Entry(5, 2));
+        entry_chart1.add(new Entry(6, 8));
+
+
+        LineDataSet lineDataSet1 = new LineDataSet(entry_chart1, "LineGraph1"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
+
+        lineDataSet1.setColor(Color.RED); // 해당 LineDataSet의 색 설정 :: 각 Line 과 관련된 세팅은 여기서 설정한다.
+
+        chartData.addDataSet(lineDataSet1); // 해당 LineDataSet 을 적용될 차트에 들어갈 DataSet 에 넣는다.
+
+        try {
+            lineChart.setData(chartData); // 차트에 위의 DataSet을 넣는다.
+
+            lineChart.invalidate(); // 차트 업데이트
+            lineChart.setTouchEnabled(false); // 차트 터치 disable
+        } catch (Exception e) {
+            Log.e("CHART", "error");
+            e.printStackTrace();
         }
 
 

@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // 상세화면 라인차트
     private LineChart lineChart;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -422,16 +424,36 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         lineDataSet1.setDrawHighlightIndicators(false); // 하이라이트 표시기 비활성화
         lineDataSet1.setDrawHorizontalHighlightIndicator(false); // 수평 하이라이트 표시 비활성화
         lineDataSet1.setDrawVerticalHighlightIndicator(false); // 수직 하이라이트 표시 비활성화
+
+
         // X축 그리드 비활성화
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setTextColor(getResources().getColor(R.color.highlight_green));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         // Y축 그리드 비활성화
         YAxis yAxis = lineChart.getAxisLeft(); // 또는 chart.getAxisRight()
         yAxis.setDrawGridLines(false);
+        yAxis.setDrawAxisLine(false);
+        yAxis.setTextColor(getResources().getColor(R.color.transparent));
 
         YAxis yAxis2 = lineChart.getAxisRight(); // 또는 chart.getAxisRight()
         yAxis2.setDrawGridLines(false);
+        yAxis2.setDrawAxisLine(false);
+        yAxis2.setTextColor(getResources().getColor(R.color.transparent));
+
+        // legend(꺾은선 밑에 설명) 없애기
+        Legend legend = lineChart.getLegend();
+        legend.setEnabled(false);
+
+        lineChart.setNoDataText("데이터가 없습니다!"); // 데이터를 불러오지 못한 경우
+
+        lineChart.getDescription().setEnabled(false); // 선 설명 제거
+
+        lineChart.setExtraOffsets(0f, 0f, 0f, 15f);
+
         try {
             lineChart.setData(chartData); // 차트에 위의 DataSet을 넣는다.
             lineChart.invalidate(); // 차트 업데이트

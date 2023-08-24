@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ public class ParkingLotFragment extends Fragment {
     private String carnum_result;
     ArrayList<Integer> YN = new ArrayList<>();
     private Button[] buttons = new Button[4];
+    private Button noButton, yesButton;
     @SuppressLint("ResourceAsColor")
     @Nullable
     @Override
@@ -183,10 +185,17 @@ public class ParkingLotFragment extends Fragment {
             buttons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "clicked", Toast.LENGTH_LONG).show();
+
+                    noButton = (Button) v.findViewById(R.id.cancel);
+                    yesButton = (Button) v.findViewById(R.id.book);
+
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("예약");
                     builder.setMessage("예약 하시겠습니까?");
+
+
+
                     builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -199,6 +208,54 @@ public class ParkingLotFragment extends Fragment {
                             spinner.setAdapter(timeAdapter);
                             ((TextView) view.findViewById(R.id.textTitle)).setText("A-"+(index+1));
                             carnum = (TextView) view.findViewById(R.id.carnumber);
+                            /*
+
+                            noButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            });
+
+                            yesButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    String str = spinner.getSelectedItem().toString();
+                                    str = str.substring(0,1);
+                                    carnum_result = carnum.getText().toString();
+                                    //booktime.set(i, Integer.parseInt(str));
+                                    Toast.makeText(view.getContext(), str+"/"+carnum_result, Toast.LENGTH_SHORT).show();
+                                    param.put("plotid","1");
+                                    param.put("slotid","1_A"+(index+1));
+                                    param.put("userid","2");
+                                    param.put("carnum",carnum_result);
+                                    param.put("usagetime",str);
+                                    result.postBookData(param).enqueue(new Callback<crud_BookResult>() {
+                                        @Override
+                                        public void onResponse(Call<crud_BookResult> call, Response<crud_BookResult> response) {
+                                            if(response.isSuccessful()) {
+                                                crud_BookResult data = response.body();
+                                                Log.d("POST: ", data.getParking_lot_location());
+                                                Log.d("POST: ", data.getParking_lot_name());
+                                                Log.d("POST: ", data.getSlotid());
+                                                Log.d("POST: ", String.valueOf(data.getUsagetime()));
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<crud_BookResult> call, Throwable t) {
+                                            Log.d("POST: ", "Failed!!!!");
+                                            Log.d("TEST: ", "Failed!!!!");
+                                            t.printStackTrace();
+                                        }
+                                    });
+                                    Intent intent = new Intent(getActivity(), BookSuccessActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                             */
+
                             book.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 // 버튼 누를 때 act
                                 @Override

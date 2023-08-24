@@ -4,58 +4,135 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/layoutDialogBook"
-    android:padding="0dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="0dp"
+    android:background="@drawable/alertdialog_shape">
 
     <LinearLayout
         android:id="@+id/alertDialog_background"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:padding="20dp"
-        android:background="@drawable/alertdialog_background"
+        android:padding="15dp"
+        android:background="@drawable/alertdialog_shape"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/alertdialog_background"
-            android:padding="20dp"
+            android:padding="10dp"
+            android:text="예약하기"
+            android:background="@drawable/alertdialog_shape"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/dark_black"
             android:textSize="20dp"
             android:textStyle="bold" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/dark_black" />
+
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="예약시간"
-            android:textSize="16sp" />
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:textColor="@color/dark_black"
+            android:fontFamily="@font/the_gothic_b"/>
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="197dp"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:spinnerMode="dropdown"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center"
             android:text="차량번호"
-            android:textSize="16sp" />
+            android:textSize="16dp"
+            android:textColor="@color/dark_black"
+            android:fontFamily="@font/the_gothic_b"/>
+
 
         <EditText
             android:id="@+id/carnumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="15dp"
             android:ems="10"
             android:hint="12가3456"
+            android:textColor="@color/dark_black"
+            android:textSize="16dp"
+            android:textAlignment="center"
             android:inputType="textPersonName" />
 
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:textAlignment="center"
+        android:text="예약을 확정하시겠습니까?"
+        android:textSize="20dp"
+        android:textColor="@color/dark_black"
+        android:fontFamily="@font/the_gothic_b"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:id="@+id/dontBookButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/the_gothic_b"
+            android:background="@color/transparent"
+            android:text="아니요" />
+
+        <Button
+            android:id="@+id/yesBookButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/the_gothic_b"
+            android:background="@color/transparent"
+            android:text="네" />
+    </LinearLayout>
+
 
 </LinearLayout>

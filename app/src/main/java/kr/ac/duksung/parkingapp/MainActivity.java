@@ -38,6 +38,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -397,37 +398,53 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
 
+        String[] time = new String[]{"0","08:00", " ", "12:00", " ",
+                                     "16:00", " ", "20:00", " ",
+                                     "00:00", " ", "04:00", " ", "08:00"};
+
         // lineChart 생성하기
         lineChart = (LineChart) view.findViewById(R.id.chart);
-        ArrayList<Entry> entry_chart1 = new ArrayList<>(); // 데이터를 담을 Arraylist
+        ArrayList<Entry> entry_chart = new ArrayList<>(); // 데이터를 담을 Arraylist
         LineData chartData = new LineData(); // 차트에 담길 데이터
 
-        entry_chart1.add(new Entry(1, 1)); //entry_chart에 좌표 데이터를 담는다.
-        entry_chart1.add(new Entry(2, 2));
-        entry_chart1.add(new Entry(3, 3));
-        entry_chart1.add(new Entry(4, 4));
-        entry_chart1.add(new Entry(5, 2));
-        entry_chart1.add(new Entry(6, 8));
+        entry_chart.add(new Entry(1, 2)); //entry_chart에 좌표 데이터를 담는다.
+        entry_chart.add(new Entry(2, 3));
+        entry_chart.add(new Entry(3, 2));
+        entry_chart.add(new Entry(4, 4));
+        entry_chart.add(new Entry(5, 5));
+        entry_chart.add(new Entry(6, 6));
+        entry_chart.add(new Entry(7, 5));
+        entry_chart.add(new Entry(8, 4));
+        entry_chart.add(new Entry(9, 2));
+        entry_chart.add(new Entry(10, 1));
+        entry_chart.add(new Entry(11, 1));
+        entry_chart.add(new Entry(12, 0));
+        entry_chart.add(new Entry(13, 2));
 
 
-        LineDataSet lineDataSet1 = new LineDataSet(entry_chart1, "LineGraph"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
+        LineDataSet lineDataSet = new LineDataSet(entry_chart, "LineGraph"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
 
-        lineDataSet1.setColor(getResources().getColor(R.color.highlight_green)); // 해당 LineDataSet의 색 설정 :: 각 Line 과 관련된 세팅은 여기서 설정한다.
+        lineDataSet.setColor(getResources().getColor(R.color.highlight_green)); // 해당 LineDataSet의 색 설정 :: 각 Line 과 관련된 세팅은 여기서 설정한다.
 
-        chartData.addDataSet(lineDataSet1); // 해당 LineDataSet 을 적용될 차트에 들어갈 DataSet 에 넣는다.
+        chartData.addDataSet(lineDataSet); // 해당 LineDataSet 을 적용될 차트에 들어갈 DataSet 에 넣는다.
 
         // 선 관련 설정만 남기고 나머지 설정 비활성화
-        lineDataSet1.setDrawValues(false); // 선 위의 값 표시 비활성화
-        lineDataSet1.setDrawIcons(false); // 아이콘 표시 비활성화
-        lineDataSet1.setDrawCircles(false); // 데이터 포인트에 원형 표시 비활성화
-        lineDataSet1.setDrawCircleHole(false); // 데이터 포인트에 원형 표시 내부의 원형 표시 비활성화
-        lineDataSet1.setDrawHighlightIndicators(false); // 하이라이트 표시기 비활성화
-        lineDataSet1.setDrawHorizontalHighlightIndicator(false); // 수평 하이라이트 표시 비활성화
-        lineDataSet1.setDrawVerticalHighlightIndicator(false); // 수직 하이라이트 표시 비활성화
+        lineDataSet.setDrawValues(false); // 선 위의 값 표시 비활성화
+        lineDataSet.setDrawIcons(false); // 아이콘 표시 비활성화
+        lineDataSet.setDrawCircles(false); // 데이터 포인트에 원형 표시 비활성화
+        lineDataSet.setDrawCircleHole(false); // 데이터 포인트에 원형 표시 내부의 원형 표시 비활성화
+        lineDataSet.setDrawHighlightIndicators(false); // 하이라이트 표시기 비활성화
+        lineDataSet.setDrawHorizontalHighlightIndicator(false); // 수평 하이라이트 표시 비활성화
+        lineDataSet.setDrawVerticalHighlightIndicator(false); // 수직 하이라이트 표시 비활성화
 
 
         // X축 그리드 비활성화
         XAxis xAxis = lineChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(time)); // X축에 시간 레이블 설정
+        xAxis.setGranularity(1f); // X축 레이블 간격 설정
+        //xAxis.setLabelRotationAngle(90);
+        xAxis.setTextSize(10f); // 글꼴 크기 조정
+        xAxis.setLabelCount(13);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(false);
         xAxis.setTextColor(getResources().getColor(R.color.highlight_green));
@@ -452,7 +469,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         lineChart.getDescription().setEnabled(false); // 선 설명 제거
 
-        lineChart.setExtraOffsets(0f, 0f, 0f, 15f);
+        lineChart.setExtraOffsets(15f, 0f, 15f, 15f);
 
         try {
             lineChart.setData(chartData); // 차트에 위의 DataSet을 넣는다.

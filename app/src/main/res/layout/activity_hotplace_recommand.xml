@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    tools:context=".HotplaceRecommandActivity">
 
     <fragment
-        android:id="@+id/map"
+        android:id="@+id/recommandMap"
         android:name="com.naver.maps.map.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,27 +15,11 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="-119dp" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/dark_black"
-        app:itemBackground="@color/dark_black"
-        app:itemIconTint="@drawable/bottom_navigation_bar"
-        app:itemTextColor="@drawable/bottom_navigation_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include  layout="@layout/toolbar_main"/>
+        <include  layout="@layout/toolbar_recommand"/>
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

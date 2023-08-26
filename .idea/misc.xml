@@ -29,8 +29,9 @@
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/font/font.xml" value="0.16041666666666668" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/activity_book.xml" value="0.12" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/activity_book_success.xml" value="0.33" />
+        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/activity_hotplace_recommand.xml" value="0.26197916666666665" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/activity_main.xml" value="0.4270833333333333" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/activity_profile.xml" value="0.33" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/appbar.xml" value="0.29635416666666664" />
@@ -40,6 +41,7 @@
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/header.xml" value="0.29739583333333336" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/layout_dialog.xml" value="0.33" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/layout_dialog_book.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/layout/recommandppbar.xml" value="0.3671875" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/menu/bottom_menu.xml" value="0.25" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/Jordan/Desktop/parkingAndroid/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2085" />

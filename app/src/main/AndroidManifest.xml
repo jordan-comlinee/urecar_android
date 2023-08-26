@@ -21,6 +21,9 @@
         android:theme="@style/Theme.ParkingApp"
         tools:targetApi="31">
         <activity
+            android:name=".HotplaceRecommandActivity"
+            android:exported="false" />
+        <activity
             android:name=".BookSuccessActivity"
             android:exported="false" />
         <activity

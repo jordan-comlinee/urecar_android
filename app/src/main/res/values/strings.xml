@@ -6,4 +6,5 @@
     <string name="ip">http://192.168.179.195:5500/</string>
 
     <string name="parkinlot_frame_width">150dp</string>
+    <string name="msg_token_fmt">토큰 : %s</string>
 </resources>

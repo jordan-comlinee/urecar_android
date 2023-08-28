@@ -1,5 +1,6 @@
 package kr.ac.duksung.parkingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import static nl.dionsegijn.konfetti.core.Position.Relative;
@@ -9,6 +10,17 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +45,9 @@ public class BookSuccessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_success);
+
+        String test = "테스트용 텍스트";
+
         // 하트모양 컨페티 만들어보기
         final Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_heart);
         drawableShape = new Shape.DrawableShape(drawable, true);
@@ -40,6 +55,29 @@ public class BookSuccessActivity extends AppCompatActivity {
         konfettiView = findViewById(R.id.konfettiView);
         //컨페티 효과 주기 시작
         parade();
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FIREBASE", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("TOKEN", token);
+                        Toast.makeText(BookSuccessActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
+
+
         moveHome(3);
 
 

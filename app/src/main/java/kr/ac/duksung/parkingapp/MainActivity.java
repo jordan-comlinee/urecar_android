@@ -118,26 +118,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Utils.init(this); // MPAndroidChart 유틸리티 초기화
 
 
-        String test = "테스트용 텍스트";
 
-        //Firebase가 잘 동작하는 지 테스트
-        //write
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello");
-        //read
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String value = snapshot.getValue(String.class);
-                Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), error.toException().toString(), Toast.LENGTH_LONG).show();
-            }
-        });
 
         /*
         location = new double[5][2];

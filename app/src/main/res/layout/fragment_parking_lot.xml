@@ -17,8 +17,8 @@
 
     <View
         android:id="@+id/slotline1"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_width="183dp"
+        android:layout_height="7dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="164dp"
         android:background="@color/white" />
@@ -38,28 +38,26 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="165dp"
-            android:layout_height="79dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/yes_car_button"
-            android:text="예약 가능"
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+
+            android:background="@color/highlight_green"
             android:fontFamily="@font/the_gothic_b"
+            android:text="예약 가능"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <View
             android:id="@+id/slotline1_1"
             android:layout_width="10dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="200dp"
+
             android:background="@color/white" />
 
     </LinearLayout>
 
     <View
         android:id="@+id/slotline2"
-        android:layout_width="match_parent"
+        android:layout_width="183dp"
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="164dp"
@@ -79,27 +77,25 @@
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="165dp"
-            android:layout_height="79dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/no_car_button"
-            android:text="입차시간: 11:32"
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+
+            android:background="@color/light_grey"
             android:fontFamily="@font/the_gothic_b"
+            android:text="입차시간: 11:32"
             android:textColor="@color/white" />
 
         <View
             android:id="@+id/slotline2_1"
             android:layout_width="10dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="200dp"
+
             android:background="@color/white" />
     </LinearLayout>
 
     <View
         android:id="@+id/slotline3"
-        android:layout_width="match_parent"
+        android:layout_width="183dp"
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="164dp"
@@ -119,27 +115,25 @@
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="165dp"
-            android:layout_height="79dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/yes_car_button"
-            android:text="예약 가능"
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+
+            android:background="@color/highlight_green"
             android:fontFamily="@font/the_gothic_b"
+            android:text="예약 가능"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <View
             android:id="@+id/slotline3_1"
             android:layout_width="10dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="200dp"
+
             android:background="@color/white" />
     </LinearLayout>
 
     <View
         android:id="@+id/slotline4"
-        android:layout_width="match_parent"
+        android:layout_width="183dp"
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="164dp"
@@ -159,28 +153,26 @@
 
         <Button
             android:id="@+id/button4"
-            android:layout_width="165dp"
-            android:layout_height="79dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/yes_car_button"
-            android:text="예약 가능"
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+
+            android:background="@color/highlight_green"
             android:fontFamily="@font/the_gothic_b"
+            android:text="예약 가능"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <View
             android:id="@+id/slotline4_1"
             android:layout_width="10dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="200dp"
+
             android:background="@color/white" />
 
     </LinearLayout>
 
     <View
         android:id="@+id/slotline5"
-        android:layout_width="match_parent"
+        android:layout_width="183dp"
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="164dp"
@@ -201,29 +193,27 @@
 
         <Button
             android:id="@+id/button5"
-            android:layout_width="165dp"
-            android:layout_height="79dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/no_car_button"
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+
+            android:background="@color/light_grey"
+            android:fontFamily="@font/the_gothic_b"
             android:text="입차시간: 10:14"
             android:textColor="@color/white"
-            android:fontFamily="@font/the_gothic_b"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <View
             android:id="@+id/slotline5_1"
             android:layout_width="10dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="200dp"
+
             android:background="@color/white" />
 
     </LinearLayout>
 
     <View
         android:id="@+id/slotline6"
-        android:layout_width="match_parent"
+        android:layout_width="183dp"
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="164dp"
@@ -243,28 +233,25 @@
 
         <Button
             android:id="@+id/button6"
-            android:layout_width="165dp"
-            android:layout_height="79dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/yes_car_button"
-            android:text="예약 가능"
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+
+            android:background="@color/highlight_green"
             android:fontFamily="@font/the_gothic_b"
+            android:text="예약 가능"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <View
             android:id="@+id/slotline6_1"
             android:layout_width="10dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="200dp"
             android:background="@color/white" />
 
     </LinearLayout>
 
     <View
         android:id="@+id/slotline7"
-        android:layout_width="match_parent"
+        android:layout_width="183dp"
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="164dp"

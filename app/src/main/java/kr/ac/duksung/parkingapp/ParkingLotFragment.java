@@ -34,12 +34,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ParkingLotFragment extends Fragment {
 
-    private Button button1, button2, button3, button4, button5;
+    private Button button1, button2, button3, button4, button5, button6;
     private TextView carnum;
     //private int[] YN={0,0,1,1};
     private String carnum_result;
     ArrayList<Integer> YN = new ArrayList<>();
-    private Button[] buttons = new Button[4];
+    private Button[] buttons = new Button[6];
     private Button noButton, yesButton;
     @SuppressLint("ResourceAsColor")
     @Nullable
@@ -64,10 +64,14 @@ public class ParkingLotFragment extends Fragment {
         button2 = (Button) v.findViewById(R.id.button2);
         button3 = (Button) v.findViewById(R.id.button3);
         button4 = (Button) v.findViewById(R.id.button4);
+        button5 = (Button) v.findViewById(R.id.button5);
+        button6 = (Button) v.findViewById(R.id.button6);
         buttons[0] = button1;
         buttons[1] = button2;
         buttons[2] = button3;
         buttons[3] = button4;
+        buttons[4] = button5;
+        buttons[5] = button6;
         result.postSlotData(param).enqueue(new Callback<List<crud_slotResult>>() {
             @Override
             public void onResponse(Call<List<crud_slotResult>> call, Response<List<crud_slotResult>> response) {
@@ -180,7 +184,7 @@ public class ParkingLotFragment extends Fragment {
 
         ////////////////////////////////////////////
         // 테스트용 코드. 졸전시 삭제 요망!!!
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 6; i++) {
             int index = i;
             buttons[i].setOnClickListener(new View.OnClickListener() {
                 @Override

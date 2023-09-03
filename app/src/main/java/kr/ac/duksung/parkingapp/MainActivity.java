@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
                 return true;
             }
-        });
+        });//bottomNaView
 
         //지도 객체 생성
         FragmentManager fm = getSupportFragmentManager();
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         //위치를 반환하는 구현체인 FusedLocationSource 생성
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
-    }
+    }//onCreate
 
     // 지도에 마커 표시하는 함수
     @Override
@@ -325,9 +325,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public CharSequence getText(@NonNull InfoWindow infoWindow){
                 return (CharSequence)infoWindow.getMarker().getTag();
             }
-        });
-    }
+        });//mInfoWindow.setAdapter
+    }//onMapReady
 
+    // 내 위치 받아와서 네이버 지도에 표시해줌
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -339,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
             }
         }
-    }
+    }//onRequestPermissionsResult
 
     // 상세 정보 띄워주는 코드
     public void showAlertDialog(Marker marker) {
@@ -486,7 +487,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             e.printStackTrace();
         }
 
-    }
+    }//showAlertDialog
 
     // Back Button 클릭 시 종료
 
@@ -525,7 +526,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             });
             builder.show();
         }
-    }
+    }//onBackPressed
 
     @Override
     public boolean onClick(@NonNull Overlay overlay) {

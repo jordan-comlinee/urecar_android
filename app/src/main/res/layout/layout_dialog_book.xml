@@ -109,30 +109,5 @@
         android:textColor="@color/dark_black"
         android:fontFamily="@font/the_gothic_b"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom">
-
-        <Button
-            android:id="@+id/dontBookButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/the_gothic_b"
-            android:background="@color/transparent"
-            android:text="아니요" />
-
-        <Button
-            android:id="@+id/yesBookButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/the_gothic_b"
-            android:background="@color/transparent"
-            android:text="네" />
-    </LinearLayout>
-
 
 </LinearLayout>

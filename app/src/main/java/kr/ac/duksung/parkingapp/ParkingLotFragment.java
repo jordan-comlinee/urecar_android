@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -100,6 +101,7 @@ public class ParkingLotFragment extends Fragment {
                                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+
                                         AlertDialog.Builder book = new AlertDialog.Builder(getActivity());
                                         View view = inflater.inflate(R.layout.layout_dialog_book, container, false);
                                         book.setView(view);
@@ -148,19 +150,25 @@ public class ParkingLotFragment extends Fragment {
                                         book.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                                dialogInterface.dismiss();
                                             }
                                         });//setNegativeButton
-                                        book.show();
+
+                                        AlertDialog dialog = book.create();
+                                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                        dialog.show();
                                     }
-                                });
+                                });//setPositiveButton
                                 builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         return;
                                     }
                                 });
+
                                 builder.show();
+
                             }
                         });//setOnClickListener
                     }//if

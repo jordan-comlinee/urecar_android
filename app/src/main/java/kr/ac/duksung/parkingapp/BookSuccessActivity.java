@@ -56,24 +56,6 @@ public class BookSuccessActivity extends AppCompatActivity {
         //컨페티 효과 주기 시작
         parade();
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w("FIREBASE", "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-                        // Get new FCM registration token
-                        String token = task.getResult();
-
-                        // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
-                        Log.d("TOKEN", token);
-                        Toast.makeText(BookSuccessActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
-
 
 
 

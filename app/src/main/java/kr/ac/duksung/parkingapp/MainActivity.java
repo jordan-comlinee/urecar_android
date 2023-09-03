@@ -72,6 +72,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Retrofit;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
     //변수 지정(로컬용)
@@ -152,12 +154,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .baseUrl(getString(R.string.ip))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        retrofitAPI.getmarkerData(1).enqueue(new Callback<List<Post>>() {
+        crud_RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        retrofitAPI.getmarkerData(1).enqueue(new Callback<List<crud_Post>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<List<crud_Post>> call, Response<List<crud_Post>> response) {
                 if(response.isSuccessful()) {
-                    List<Post> data = response.body();
+                    List<crud_Post> data = response.body();
                     Log.d("TEST", "POST 성공"+data.get(0).getPlotid()+data.get(0).getLatitude()+data.get(0).getLongitude());
                     Log.d("TEST", "POST 성공"+data.get(1).getPlotid());
                     Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
@@ -176,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<List<crud_Post>> call, Throwable t) {
                 Log.d("TEST", "POST 실패");
                 StringWriter sw = new StringWriter();
                 t.printStackTrace(new PrintWriter(sw));
@@ -185,7 +187,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 t.printStackTrace();
             }
         });
-        */
+         */
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

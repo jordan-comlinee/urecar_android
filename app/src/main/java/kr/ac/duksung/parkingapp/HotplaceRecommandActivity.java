@@ -6,9 +6,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.naver.maps.map.LocationTrackingMode;
@@ -44,6 +47,7 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
     private static FusedLocationSource mLocationSource;
     private static NaverMap mNaverMap;
     private InfoWindow mInfoWindow;
+    ImageView forwardArrow;
 
 
     @Override
@@ -104,6 +108,17 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
         mapFragment.getMapAsync(this);
         //위치를 반환하는 구현체인 FusedLocationSource 생성
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
+
+
+        forwardArrow = findViewById(R.id.recommandBar_forwardArrow);
+
+        forwardArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

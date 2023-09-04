@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbarRecommand"
     android:background="@color/dark_black">
 
@@ -10,11 +11,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:text="💚주변 HOTPLACE를 추천드릴게요💚"
+        android:text="주변 HOTPLACE 추천"
         android:textSize="16dp"
         android:textColor="@color/highlight_green"
         android:fontFamily="@font/the_gothic_b"
         android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/recommandBar_forwardArrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="15dp"
+        app:srcCompat="@drawable/forward_arrow"
+        android:layout_gravity="right"/>
 
 
 </androidx.appcompat.widget.Toolbar>

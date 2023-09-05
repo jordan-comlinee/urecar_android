@@ -56,6 +56,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private FusedLocationSource mLocationSource;
     private NaverMap mNaverMap;
-
+    private Marker [] markerList = new Marker[5];
     private InfoWindow mInfoWindow;
 
     private long time = 0;
@@ -200,6 +201,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Menu menu = bottomNaView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.home);
         menuItem.setChecked(true);
+
+
         bottomNaView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -303,7 +306,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.d( TAG, "onMapReady");
 
         // 지도 상에 마커 표시하기
-        Marker [] markerList = new Marker[5];
+
+
         // 리스트 별로 마커 차례대로 표시함
         for (int i=0; i<5; i++) {
             markerList[i] = new Marker();
@@ -319,7 +323,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             else markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_parkinglot));
             leftoverarr.put(placeName[i], leftover[i]);
         }
-
         //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
         mNaverMap = naverMap;
         mNaverMap.setLocationSource(mLocationSource);
@@ -335,6 +338,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return (CharSequence)infoWindow.getMarker().getTag();
             }
         });//mInfoWindow.setAdapter
+        // SearchActivity에서 선택한 주차장 이름을 가져옴
+        Intent selectIntent = getIntent();
+        String selectedPlaceName = selectIntent.getStringExtra("selectedPlaceName");
+        if (selectedPlaceName != null) {
+            // 선택한 주차장 이름과 일치하는 마커를 찾아서 표시
+            for (int i = 0; i < markerList.length; i++) {
+                if (selectedPlaceName.equals((String) markerList[i].getTag())) {
+                    // 마커를 클릭한 것처럼 동작
+                    Log.d("clicked", (String)markerList[i].getTag());
+                    markerList[i].performClick();
+                    break;
+                }
+            }
+        }
     }//onMapReady
 
     // 내 위치 받아와서 네이버 지도에 표시해줌
@@ -353,10 +370,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // 상세 정보 띄워주는 코드
     public void showAlertDialog(Marker marker) {
-
-
-
-
         // 클릭 시 다이얼로그 생성
         AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
         View view = LayoutInflater.from(MainActivity.this).inflate(

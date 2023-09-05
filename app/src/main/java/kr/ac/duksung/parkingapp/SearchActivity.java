@@ -2,12 +2,15 @@ package kr.ac.duksung.parkingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -42,7 +45,6 @@ public class SearchActivity extends AppCompatActivity {
             list.add("사유 주차장");
             list.add("하나누리관 주차장");
             list.add("우이동 공영 주차장");
-            list.add("삼양로");
 
 
             // 어댑터 선언 및 리스트 뷰에 지정
@@ -60,6 +62,20 @@ public class SearchActivity extends AppCompatActivity {
 
 
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    // 선택한 주차장의 이름을 가져옴
+                    String selectedPlaceName = (String) adapterView.getItemAtPosition(position);
+
+                    // MainActivity로 데이터를 전달하는 인텐트 생성
+                    Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                    intent.putExtra("selectedPlaceName", selectedPlaceName);
+                    //Log.d("selected", selectedPlaceName);
+                    // MainActivity를 호출하여 선택한 주차장의 마커를 표시하도록 함
+                    startActivity(intent);
+                }
+            });
 
 
             // searchView 이벤트 리스너

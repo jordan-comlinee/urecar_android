@@ -67,28 +67,36 @@ import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
+    /*
     //변수 지정(로컬용)
     public double[][] location ={{37.6506, 127.0158},{37.65097, 127.0152},{37.65411, 127.0147},{37.65029,  127.0194},{37.65673, 127.0116}};
     public String[] placeName ={"영근터 주차장","영근터 소형 주차장","사유 주차장","하나누리관 주차장","우이동 공영 주차장"};
     public String[] address ={"서울특별시 삼양로144길 33","서울특별시 도봉구 쌍문1동 420-13","서울특별시 도봉구 삼양로144가길","서울특별시 도봉구 삼양로144길 33","서울특별시 강북구 우이동 105-2"};
     private int[] leftover={4,0,3,2,4};
+    */
 
-    /*
+
     // 변수 초기화(서버용)
     private double[][] location;
     private String[] placeName;
     private String[] address;
     private int[] leftover;
-    */
+
     private static Map< String, Integer > leftoverarr = new HashMap<>();
 
     // 위치 권한을 받아오기 위함
@@ -142,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-        /*
+
         location = new double[5][2];
         placeName = new String[5];
         address = new String[5];
@@ -152,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .baseUrl(getString(R.string.ip))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        crud_RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        crud_RetrofitAPI retrofitAPI = retrofit.create(crud_RetrofitAPI.class);
         retrofitAPI.getmarkerData(1).enqueue(new Callback<List<crud_Post>>() {
             @Override
             public void onResponse(Call<List<crud_Post>> call, Response<List<crud_Post>> response) {
@@ -185,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 t.printStackTrace();
             }
         });
-         */
+
 
 
         super.onCreate(savedInstanceState);

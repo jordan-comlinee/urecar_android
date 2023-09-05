@@ -23,6 +23,16 @@ public class crud_Post {
     private String userid;
     @SerializedName("password")
     private String password;
+    @SerializedName("place_name")
+    private String place_name;
+    @SerializedName("place_address")
+    private String place_address;
+    @SerializedName("place_latitude")
+    private double place_latitude;
+    @SerializedName("place_longitude")
+    private double place_longitude;
+    @SerializedName("place_property")
+    private String place_property;
 
     public int getPlotid() {
         return plotid;
@@ -75,5 +85,24 @@ public class crud_Post {
     public crud_Post(String userid, String password){
         this.userid = userid;
         this.password=password;
+    }
+
+    public double getPlaceLatitude() {
+        return place_latitude;
+    }
+
+    public double getPlaceLongitude() {
+        return place_longitude;
+    }
+
+    public String getPlaceAddress() {
+        return place_address;
+    }
+
+    public String getPlaceName() {
+        return place_name;
+    }
+    public String getPlaceProperty(){
+        return place_property;
     }
 }

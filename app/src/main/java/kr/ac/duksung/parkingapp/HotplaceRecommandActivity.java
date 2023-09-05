@@ -22,6 +22,7 @@ import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class HotplaceRecommandActivity extends AppCompatActivity implements OnMapReadyCallback, Overlay.OnClickListener {
 
@@ -54,25 +56,29 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
     protected void onCreate(Bundle savedInstanceState) {
 
         restaurantLocation = new double[100][2];
-        Log.d("TEST", "시작");
+        Log.d("TEST2", "시작");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.ip))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         crud_RetrofitAPI retrofitAPI = retrofit.create(crud_RetrofitAPI.class);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100,TimeUnit.SECONDS)
+                .writeTimeout(100,TimeUnit.SECONDS)
+                .build();
         retrofitAPI.getmarkerData(1).enqueue(new Callback<List<crud_Post>>() {
             @Override
             public void onResponse(Call<List<crud_Post>> call, Response<List<crud_Post>> response) {
                 if(response.isSuccessful()) {
                     List<crud_Post> data = response.body();
-                    Log.d("TEST", "POST 성공"+data.get(0).getPlotid()+data.get(0).getLatitude()+data.get(0).getLongitude());
-                    Log.d("TEST", "POST 성공"+data.get(1).getPlotid());
+                    Log.d("TEST2", "POST 성공" + data.get(0).getPlaceName() + data.get(0).getPlaceProperty() + data.get(0).getPlaceAddress());
                     Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
                     for (int i =0;i<data.size();i++) {
-                        Log.d("GET: ", data.get(i).getPlotname());
-                        Log.d("GET: ", data.get(i).getLatitude()+" "+ data.get(i).getLongitude());
-                        Log.d("GET: ", data.get(i).getLocation());
-                        Log.d("GET: ", String.valueOf(Integer.valueOf(data.get(i).getTotal_space())-Integer.valueOf(data.get(i).getAvailable_space())));
+                        Log.d("GET2: ", data.get(i).getPlotname());
+                        Log.d("GET2: ", data.get(i).getLatitude()+" "+ data.get(i).getLongitude());
+                        Log.d("GET2: ", data.get(i).getLocation());
+                        Log.d("GET2: ", String.valueOf(Integer.valueOf(data.get(i).getTotal_space())-Integer.valueOf(data.get(i).getAvailable_space())));
                         restaurantLocation[i][0] = Double.valueOf(data.get(i).getLatitude());
                         restaurantLocation[i][1] = Double.valueOf(data.get(i).getLongitude());
                     }

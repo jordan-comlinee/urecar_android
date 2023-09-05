@@ -77,9 +77,9 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,Overlay.OnClickListener {
     private static final String TAG = "MainActivity";
     //변수 지정(로컬용)
-    private double[][] location ={{37.6506, 127.0158},{37.65097, 127.0152},{37.65411, 127.0147},{37.65029,  127.0194},{37.65673, 127.0116}};
-    private String[] placeName ={"영근터 주차장","영근터 소형 주차장","사유 주차장","하나누리관 주차장","우이동 공영 주차장"};
-    private String[] address ={"서울특별시 삼양로144길 33","서울특별시 도봉구 쌍문1동 420-13","서울특별시 도봉구 삼양로144가길","서울특별시 도봉구 삼양로144길 33","서울특별시 강북구 우이동 105-2"};
+    public double[][] location ={{37.6506, 127.0158},{37.65097, 127.0152},{37.65411, 127.0147},{37.65029,  127.0194},{37.65673, 127.0116}};
+    public String[] placeName ={"영근터 주차장","영근터 소형 주차장","사유 주차장","하나누리관 주차장","우이동 공영 주차장"};
+    public String[] address ={"서울특별시 삼양로144길 33","서울특별시 도봉구 쌍문1동 420-13","서울특별시 도봉구 삼양로144가길","서울특별시 도봉구 삼양로144길 33","서울특별시 강북구 우이동 105-2"};
     private int[] leftover={4,0,3,2,4};
 
     /*
@@ -104,16 +104,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private InfoWindow mInfoWindow;
 
     private long time = 0;
-    private ImageView ivMenu;
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
-    NavigationView NaView;
 
     // 상세화면 팝업창 버튼 정의
     private Button cancelButton;
     private Button bookButton;
     // 상세화면 라인차트
     private LineChart lineChart;
+
+    private ImageView search;
 
 
 
@@ -196,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         NaverMapSdk.getInstance(this).setClient(
                 new NaverMapSdk.NaverCloudPlatformClient("s7xoj8yasp"));
 
-        toolbar = findViewById(R.id.toolbar);
+        View toolbar = findViewById(R.id.toolbar);
         // 하단 네비게이션 바
         BottomNavigationView bottomNaView = findViewById(R.id.bottom_navigation_view);
         Menu menu = bottomNaView.getMenu();
@@ -286,6 +284,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         //위치를 반환하는 구현체인 FusedLocationSource 생성
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
+
+        search = (ImageView) findViewById(R.id.iv_search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }//onCreate
 
     // 지도에 마커 표시하는 함수

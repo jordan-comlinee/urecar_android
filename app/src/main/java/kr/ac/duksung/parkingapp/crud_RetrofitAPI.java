@@ -17,7 +17,7 @@ public interface crud_RetrofitAPI {
     Call<crud_LoginResult> getloginData(@Query("userid") String userid, @Query("password") String password);
     @FormUrlEncoded
     @POST("marker/")
-    Call<crud_Post> postmarekrData(@FieldMap HashMap<String, Object> param);
+    Call<crud_Post> postmarkerData(@FieldMap HashMap<String, Object> param);
     @FormUrlEncoded
     @POST("login/")
     Call<crud_LoginResult> postloginData(@FieldMap HashMap<String, Object> lparam);
@@ -45,6 +45,11 @@ public interface crud_RetrofitAPI {
     @GET("get_slot_info/")
     Call<List<crud_slotResult>> getSlotData(@Query("slotid") String slotid, @Query("available") String available);
 
+    @FormUrlEncoded
+    @POST("get_parking_stats/")
+    Call<List<crud_parkingState>> postPlotData(@FieldMap HashMap<String, Object> param);
 
+    @GET("get_parking_stats/")
+    Call<List<crud_parkingState>> gePlotData(@Query("plotid") int slotid, @Query("time") String time, @Query("stats") float stats);
 
 }

@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String[] address;
     private int[] leftover;
 
+    private float[] stats = new float[13];;
     private static Map< String, Integer > leftoverarr = new HashMap<>();
 
     // 위치 권한을 받아오기 위함
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LineChart lineChart;
 
     private ImageView search;
+
 
 
 
@@ -435,87 +437,117 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
 
-        String[] time = new String[]{"0","08:00", " ", "12:00", " ",
-                                     "16:00", " ", "20:00", " ",
-                                     "00:00", " ", "04:00", " ", "08:00"};
+        String[] time = new String[]{"0","08:00", " ", "10:00", " ",
+                                     "12:00", " ", "14:00", " ",
+                                     "16:00", " ", "18:00", " ", "20:00"};
 
-        // lineChart 생성하기
-        lineChart = (LineChart) view.findViewById(R.id.chart);
-        ArrayList<Entry> entry_chart = new ArrayList<>(); // 데이터를 담을 Arraylist
-        LineData chartData = new LineData(); // 차트에 담길 데이터
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.ip))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        crud_RetrofitAPI retrofitAPI = retrofit.create(crud_RetrofitAPI.class);
+        HashMap<String,Object> param = new HashMap<String, Object>();
+        param.put("plotid", "1");
+        Log.d("POST: ", "ongoing");
+        retrofitAPI.postPlotData(param).enqueue(new Callback<List<crud_parkingState>>() {
+            @Override
+            public void onResponse(Call<List<crud_parkingState>> call, Response<List<crud_parkingState>> response) {
+                if(response.isSuccessful()) {
+                    List<crud_parkingState> data = response.body();
+                    for (int i =0;i<data.size();i++) {
+                        stats[i] = Float.valueOf(data.get(i).getStats());
+                        Log.d("TEST", "POST 성공"+data.get(i).getStats()+stats[i]);
+                    }
+                    // lineChart 생성하기
+                    lineChart = (LineChart) view.findViewById(R.id.chart);
+                    ArrayList<Entry> entry_chart = new ArrayList<>(); // 데이터를 담을 Arraylist
+                    LineData chartData = new LineData(); // 차트에 담길 데이터
+                    Log.d("TEST", "POST 성공"+stats[0]);
+                    entry_chart.add(new Entry(1,stats[11])); //entry_chart에 좌표 데이터를 담는다.
+                    entry_chart.add(new Entry(2, stats[12]));
+                    entry_chart.add(new Entry(3, stats[0]));
+                    entry_chart.add(new Entry(4, stats[1]));
+                    entry_chart.add(new Entry(5, stats[2]));
+                    entry_chart.add(new Entry(6, stats[3]));
+                    entry_chart.add(new Entry(7, stats[4]));
+                    entry_chart.add(new Entry(8, stats[5]));
+                    entry_chart.add(new Entry(9, stats[6]));
+                    entry_chart.add(new Entry(10, stats[7]));
+                    entry_chart.add(new Entry(11, stats[8]));
+                    entry_chart.add(new Entry(12, stats[9]));
+                    entry_chart.add(new Entry(13, stats[10]));
 
-        entry_chart.add(new Entry(1, 2)); //entry_chart에 좌표 데이터를 담는다.
-        entry_chart.add(new Entry(2, 3));
-        entry_chart.add(new Entry(3, 2));
-        entry_chart.add(new Entry(4, 4));
-        entry_chart.add(new Entry(5, 5));
-        entry_chart.add(new Entry(6, 6));
-        entry_chart.add(new Entry(7, 5));
-        entry_chart.add(new Entry(8, 4));
-        entry_chart.add(new Entry(9, 2));
-        entry_chart.add(new Entry(10, 1));
-        entry_chart.add(new Entry(11, 1));
-        entry_chart.add(new Entry(12, 0));
-        entry_chart.add(new Entry(13, 2));
+
+                    LineDataSet lineDataSet = new LineDataSet(entry_chart, "LineGraph"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
+
+                    lineDataSet.setColor(getResources().getColor(R.color.highlight_green)); // 해당 LineDataSet의 색 설정 :: 각 Line 과 관련된 세팅은 여기서 설정한다.
+                    chartData.addDataSet(lineDataSet); // 해당 LineDataSet 을 적용될 차트에 들어갈 DataSet 에 넣는다.
+
+                    // 선 관련 설정만 남기고 나머지 설정 비활성화
+                    lineDataSet.setDrawValues(true); // 선 위의 값 표시 비활성화
+                    lineDataSet.setDrawIcons(false); // 아이콘 표시 비활성화
+                    lineDataSet.setDrawCircles(false); // 데이터 포인트에 원형 표시 비활성화
+                    lineDataSet.setDrawCircleHole(false); // 데이터 포인트에 원형 표시 내부의 원형 표시 비활성화
+                    lineDataSet.setDrawHighlightIndicators(false); // 하이라이트 표시기 비활성화
+                    lineDataSet.setDrawHorizontalHighlightIndicator(false); // 수평 하이라이트 표시 비활성화
+                    lineDataSet.setDrawVerticalHighlightIndicator(false); // 수직 하이라이트 표시 비활성화
 
 
-        LineDataSet lineDataSet = new LineDataSet(entry_chart, "LineGraph"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
+                    // X축 그리드 비활성화
+                    XAxis xAxis = lineChart.getXAxis();
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(time)); // X축에 시간 레이블 설정
+                    xAxis.setGranularity(1f); // X축 레이블 간격 설정
+                    //xAxis.setLabelRotationAngle(90);
+                    xAxis.setTextSize(10f); // 글꼴 크기 조정
+                    xAxis.setLabelCount(13);
+                    xAxis.setDrawGridLines(false);
+                    xAxis.setDrawAxisLine(false);
+                    xAxis.setTextColor(getResources().getColor(R.color.highlight_green));
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-        lineDataSet.setColor(getResources().getColor(R.color.highlight_green)); // 해당 LineDataSet의 색 설정 :: 각 Line 과 관련된 세팅은 여기서 설정한다.
+                    // Y축 그리드 비활성화
+                    YAxis yAxis = lineChart.getAxisLeft(); // 또는 chart.getAxisRight()
+                    yAxis.setDrawGridLines(false);
+                    yAxis.setDrawAxisLine(false);
+                    yAxis.setTextColor(getResources().getColor(R.color.transparent));
 
-        chartData.addDataSet(lineDataSet); // 해당 LineDataSet 을 적용될 차트에 들어갈 DataSet 에 넣는다.
+                    YAxis yAxis2 = lineChart.getAxisRight(); // 또는 chart.getAxisRight()
+                    yAxis2.setDrawGridLines(false);
+                    yAxis2.setDrawAxisLine(false);
+                    yAxis2.setTextColor(getResources().getColor(R.color.transparent));
 
-        // 선 관련 설정만 남기고 나머지 설정 비활성화
-        lineDataSet.setDrawValues(false); // 선 위의 값 표시 비활성화
-        lineDataSet.setDrawIcons(false); // 아이콘 표시 비활성화
-        lineDataSet.setDrawCircles(false); // 데이터 포인트에 원형 표시 비활성화
-        lineDataSet.setDrawCircleHole(false); // 데이터 포인트에 원형 표시 내부의 원형 표시 비활성화
-        lineDataSet.setDrawHighlightIndicators(false); // 하이라이트 표시기 비활성화
-        lineDataSet.setDrawHorizontalHighlightIndicator(false); // 수평 하이라이트 표시 비활성화
-        lineDataSet.setDrawVerticalHighlightIndicator(false); // 수직 하이라이트 표시 비활성화
+                    // legend(꺾은선 밑에 설명) 없애기
+                    Legend legend = lineChart.getLegend();
+                    legend.setEnabled(false);
 
+                    lineChart.setNoDataText("데이터가 없습니다!"); // 데이터를 불러오지 못한 경우
 
-        // X축 그리드 비활성화
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(time)); // X축에 시간 레이블 설정
-        xAxis.setGranularity(1f); // X축 레이블 간격 설정
-        //xAxis.setLabelRotationAngle(90);
-        xAxis.setTextSize(10f); // 글꼴 크기 조정
-        xAxis.setLabelCount(13);
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setTextColor(getResources().getColor(R.color.highlight_green));
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    lineChart.getDescription().setEnabled(false); // 선 설명 제거
 
-        // Y축 그리드 비활성화
-        YAxis yAxis = lineChart.getAxisLeft(); // 또는 chart.getAxisRight()
-        yAxis.setDrawGridLines(false);
-        yAxis.setDrawAxisLine(false);
-        yAxis.setTextColor(getResources().getColor(R.color.transparent));
+                    lineChart.setExtraOffsets(15f, 0f, 15f, 15f);
 
-        YAxis yAxis2 = lineChart.getAxisRight(); // 또는 chart.getAxisRight()
-        yAxis2.setDrawGridLines(false);
-        yAxis2.setDrawAxisLine(false);
-        yAxis2.setTextColor(getResources().getColor(R.color.transparent));
+                    try {
+                        lineChart.setData(chartData); // 차트에 위의 DataSet을 넣는다.
+                        lineChart.invalidate(); // 차트 업데이트
+                        lineChart.setTouchEnabled(false); // 차트 터치 disable
+                    } catch (Exception e) {
+                        Log.e("CHART", "error");
+                        e.printStackTrace();
+                    }
+                }
+            }
 
-        // legend(꺾은선 밑에 설명) 없애기
-        Legend legend = lineChart.getLegend();
-        legend.setEnabled(false);
+            @Override
+            public void onFailure(Call<List<crud_parkingState>> call, Throwable t) {
+                Log.d("TEST", "POST 실패");
+                StringWriter sw = new StringWriter();
+                t.printStackTrace(new PrintWriter(sw));
+                String exceptionAsString = sw.toString();
+                Log.e("TEST", exceptionAsString);
+                t.printStackTrace();
+            }
+        });
 
-        lineChart.setNoDataText("데이터가 없습니다!"); // 데이터를 불러오지 못한 경우
-
-        lineChart.getDescription().setEnabled(false); // 선 설명 제거
-
-        lineChart.setExtraOffsets(15f, 0f, 15f, 15f);
-
-        try {
-            lineChart.setData(chartData); // 차트에 위의 DataSet을 넣는다.
-            lineChart.invalidate(); // 차트 업데이트
-            lineChart.setTouchEnabled(false); // 차트 터치 disable
-        } catch (Exception e) {
-            Log.e("CHART", "error");
-            e.printStackTrace();
-        }
 
     }//showAlertDialog
 

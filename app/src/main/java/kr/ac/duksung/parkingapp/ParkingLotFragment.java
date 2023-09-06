@@ -74,26 +74,26 @@ public class ParkingLotFragment extends Fragment {
         buttons[4] = button5;
         buttons[5] = button6;
         result.postSlotData(param).enqueue(new Callback<List<crud_slotResult>>() {
-            @Override
-            public void onResponse(Call<List<crud_slotResult>> call, Response<List<crud_slotResult>> response) {
-                List<crud_slotResult> data = response.body();
-                Log.d("POST: ", "SUCCESS!");
-                for(int i = 0; i < data.size(); i++) {
-                    int index = i;
-                    Log.d("POST: ", Integer.toString(i));
-                    Log.d("POST: ", data.get(i).getSlotId());
-                    Log.d("POST: ", data.get(i).getAvailable());
-                    if(data.get(i).getAvailable().equals("y")) {
-                        Log.d("POST", "YY!");
-                        YN.add(i,0);
-                        //Log.d("POST: ", Arrays.toString(YN));
-                        buttons[i].setBackgroundResource(R.drawable.yes_car_button);
-                        buttons[i].setTextColor(Color.WHITE);
-                        buttons[i].setText("A-"+(i+1)+"  예약가능");
-                        // 버튼 클릭 시 메서드
-                        buttons[i].setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                                @Override
+                                public void onResponse(Call<List<crud_slotResult>> call, Response<List<crud_slotResult>> response) {
+                                    List<crud_slotResult> data = response.body();
+                                    Log.d("POST: ", "SUCCESS!");
+                                    for(int i = 0; i < data.size(); i++) {
+                                        int index = i;
+                                        Log.d("POST: ", Integer.toString(i));
+                                        Log.d("POST: ", data.get(i).getSlotId());
+                                        Log.d("POST: ", data.get(i).getAvailable());
+                                        if(data.get(i).getAvailable().equals("y")) {
+                                            Log.d("POST", "YY!");
+                                            YN.add(i,0);
+                                            //Log.d("POST: ", Arrays.toString(YN));
+                                            buttons[i].setBackgroundResource(R.drawable.yes_car_button);
+                                            buttons[i].setTextColor(Color.WHITE);
+                                            buttons[i].setText("A-"+(i+1)+"  예약가능");
+                                            // 버튼 클릭 시 메서드
+                                            buttons[i].setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
                                 Toast.makeText(getContext(), "clicked", Toast.LENGTH_LONG).show();
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("예약");
@@ -125,6 +125,7 @@ public class ParkingLotFragment extends Fragment {
                                                 param.put("userid","2");
                                                 param.put("carnum",carnum_result);
                                                 param.put("usagetime",str);
+                                                // 데이터 POST 할 것
                                                 result.postBookData(param).enqueue(new Callback<crud_BookResult>() {
                                                     @Override
                                                     public void onResponse(Call<crud_BookResult> call, Response<crud_BookResult> response) {
@@ -134,6 +135,8 @@ public class ParkingLotFragment extends Fragment {
                                                             Log.d("POST: ", data.getParking_lot_name());
                                                             Log.d("POST: ", data.getSlotid());
                                                             Log.d("POST: ", String.valueOf(data.getUsagetime()));
+                                                            Intent intent = new Intent(getActivity(), BookSuccessActivity.class);
+                                                            startActivity(intent);
                                                         }
                                                     }
 
@@ -155,8 +158,8 @@ public class ParkingLotFragment extends Fragment {
                                         });//setNegativeButton
 
                                         AlertDialog dialog = book.create();
-                                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                                         dialog.show();
                                     }
                                 });//setPositiveButton
@@ -192,6 +195,7 @@ public class ParkingLotFragment extends Fragment {
 
         ////////////////////////////////////////////
         // 테스트용 코드. 졸전시 삭제 요망!!!
+        /*
         for(int i = 0; i < 6; i++) {
             int index = i;
             buttons[i].setOnClickListener(new View.OnClickListener() {
@@ -266,7 +270,7 @@ public class ParkingLotFragment extends Fragment {
                                 }
                             });
 
-                             */
+
 
                             book.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 // 버튼 누를 때 act
@@ -323,6 +327,7 @@ public class ParkingLotFragment extends Fragment {
                 }
             });//setOnClickListener
         }//for
+         */
         ////////////////////////////////////////////
 
         //super.onCreateView(inflater, container, savedInstanceState);

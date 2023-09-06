@@ -7,13 +7,9 @@
     android:layout_height="match_parent"
     android:background="@color/dark_black"
     android:orientation="vertical"
-    tools:context=".ParkingLotFragment">
+    tools:context=".ParkingLotFragment"
+    android:padding="18dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"></LinearLayout>
 
     <View
         android:id="@+id/slotline1"
@@ -31,7 +27,7 @@
         <View
             android:id="@+id/slotline1_0"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:background="@color/white" />
 
@@ -49,7 +45,7 @@
         <View
             android:id="@+id/slotline1_1"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
 
             android:background="@color/white" />
 
@@ -71,7 +67,7 @@
         <View
             android:id="@+id/slotline2_0"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:background="@color/white" />
 
@@ -88,7 +84,7 @@
         <View
             android:id="@+id/slotline2_1"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
 
             android:background="@color/white" />
     </LinearLayout>
@@ -107,9 +103,39 @@
         android:orientation="horizontal">
 
         <View
+            android:id="@+id/empty_slotline1_0"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
+
+
+        <View
+            android:id="@+id/empty_slotline1_1"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="163dp"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline3_1_0"
+        android:layout_width="183dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
             android:id="@+id/slotline3_0"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:background="@color/white" />
 
@@ -126,7 +152,7 @@
         <View
             android:id="@+id/slotline3_1"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
 
             android:background="@color/white" />
     </LinearLayout>
@@ -147,7 +173,7 @@
         <View
             android:id="@+id/slotline4_0"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:background="@color/white" />
 
@@ -164,7 +190,7 @@
         <View
             android:id="@+id/slotline4_1"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
 
             android:background="@color/white" />
 
@@ -187,7 +213,7 @@
         <View
             android:id="@+id/slotline5_0"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:background="@color/white" />
 
@@ -205,7 +231,7 @@
         <View
             android:id="@+id/slotline5_1"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
 
             android:background="@color/white" />
 
@@ -225,9 +251,39 @@
         android:orientation="horizontal">
 
         <View
+            android:id="@+id/empty_slotline5_0_1"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
+
+
+        <View
+            android:id="@+id/empty_slotline5_1_1"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="163dp"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline6_1_0"
+        android:layout_width="183dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
             android:id="@+id/slotline6_0"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:background="@color/white" />
 
@@ -244,7 +300,7 @@
         <View
             android:id="@+id/slotline6_1"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:background="@color/white" />
 
     </LinearLayout>
@@ -255,7 +311,47 @@
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="164dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/slotline7_0"
+            android:layout_width="10dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+
+            android:background="@color/light_grey"
+            android:fontFamily="@font/the_gothic_b"
+            android:text="입차시간: 10:14"
+            android:textColor="@color/white"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <View
+            android:id="@+id/slotline7_1"
+            android:layout_width="10dp"
+            android:layout_height="80dp"
+
+            android:background="@color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/slotline8"
+        android:layout_width="183dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="164dp"
         android:background="@color/white" />
 
 </LinearLayout>

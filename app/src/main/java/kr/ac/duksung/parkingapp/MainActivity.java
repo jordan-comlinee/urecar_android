@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     List<crud_Post> data = response.body();
                     Log.d("TEST", "POST 성공"+data.get(0).getPlotid()+data.get(0).getLatitude()+data.get(0).getLongitude());
                     Log.d("TEST", "POST 성공"+data.get(1).getPlotid());
-                    Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
                     for (int i =0;i<data.size();i++) {
                         Log.d("GET: ", data.get(i).getPlotname());
                         Log.d("GET: ", data.get(i).getLatitude()+" "+ data.get(i).getLongitude());

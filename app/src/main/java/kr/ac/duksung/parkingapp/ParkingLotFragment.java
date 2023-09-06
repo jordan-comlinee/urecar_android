@@ -180,7 +180,7 @@ public class ParkingLotFragment extends Fragment {
                         YN.add(i,1);
                         //Log.d("POST: ", Arrays.toString(YN));
                         buttons[i].setBackgroundResource(R.drawable.no_car_button);
-                        buttons[i].setTextColor(Color.BLACK);
+                        buttons[i].setTextColor(Color.WHITE);
                         buttons[i].setText("A-"+(i+1)+"  예약불가");
                     }
                 }//for

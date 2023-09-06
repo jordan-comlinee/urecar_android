@@ -94,7 +94,7 @@ public class ParkingLotFragment extends Fragment {
                                             buttons[i].setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                Toast.makeText(getContext(), "clicked", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getContext(), "clicked", Toast.LENGTH_LONG).show();
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("예약");
                                 builder.setMessage("예약 하시겠습니까?");
@@ -119,7 +119,7 @@ public class ParkingLotFragment extends Fragment {
                                                 str = str.substring(0,1);
                                                 carnum_result = carnum.getText().toString();
                                                 //booktime.set(i, Integer.parseInt(str));
-                                                Toast.makeText(view.getContext(), str+"/"+carnum_result, Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(view.getContext(), str+"/"+carnum_result, Toast.LENGTH_SHORT).show();
                                                 param.put("plotid","1");
                                                 param.put("slotid","1_A"+(index+1));
                                                 param.put("userid","2");
@@ -150,7 +150,7 @@ public class ParkingLotFragment extends Fragment {
                                             }
 
                                         });//setPositiveButton
-                                        book.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                        book.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 dialogInterface.dismiss();

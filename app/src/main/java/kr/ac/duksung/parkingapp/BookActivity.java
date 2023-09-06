@@ -60,7 +60,7 @@ public class BookActivity extends AppCompatActivity implements SwipeRefreshLayou
 
 
         //Firebase가 잘 동작하는 지 테스트
-        //write
+        /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
         myRef.setValue("Hello");
@@ -77,6 +77,8 @@ public class BookActivity extends AppCompatActivity implements SwipeRefreshLayou
                 Toast.makeText(getApplicationContext(), error.toException().toString(), Toast.LENGTH_LONG).show();
             }
         });
+
+         */
 
 
     }

@@ -35,12 +35,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ParkingLotFragment extends Fragment {
 
-    private Button button1, button2, button3, button4, button5, button6;
+    private Button button1, button2, button3, button4, button5, button6, button7;
     private TextView carnum;
     //private int[] YN={0,0,1,1};
     private String carnum_result;
     ArrayList<Integer> YN = new ArrayList<>();
-    private Button[] buttons = new Button[6];
+    private Button[] buttons = new Button[7];
     private Button noButton, yesButton;
     @SuppressLint("ResourceAsColor")
     @Nullable
@@ -67,12 +67,14 @@ public class ParkingLotFragment extends Fragment {
         button4 = (Button) v.findViewById(R.id.button4);
         button5 = (Button) v.findViewById(R.id.button5);
         button6 = (Button) v.findViewById(R.id.button6);
+        button7 = (Button) v.findViewById(R.id.button7);
         buttons[0] = button1;
         buttons[1] = button2;
         buttons[2] = button3;
         buttons[3] = button4;
         buttons[4] = button5;
         buttons[5] = button6;
+        buttons[6] = button7;
         result.postSlotData(param).enqueue(new Callback<List<crud_slotResult>>() {
                                 @Override
                                 public void onResponse(Call<List<crud_slotResult>> call, Response<List<crud_slotResult>> response) {

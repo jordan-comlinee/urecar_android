@@ -56,12 +56,18 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
     protected void onCreate(Bundle savedInstanceState) {
 
         restaurantLocation = new double[100][2];
+        // 서버 연결 시작
         Log.d("TEST2", "시작");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.ip))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         crud_RetrofitAPI retrofitAPI = retrofit.create(crud_RetrofitAPI.class);
+
+        //POST
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("parking_lot_id", 1);
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(100,TimeUnit.SECONDS)
@@ -79,6 +85,7 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                         Log.d("GET2: ", data.get(i).getLatitude()+" "+ data.get(i).getLongitude());
                         Log.d("GET2: ", data.get(i).getLocation());
                         Log.d("GET2: ", String.valueOf(Integer.valueOf(data.get(i).getTotal_space())-Integer.valueOf(data.get(i).getAvailable_space())));
+                        //Toast.makeText(HotplaceRecommandActivity.this, data.get(i).getPlaceName().toString(), Toast.LENGTH_LONG).show();
                         restaurantLocation[i][0] = Double.valueOf(data.get(i).getLatitude());
                         restaurantLocation[i][1] = Double.valueOf(data.get(i).getLongitude());
                     }

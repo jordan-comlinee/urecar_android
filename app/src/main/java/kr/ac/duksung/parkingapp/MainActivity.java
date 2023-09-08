@@ -38,12 +38,14 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -425,17 +427,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ((TextView)view.findViewById(R.id.textContent)).setText("주소: "+(CharSequence) marker.getSubCaptionText()+"\n\n주차 잔여 자리: "+leftoverarr.get((CharSequence)marker.getTag())+"\n");
         //이미지
         ImageView iv = (ImageView) view.findViewById(R.id.parkimage);
-        if (marker.getTag()=="영근터 소형 주차장") {
-            iv.setImageResource(R.drawable.park_1);
-        } else if (marker.getTag()=="영근터 주차장") {
-            iv.setImageResource(R.drawable.park_2);
-        }else if (marker.getTag()=="사유 주차장") {
-            iv.setImageResource(R.drawable.park_3);
-        }else if (marker.getTag()=="하나누리관 주차장") {
-            iv.setImageResource(R.drawable.park_4);
-        }else if (marker.getTag()=="우이동 공영 주차장") {
-            iv.setImageResource(R.drawable.park5);
+        // 이미지를 가져올 서버의 URL
+        String imageUrl = "";
+
+        if (marker.getTag().equals("영근터 소형 주차장")) {
+            imageUrl = "https://github.com/jordan-comlinee/parkingAndroid/assets/82654401/69c99ab9-0eff-48d6-86dc-22df53eedf61";
+        } else if (marker.getTag().equals("영근터 주차장")) {
+            imageUrl = "https://user-images.githubusercontent.com/82654401/265938296-577676ba-d907-4577-acc0-3d6f8b44849c.png";
+        }else if (marker.getTag().equals("사유 주차장")) {
+            imageUrl = "https://github.com/jordan-comlinee/parkingAndroid/assets/82654401/587acfc7-72a4-413c-9a7f-f7a366e9cd4a";
+        }else if (marker.getTag().equals("하나누리관 주차장")) {
+            imageUrl = "https://github.com/jordan-comlinee/parkingAndroid/assets/82654401/eea3a7a1-cfb0-45da-b0ea-20187c059f8b";
+        }else if (marker.getTag().equals("우이동 공영 주차장")) {
+            imageUrl = "https://user-images.githubusercontent.com/82654401/265938831-e8d72579-cf4e-4537-9ef7-ad3253deef49.png";
         }
+        //서버 이미지 불러올 경우
+        //Picasso.get()
+        //.load(imageUrl)
+        //.into(iv);
         //버튼 - 취소
         cancelButton = (Button) view.findViewById(R.id.cancel);
         bookButton = (Button) view.findViewById(R.id.book);

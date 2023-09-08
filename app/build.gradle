@@ -73,4 +73,7 @@ dependencies {
 
     //konfetti
     implementation 'nl.dionsegijn:konfetti-xml:2.0.2'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

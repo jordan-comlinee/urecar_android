@@ -29,8 +29,12 @@ public interface crud_RetrofitAPI {
     @GET("update_reservation/")
     Call<crud_BookResult> getBookData(@Query("parking_lot_name") String parking_lot_name, @Query("parking_lot_location") String parking_lot_location, @Query("slotid") String slotid, @Query("usagetime") int usagetime);
 
-    @GET("update_reservation/")
-    Call<crud_BookResult> getPlaceData(@Query("place_name") String place_name, @Query("place_address") String place_address, @Query("place_property") String place_property, @Query("place_latitude") int place_latitude, @Query("place_longitude") int place_longitude);
+    @FormUrlEncoded
+    @POST("get_nearby_places/")
+    Call<List<crud_hotplaceResult>> postPlaceData(@FieldMap HashMap<String, Object> param);
+
+    @GET("get_nearby_places/")
+    Call<List<crud_hotplaceResult>> getPlaceData(@Query("place_name") String place_name, @Query("place_address") String place_address, @Query("place_property") String place_property, @Query("place_latitude") int place_latitude, @Query("place_longitude") int place_longitude);
     /*
      POST 방식으로 myPage 보내기
     */

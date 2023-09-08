@@ -29,17 +29,17 @@ public class ProfileActivity extends AppCompatActivity {
     private String userId;
 
     // 서버로부터 받아올 정보들, xml에 올릴 변수들
-    private TextView userName, carnum, phonenum, address;
+        private TextView userName, carnum, phonenum, address;
 
-    // BackPressed 에서 시간 초기 설정
-    private long time = 0;
+        // BackPressed 에서 시간 초기 설정
+        private long time = 0;
 
-    private ImageButton backbutton;
+        private ImageButton backbutton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_profile);
 
         backbutton = (ImageButton) findViewById(R.id.backbutton);
         // 서버 연결 시작

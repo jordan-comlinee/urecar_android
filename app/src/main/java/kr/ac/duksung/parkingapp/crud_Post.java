@@ -33,6 +33,8 @@ public class crud_Post {
     private double place_longitude;
     @SerializedName("place_property")
     private String place_property;
+    @SerializedName("img_path")
+    private String img_path;
 
     public int getPlotid() {
         return plotid;
@@ -56,6 +58,9 @@ public class crud_Post {
     }
     public int getAvailable_space(){
         return available_space;
+    }
+    public String getImg_Path(){
+        return img_path;
     }
     public String getUserid(){
         return userid;

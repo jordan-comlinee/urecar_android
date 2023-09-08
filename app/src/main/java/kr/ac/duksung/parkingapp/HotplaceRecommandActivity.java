@@ -1,6 +1,7 @@
 package kr.ac.duksung.parkingapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
@@ -8,13 +9,26 @@ import androidx.fragment.app.FragmentManager;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -63,8 +77,8 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
     private Marker [] markerList = new Marker[100];
 
-
-
+    private Button closeButton;
+    private static Map< String, String > propertyarr = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,7 +205,7 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                 else if(placeProperty[i].equals("주유소")) {
                     markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_oil));
                 }
-
+                propertyarr.put(placeName[i], placeProperty[i]);
 
             }
             markerList[11] = new Marker();
@@ -219,6 +233,41 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
     }//onMapReady(NaverMap)
 
+    public void showAlertDialog(Marker marker) {
+        // 클릭 시 다이얼로그 생성
+        AlertDialog.Builder d = new AlertDialog.Builder(HotplaceRecommandActivity.this);
+        View view = LayoutInflater.from(HotplaceRecommandActivity.this).inflate(
+                R.layout.layout_dialog_hotplace,
+                (LinearLayout)findViewById(R.id.layoutDialog_hotplace)
+        );
+
+        d.setView(view);
+
+        //제목
+        ((TextView)view.findViewById(R.id.textTitle)).setText((CharSequence) marker.getTag());
+        //종류
+        ((TextView)view.findViewById(R.id.typeText)).setText(propertyarr.get((CharSequence)marker.getTag()));
+        
+
+        //주소
+        ((TextView)view.findViewById(R.id.addressText)).setText((CharSequence) marker.getSubCaptionText());
+        //버튼 - 취소
+        closeButton = (Button) view.findViewById(R.id.close);
+
+        // 다이얼로그 창
+        AlertDialog alertDialog = d.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        alertDialog.show();
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+    }//showAlertDialog
+
     //내 위치 받아와서 네이버 지도에 표시해줌
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -237,6 +286,24 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
     @Override
     public boolean onClick(@NonNull Overlay overlay) {
+
+        if (overlay instanceof Marker) {
+            Marker marker = (Marker) overlay;
+            if (marker.getInfoWindow() != null) {
+                mInfoWindow.close();
+            } else {
+                mInfoWindow.open(marker);
+                // mInfoWindow 클릭 시 상세정보 띄우기
+                mInfoWindow.setOnClickListener(new Overlay.OnClickListener() {
+                    @Override
+                    public boolean onClick(@NonNull Overlay overlay) {
+                        showAlertDialog(marker);
+                        return true;
+                    }
+                });
+            }
+            return true;
+        }
         return false;
     }//onClick(NaverMap)
 }

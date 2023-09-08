@@ -69,6 +69,7 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.squareup.picasso.Picasso;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String[] placeName;
     private String[] address;
     private int[] leftover;
+    private String[] img_path;
 
     private float[] stats = new float[13];;
     private static Map< String, Integer > leftoverarr = new HashMap<>();
@@ -162,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         placeName = new String[5];
         address = new String[5];
         leftover = new int[5];
+        img_path = new String[5];
         Log.d("TEST", "시작");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.ip))
@@ -187,7 +190,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         address[i]=data.get(i).getLocation();
                         leftover[i]=Integer.valueOf(data.get(i).getAvailable_space());
                         isDataLoaded = true;
-
+                        img_path[i] = data.get(i).getImg_Path();
+                        Log.d("path_ url:", img_path[i]);
                         //지도 객체 생성
                         FragmentManager fm = getSupportFragmentManager();
                         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
@@ -428,23 +432,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //이미지
         ImageView iv = (ImageView) view.findViewById(R.id.parkimage);
         // 이미지를 가져올 서버의 URL
-        String imageUrl = "";
 
-        if (marker.getTag().equals("영근터 소형 주차장")) {
-            imageUrl = "https://github.com/jordan-comlinee/parkingAndroid/assets/82654401/69c99ab9-0eff-48d6-86dc-22df53eedf61";
-        } else if (marker.getTag().equals("영근터 주차장")) {
-            imageUrl = "https://user-images.githubusercontent.com/82654401/265938296-577676ba-d907-4577-acc0-3d6f8b44849c.png";
-        }else if (marker.getTag().equals("사유 주차장")) {
-            imageUrl = "https://github.com/jordan-comlinee/parkingAndroid/assets/82654401/587acfc7-72a4-413c-9a7f-f7a366e9cd4a";
-        }else if (marker.getTag().equals("하나누리관 주차장")) {
-            imageUrl = "https://github.com/jordan-comlinee/parkingAndroid/assets/82654401/eea3a7a1-cfb0-45da-b0ea-20187c059f8b";
-        }else if (marker.getTag().equals("우이동 공영 주차장")) {
-            imageUrl = "https://user-images.githubusercontent.com/82654401/265938831-e8d72579-cf4e-4537-9ef7-ad3253deef49.png";
+        for(int i =0;i<markerList.length; i++){
+            Picasso.get()
+            .load(img_path[i])
+            .into(iv);
         }
-        //서버 이미지 불러올 경우
-        //Picasso.get()
-        //.load(imageUrl)
-        //.into(iv);
+
         //버튼 - 취소
         cancelButton = (Button) view.findViewById(R.id.cancel);
         bookButton = (Button) view.findViewById(R.id.book);

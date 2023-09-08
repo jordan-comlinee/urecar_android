@@ -12,14 +12,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.InfoWindow;
+import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import okhttp3.OkHttpClient;
@@ -45,82 +49,93 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
-    private static double[][] restaurantLocation;
+    private static double[][] placeLocation;
+    private static String[] placeName;
+    private static String[] placeAddress;
+    private static String[] placeProperty;
     private static FusedLocationSource mLocationSource;
     private static NaverMap mNaverMap;
     private InfoWindow mInfoWindow;
+    private int placenum;
     ImageView forwardArrow;
+
+    private boolean isDataLoaded=false;
+
+    private Marker [] markerList = new Marker[100];
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        restaurantLocation = new double[100][2];
+        placeLocation = new double[100][2];
+        placeName = new String[100];
+        placeAddress = new String[100];
+        placeProperty = new String[100];
         // 서버 연결 시작
         Log.d("TEST2", "시작");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.ip))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        crud_RetrofitAPI retrofitAPI = retrofit.create(crud_RetrofitAPI.class);
+        crud_RetrofitAPI result = retrofit.create(crud_RetrofitAPI.class);
 
         //POST
         HashMap<String, Object> param = new HashMap<>();
-        param.put("parking_lot_id", 1);
+        param.put("plotid", 1);
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(100, TimeUnit.SECONDS)
-                .readTimeout(100,TimeUnit.SECONDS)
-                .writeTimeout(100,TimeUnit.SECONDS)
-                .build();
-        retrofitAPI.getmarkerData(1).enqueue(new Callback<List<crud_Post>>() {
+        result.postPlaceData(param).enqueue(new Callback<List<crud_hotplaceResult>>() {
             @Override
-            public void onResponse(Call<List<crud_Post>> call, Response<List<crud_Post>> response) {
+            public void onResponse(Call<List<crud_hotplaceResult>> call, Response<List<crud_hotplaceResult>> response) {
                 if(response.isSuccessful()) {
-                    List<crud_Post> data = response.body();
-                    Log.d("TEST2", "POST 성공" + data.get(0).getPlaceName() + data.get(0).getPlaceProperty() + data.get(0).getPlaceAddress());
-                    Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
+                    List<crud_hotplaceResult> data = response.body();
+                    Log.d("GETPLACE", "POST 성공 " + data.size() + data.get(1).getPlaceProperty());
+                    placenum = data.size();
                     for (int i =0;i<data.size();i++) {
-                        Log.d("GET2: ", data.get(i).getPlotname());
-                        Log.d("GET2: ", data.get(i).getLatitude()+" "+ data.get(i).getLongitude());
-                        Log.d("GET2: ", data.get(i).getLocation());
-                        Log.d("GET2: ", String.valueOf(Integer.valueOf(data.get(i).getTotal_space())-Integer.valueOf(data.get(i).getAvailable_space())));
-                        //Toast.makeText(HotplaceRecommandActivity.this, data.get(i).getPlaceName().toString(), Toast.LENGTH_LONG).show();
-                        restaurantLocation[i][0] = Double.valueOf(data.get(i).getLatitude());
-                        restaurantLocation[i][1] = Double.valueOf(data.get(i).getLongitude());
+                        Log.d("PLACEGET: ", data.get(i).getPlaceName());
+                        Log.d("PLACEGET: ", data.get(i).getPlaceLatitude()+" "+ data.get(i).getPlaceLongitude());
+                        Log.d("PLACEGET: ", data.get(i).getPlaceAddress());
+                        Log.d("PLACEGET: ", data.get(i).getPlaceProperty());
+
+                        placeLocation[i][0] = Double.valueOf(data.get(i).getPlaceLatitude());
+                        placeLocation[i][1] = Double.valueOf(data.get(i).getPlaceLongitude());
+                        placeName[i]=data.get(i).getPlaceName();
+                        placeAddress[i]=data.get(i).getPlaceAddress();
+                        placeProperty[i] = data.get(i).getPlaceProperty();
+                        isDataLoaded = true;
+
                     }
+
+                    //지도 객체 생성
+                    FragmentManager fm = getSupportFragmentManager();
+                    MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.recommandMap);
+                    if(mapFragment==null){
+                        mapFragment = MapFragment.newInstance();
+                        fm.beginTransaction().add(R.id.recommandMap, mapFragment).commit();
+                    }
+                    //getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
+                    //onMapReady에서 NaverMap 객체를 받음
+                    mapFragment.getMapAsync(HotplaceRecommandActivity.this);
+                    //위치를 반환하는 구현체인 FusedLocationSource 생성
+                    mLocationSource = new FusedLocationSource(HotplaceRecommandActivity.this, PERMISSION_REQUEST_CODE);
+                    Log.d("PLACE", "SUCCESS");
                 }
             }
 
             @Override
-            public void onFailure(Call<List<crud_Post>> call, Throwable t) {
+            public void onFailure(Call<List<crud_hotplaceResult>> call, Throwable t) {
                 Log.d("TEST", "POST 실패");
                 StringWriter sw = new StringWriter();
                 t.printStackTrace(new PrintWriter(sw));
                 String exceptionAsString = sw.toString();
                 Log.e("TEST", exceptionAsString);
                 t.printStackTrace();
-            }//onFailure
-        });//retrofitAPI.getmarkerData
+            }
+        });
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotplace_recommand);
-
-
-
-
-        //지도 객체 생성
-        FragmentManager fm = getSupportFragmentManager();
-        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.recommandMap);
-        if(mapFragment==null){
-            mapFragment = MapFragment.newInstance();
-            fm.beginTransaction().add(R.id.recommandMap, mapFragment).commit();
-        }
-        //getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
-        //onMapReady에서 NaverMap 객체를 받음
-        mapFragment.getMapAsync(this);
-        //위치를 반환하는 구현체인 FusedLocationSource 생성
-        mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
 
         forwardArrow = findViewById(R.id.recommandBar_forwardArrow);
@@ -139,11 +154,58 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
-        mNaverMap = naverMap;
-        mNaverMap.setLocationSource(mLocationSource);
-        //권한확인. 결과는 onRequestPermissionsResult 콜백 매서드 호출
-        ActivityCompat.requestPermissions(this, PERMSSIONS, PERMISSION_REQUEST_CODE);
+        if (isDataLoaded) {
+            //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
+            mNaverMap = naverMap;
+            mNaverMap.setLocationSource(mLocationSource);
+            //권한확인. 결과는 onRequestPermissionsResult 콜백 매서드 호출
+            ActivityCompat.requestPermissions(this, PERMSSIONS, PERMISSION_REQUEST_CODE);
+
+            // 마커 표시하기
+
+            // 리스트 별로 마커 차례대로 표시함
+            for (int i=0; i<10; i++) {
+                markerList[i] = new Marker();
+                markerList[i].setTag(placeName[i]);
+                markerList[i].setSubCaptionText(placeAddress[i]);
+                markerList[i].setPosition(new LatLng(placeLocation[i][0], placeLocation[i][1]));
+                try{
+                    markerList[i].setMap(naverMap);
+                    Log.d( "TAG", "setMap 성공");
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d( "TAG", "예외 발생");
+                }
+                markerList[i].setOnClickListener(this);
+                markerList[i].setWidth(100);
+                markerList[i].setHeight(100);
+
+                // marker2 = 노란색 marker3 = 보라색 none_marker = 회색
+                if(placeProperty[i].equals("핫플"))    {
+                    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_hotple));
+                }
+                else if(placeProperty[i].equals("음식점")){
+                    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_restaurant));
+                }
+                else if(placeProperty[i].equals("주유소")) {
+                    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_oil));
+                }
+
+
+            }
+            markerList[11] = new Marker();
+            markerList[11].setTag("예약한 주차장");
+            markerList[11].setPosition(new LatLng(R.string.latitude, R.string.longitude));
+            markerList[11].setMap(naverMap);
+            markerList[11].setIcon(OverlayImage.fromResource(R.drawable.m_parkinglot));
+        }
+
+
+
+
+
+
 
         //InfoWindow 객체 생성
         mInfoWindow = new InfoWindow();
@@ -167,6 +229,7 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+                Log.d("PLACE", "SUCCESS");
             }
         }
     }//onRequestPermissionsResult

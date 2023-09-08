@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         //위치를 반환하는 구현체인 FusedLocationSource 생성
                         try {
                             mLocationSource = new FusedLocationSource(MainActivity.this, PERMISSION_REQUEST_CODE);
-                            Log.d("TAG", "이놈도 성공");
+                            Log.d("TAG", "이놈 성공");
                         }
                         catch (Exception e){
                             e.printStackTrace();

@@ -1,11 +1,16 @@
 package kr.ac.duksung.parkingapp;
 
 public class crud_hotplaceResult {
+    private int plotid;
     private String place_name;
     private double place_latitude;
     private double place_longitude;
     private String place_address;
     private String place_property;
+
+    public void setplotId() {
+        this.plotid = plotid;
+    }
 
 
     public String getPlaceName() {

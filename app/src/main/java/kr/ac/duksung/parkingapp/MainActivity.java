@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private ImageView search;
 
+    private boolean isDataLoaded=false;
+
 
 
 
@@ -182,6 +184,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         placeName[i]=data.get(i).getPlotname();
                         address[i]=data.get(i).getLocation();
                         leftover[i]=Integer.valueOf(data.get(i).getAvailable_space());
+                        isDataLoaded = true;
+
+                        //지도 객체 생성
+                        FragmentManager fm = getSupportFragmentManager();
+                        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
+                        if(mapFragment==null){
+                            mapFragment = MapFragment.newInstance();
+                            fm.beginTransaction().add(R.id.map, mapFragment).commit();
+                        }
+                        //getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
+                        //onMapReady에서 NaverMap 객체를 받음
+                        mapFragment.getMapAsync(MainActivity.this);
+                        //위치를 반환하는 구현체인 FusedLocationSource 생성
+                        try {
+                            mLocationSource = new FusedLocationSource(MainActivity.this, PERMISSION_REQUEST_CODE);
+                            Log.d("TAG", "이놈도 성공");
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+
                     }
                 }
             }
@@ -285,19 +309,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });//bottomNaView
 
-        //지도 객체 생성
-        FragmentManager fm = getSupportFragmentManager();
-        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
-        if(mapFragment==null){
-            mapFragment = MapFragment.newInstance();
-            fm.beginTransaction().add(R.id.map, mapFragment).commit();
-        }
-        //getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
-        //onMapReady에서 NaverMap 객체를 받음
-        mapFragment.getMapAsync(this);
-        //위치를 반환하는 구현체인 FusedLocationSource 생성
-        mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
-
         search = (ImageView) findViewById(R.id.iv_search);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -313,55 +324,75 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // 지도에 마커 표시하는 함수
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        Log.d( TAG, "onMapReady");
+        if (isDataLoaded = true)
+        {
+            Log.d( "TAG", "onMapReady");
+            //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
+            mNaverMap = naverMap;
+            mNaverMap.setLocationSource(mLocationSource);
+            //권한확인. 결과는 onRequesetPermissionsResult 콜백 매서드 호출
+            ActivityCompat.requestPermissions(this, PERMSSIONS, PERMISSION_REQUEST_CODE);
 
-        // 지도 상에 마커 표시하기
+            // 지도 상에 마커 표시하기
 
 
-        // 리스트 별로 마커 차례대로 표시함
-        for (int i=0; i<5; i++) {
-            markerList[i] = new Marker();
-            markerList[i].setTag(placeName[i]);
-            markerList[i].setSubCaptionText(address[i]);
-            markerList[i].setPosition(new LatLng(location[i][0], location[i][1]));
-            markerList[i].setMap(naverMap);
-            markerList[i].setOnClickListener(this);
-            markerList[i].setWidth(100);
-            markerList[i].setHeight(100);
-            // marker2 = 노란색 marker3 = 보라색 none_marker = 회색
-            if(leftover[i] == 0)    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_empty_parkinglot));
-            else markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_parkinglot));
-            leftoverarr.put(placeName[i], leftover[i]);
-        }
-        //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
-        mNaverMap = naverMap;
-        mNaverMap.setLocationSource(mLocationSource);
-        //권한확인. 결과는 onRequesetPermissionsResult 콜백 매서드 호출
-        ActivityCompat.requestPermissions(this, PERMSSIONS, PERMISSION_REQUEST_CODE);
+            // 리스트 별로 마커 차례대로 표시함
+            for (int i=0; i<5; i++) {
+                markerList[i] = new Marker();
+                markerList[i].setTag(placeName[i]);
+                markerList[i].setSubCaptionText(address[i]);
+                markerList[i].setPosition(new LatLng(location[i][0], location[i][1]));
+                try{
+                    markerList[i].setMap(naverMap);
+                    Log.d( "TAG", "setMap 성공");
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d( "TAG", "예외 발생");
+                }
+                markerList[i].setOnClickListener(this);
+                markerList[i].setWidth(100);
+                markerList[i].setHeight(100);
 
-        //InfoWindow 객체 생성
-        mInfoWindow = new InfoWindow();
-        mInfoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(this){
-            @NonNull
-            @Override
-            public CharSequence getText(@NonNull InfoWindow infoWindow){
-                return (CharSequence)infoWindow.getMarker().getTag();
+                // marker2 = 노란색 marker3 = 보라색 none_marker = 회색
+                if(leftover[i] == 0)    {
+                    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_empty_parkinglot));
+                    Log.d( "TAG", "if문 수행");
+                }
+                else {
+                    markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_parkinglot));
+                    Log.d( "TAG", "else문 수행");
+                }
+                leftoverarr.put(placeName[i], leftover[i]);
             }
-        });//mInfoWindow.setAdapter
-        // SearchActivity에서 선택한 주차장 이름을 가져옴
-        Intent selectIntent = getIntent();
-        String selectedPlaceName = selectIntent.getStringExtra("selectedPlaceName");
-        if (selectedPlaceName != null) {
-            // 선택한 주차장 이름과 일치하는 마커를 찾아서 표시
-            for (int i = 0; i < markerList.length; i++) {
-                if (selectedPlaceName.equals((String) markerList[i].getTag())) {
-                    // 마커를 클릭한 것처럼 동작
-                    Log.d("clicked", (String)markerList[i].getTag());
-                    markerList[i].performClick();
-                    break;
+            Log.d( "TAG", "onMapReady2");
+
+            //InfoWindow 객체 생성
+            mInfoWindow = new InfoWindow();
+            mInfoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(this){
+                @NonNull
+                @Override
+                public CharSequence getText(@NonNull InfoWindow infoWindow){
+                    Log.d( "TAG", "onMapReady3");
+                    return (CharSequence)infoWindow.getMarker().getTag();
+                }
+            });//mInfoWindow.setAdapter
+            // SearchActivity에서 선택한 주차장 이름을 가져옴
+            Intent selectIntent = getIntent();
+            String selectedPlaceName = selectIntent.getStringExtra("selectedPlaceName");
+            if (selectedPlaceName != null) {
+                // 선택한 주차장 이름과 일치하는 마커를 찾아서 표시
+                for (int i = 0; i < markerList.length; i++) {
+                    if (selectedPlaceName.equals((String) markerList[i].getTag())) {
+                        // 마커를 클릭한 것처럼 동작
+                        Log.d("TAG", (String)markerList[i].getTag());
+                        markerList[i].performClick();
+                        break;
+                    }
                 }
             }
         }
+
     }//onMapReady
 
     // 내 위치 받아와서 네이버 지도에 표시해줌
@@ -552,7 +583,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }//showAlertDialog
 
     // Back Button 클릭 시 종료
-
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() - time >= 2000) {

@@ -110,6 +110,9 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                     //지도 객체 생성
                     FragmentManager fm = getSupportFragmentManager();
                     MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.recommandMap);
+                    //위치를 반환하는 구현체인 FusedLocationSource 생성
+                    mLocationSource = new FusedLocationSource(HotplaceRecommandActivity.this, PERMISSION_REQUEST_CODE);
+                    Log.d("PLACE", "SUCCESS");
                     if(mapFragment==null){
                         mapFragment = MapFragment.newInstance();
                         fm.beginTransaction().add(R.id.recommandMap, mapFragment).commit();
@@ -117,9 +120,6 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                     //getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
                     //onMapReady에서 NaverMap 객체를 받음
                     mapFragment.getMapAsync(HotplaceRecommandActivity.this);
-                    //위치를 반환하는 구현체인 FusedLocationSource 생성
-                    mLocationSource = new FusedLocationSource(HotplaceRecommandActivity.this, PERMISSION_REQUEST_CODE);
-                    Log.d("PLACE", "SUCCESS");
                 }
             }
 

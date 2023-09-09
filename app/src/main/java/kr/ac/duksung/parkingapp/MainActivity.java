@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String[] address;
     private int[] leftover;
     private String[] img_path;
-
     private float[] stats = new float[13];;
     private static Map< String, Integer > leftoverarr = new HashMap<>();
+    private static Map< String, String >  img_patharr= new HashMap<>();
 
     // 위치 권한을 받아오기 위함
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -189,9 +189,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         placeName[i]=data.get(i).getPlotname();
                         address[i]=data.get(i).getLocation();
                         leftover[i]=Integer.valueOf(data.get(i).getAvailable_space());
+                        img_path[i]=data.get(i).getImage_path();
                         isDataLoaded = true;
-                        img_path[i] = data.get(i).getImg_Path();
-                        Log.d("path_ url:", img_path[i]);
                         //지도 객체 생성
                         FragmentManager fm = getSupportFragmentManager();
                         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
@@ -370,6 +369,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.d( "TAG", "else문 수행");
                 }
                 leftoverarr.put(placeName[i], leftover[i]);
+                img_patharr.put(placeName[i],img_path[i]);
             }
             Log.d( "TAG", "onMapReady2");
 
@@ -432,13 +432,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //이미지
         ImageView iv = (ImageView) view.findViewById(R.id.parkimage);
         // 이미지를 가져올 서버의 URL
-
-        for(int i =0;i<markerList.length; i++){
+        if (img_patharr.containsKey(marker.getTag())) {
+            String img_url = img_patharr.get(marker.getTag());
+            // 이미지를 로드하는 코드
             Picasso.get()
-            .load(img_path[i])
-            .into(iv);
+                    .load(img_url)
+                    .into(iv);
         }
-
         //버튼 - 취소
         cancelButton = (Button) view.findViewById(R.id.cancel);
         bookButton = (Button) view.findViewById(R.id.book);

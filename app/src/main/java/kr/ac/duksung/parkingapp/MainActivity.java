@@ -472,8 +472,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         String[] time = new String[]{"0","08:00", " ", "10:00", " ",
-                                     "12:00", " ", "14:00", " ",
-                                     "16:00", " ", "18:00", " ", "20:00"};
+                "12:00", " ", "14:00", " ",
+                "16:00", " ", "18:00", " ", "20:00"};
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.ip))

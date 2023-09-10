@@ -170,8 +170,6 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
     public void onMapReady(@NonNull NaverMap naverMap) {
         if (isDataLoaded) {
 
-            ImageView icon_image = findViewById(R.id.icon_dialog_hotplace);
-
             //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
             mNaverMap = naverMap;
             mNaverMap.setLocationSource(mLocationSource);
@@ -201,16 +199,12 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                 // marker2 = 노란색 marker3 = 보라색 none_marker = 회색
                 if(placeProperty[i].equals("핫플"))    {
                     markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_hotple));
-                    icon_image.setImageResource(R.drawable.m_hotple);
-
                 }
                 else if(placeProperty[i].equals("음식점")){
                     markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_restaurant));
-                    icon_image.setImageResource(R.drawable.m_restaurant);
                 }
                 else if(placeProperty[i].equals("주유소")) {
                     markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_oil));
-                    icon_image.setImageResource(R.drawable.m_oil);
                 }
                 propertyarr.put(placeName[i], placeProperty[i]);
 
@@ -254,7 +248,17 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
         ((TextView)view.findViewById(R.id.textTitle)).setText((CharSequence) marker.getTag());
         //종류
         ((TextView)view.findViewById(R.id.typeText)).setText(propertyarr.get((CharSequence)marker.getTag()));
-        
+
+        ImageView icon_image = findViewById(R.id.icon_dialog_hotplace);
+
+        if( propertyarr.get((CharSequence)marker.getTag()).equals("음식점") ){
+            icon_image.setImageResource(R.drawable.m_restaurant);
+        } else if ( propertyarr.get((CharSequence)marker.getTag()).equals("핫플") ) {
+            icon_image.setImageResource(R.drawable.m_hotple);
+        } else {
+            icon_image.setImageResource(R.drawable.m_oil);
+        }
+
 
         //주소
         ((TextView)view.findViewById(R.id.addressText)).setText((CharSequence) marker.getSubCaptionText());

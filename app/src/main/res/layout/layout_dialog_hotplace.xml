@@ -15,7 +15,7 @@
     <LinearLayout
         android:id="@+id/alertDialog_background"
         android:layout_width="match_parent"
-        android:layout_height="233dp"
+        android:layout_height="350dp"
         android:background="@drawable/alertdialog_shape"
         android:orientation="vertical"
         android:padding="10dp">
@@ -29,12 +29,26 @@
             android:paddingBottom="10dp"
             android:textAlignment="center"
             android:textColor="@color/dark_black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
+            android:background="@color/dark_black" />
+
+        <ImageView
+            android:id="@+id/icon_dialog_hotplace"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@drawable/ic_heart" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
             android:background="@color/dark_black" />
 
         <TextView
@@ -44,31 +58,33 @@
             android:background="@drawable/alertdialog_shape"
             android:fontFamily="@font/the_gothic_l"
             android:paddingBottom="10dp"
+            android:layout_marginTop="15dp"
             android:textAlignment="center"
             android:textColor="@color/light_grey"
-            android:textSize="15dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/the_gothic_b"
             android:text="주소"
             android:textColor="@color/dark_black"
-            android:textSize="16dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/addressText"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/alertdialog_shape"
             android:fontFamily="@font/the_gothic_l"
             android:paddingBottom="10dp"
             android:textAlignment="center"
             android:textColor="@color/dark_black"
-            android:textSize="15dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 

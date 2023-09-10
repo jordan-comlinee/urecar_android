@@ -169,6 +169,9 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         if (isDataLoaded) {
+
+            ImageView icon_image = findViewById(R.id.icon_dialog_hotplace);
+
             //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
             mNaverMap = naverMap;
             mNaverMap.setLocationSource(mLocationSource);
@@ -198,12 +201,16 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                 // marker2 = 노란색 marker3 = 보라색 none_marker = 회색
                 if(placeProperty[i].equals("핫플"))    {
                     markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_hotple));
+                    icon_image.setImageResource(R.drawable.m_hotple);
+
                 }
                 else if(placeProperty[i].equals("음식점")){
                     markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_restaurant));
+                    icon_image.setImageResource(R.drawable.m_restaurant);
                 }
                 else if(placeProperty[i].equals("주유소")) {
                     markerList[i].setIcon(OverlayImage.fromResource(R.drawable.m_oil));
+                    icon_image.setImageResource(R.drawable.m_oil);
                 }
                 propertyarr.put(placeName[i], placeProperty[i]);
 
@@ -258,6 +265,12 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
         AlertDialog alertDialog = d.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+
+
+
+
+
+
         alertDialog.show();
 
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -289,6 +302,7 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
         if (overlay instanceof Marker) {
             Marker marker = (Marker) overlay;
+
             if (marker.getInfoWindow() != null) {
                 mInfoWindow.close();
             } else {

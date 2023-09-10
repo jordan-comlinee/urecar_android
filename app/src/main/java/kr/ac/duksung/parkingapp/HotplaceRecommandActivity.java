@@ -195,6 +195,7 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         if (isDataLoaded) {
+
             //NaverMAP 객체 받아서 NaverMap 객체에 위치 소스 지정
             mNaverMap = naverMap;
             mNaverMap.setLocationSource(mLocationSource);
@@ -273,7 +274,17 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
         ((TextView)view.findViewById(R.id.textTitle)).setText((CharSequence) marker.getTag());
         //종류
         ((TextView)view.findViewById(R.id.typeText)).setText(propertyarr.get((CharSequence)marker.getTag()));
-        
+
+        ImageView icon_image = findViewById(R.id.icon_dialog_hotplace);
+
+        if( propertyarr.get((CharSequence)marker.getTag()).equals("음식점") ){
+            icon_image.setImageResource(R.drawable.m_restaurant);
+        } else if ( propertyarr.get((CharSequence)marker.getTag()).equals("핫플") ) {
+            icon_image.setImageResource(R.drawable.m_hotple);
+        } else {
+            icon_image.setImageResource(R.drawable.m_oil);
+        }
+
 
         //주소
         ((TextView)view.findViewById(R.id.addressText)).setText((CharSequence) marker.getSubCaptionText());
@@ -283,6 +294,12 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
         // 다이얼로그 창
         AlertDialog alertDialog = d.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+
+
+
+
 
         alertDialog.show();
 
@@ -315,6 +332,7 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
         if (overlay instanceof Marker) {
             Marker marker = (Marker) overlay;
+
             if (marker.getInfoWindow() != null) {
                 mInfoWindow.close();
             } else {

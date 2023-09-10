@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -53,7 +53,9 @@ public class BookActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         TabLayout tab = findViewById(R.id.tab);
         tab.setupWithViewPager(vp);
-        tab.setTabTextColors(Color.rgb(255,255,255),Color.rgb(255,255,255));
+
+        tab.setTabTextColors(getResources().getColor(R.color.highlight_green), getResources().getColor(R.color.highlight_green));
+
         // 위로 끌어올리면 새로고침되도록 구현하였음
         swipeRefreshLayout = findViewById(R.id.bookLayout);
         swipeRefreshLayout.setOnRefreshListener(this);

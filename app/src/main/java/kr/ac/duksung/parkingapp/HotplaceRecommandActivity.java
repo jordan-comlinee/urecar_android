@@ -15,9 +15,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraAnimation;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
@@ -39,6 +44,7 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -72,9 +78,8 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
     private InfoWindow mInfoWindow;
     private int placenum;
     ImageView forwardArrow;
-
     private boolean isDataLoaded=false;
-
+    private SlidingUpPanelLayout slidingUpPanelLayout;
     private Marker [] markerList = new Marker[100];
 
     private Button closeButton;
@@ -82,11 +87,10 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        placeLocation = new double[100][2];
-        placeName = new String[100];
-        placeAddress = new String[100];
-        placeProperty = new String[100];
+        placeLocation = new double[10][2];
+        placeName = new String[10];
+        placeAddress = new String[10];
+        placeProperty = new String[10];
         // 서버 연결 시작
         Log.d("TEST2", "시작");
         Retrofit retrofit = new Retrofit.Builder()
@@ -150,7 +154,29 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotplace_recommand);
+        slidingUpPanelLayout = findViewById(R.id.sliding_layout);
+        final ListView listView = findViewById(R.id.listView);
+        listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                placeName));
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for (int i = 0; i < markerList.length; i++) {
+                    if (placeName[position].equals((String) markerList[i].getTag())) {
+                        // 마커를 클릭한 것처럼 동작
+                        Log.d("TAG", (String)markerList[i].getTag());
+                        // SlidingUpPanelLayout를 닫기 위해
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        //dragView.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        mNaverMap.moveCamera(CameraUpdate.scrollTo(new LatLng(placeLocation[i][0], placeLocation[i][1]))
+                                .animate(CameraAnimation.Easing, 300)); // 위치로 이동하는 애니메이션 설정
+                        markerList[i].performClick();
+                        break;
+                    }
+                }
+            }
+        });
 
         forwardArrow = findViewById(R.id.recommandBar_forwardArrow);
 

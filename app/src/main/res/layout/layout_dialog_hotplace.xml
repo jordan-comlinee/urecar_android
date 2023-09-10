@@ -15,7 +15,7 @@
     <LinearLayout
         android:id="@+id/alertDialog_background"
         android:layout_width="match_parent"
-        android:layout_height="233dp"
+        android:layout_height="164dp"
         android:background="@drawable/alertdialog_shape"
         android:orientation="vertical"
         android:padding="10dp">
@@ -62,7 +62,7 @@
         <TextView
             android:id="@+id/addressText"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="46dp"
             android:background="@drawable/alertdialog_shape"
             android:fontFamily="@font/the_gothic_l"
             android:paddingBottom="10dp"

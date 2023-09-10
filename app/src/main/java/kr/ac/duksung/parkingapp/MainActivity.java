@@ -100,10 +100,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String[] placeName;
     private String[] address;
     private int[] leftover;
-    private String[] image_path;
-
+    private String[] img_path;
     private float[] stats = new float[13];;
     private static Map< String, Integer > leftoverarr = new HashMap<>();
+    private static Map< String, String >  img_patharr= new HashMap<>();
 
     // 위치 권한을 받아오기 위함
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         placeName = new String[5];
         address = new String[5];
         leftover = new int[5];
-        image_path = new String[5];
+        img_path = new String[5];
         Log.d("TEST", "시작");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.ip))
@@ -189,10 +189,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         placeName[i]=data.get(i).getPlotname();
                         address[i]=data.get(i).getLocation();
                         leftover[i]=Integer.valueOf(data.get(i).getAvailable_space());
-                        image_path[i] = data.get(i).getImage_Path();
+                        img_path[i]=data.get(i).getImage_path();
                         isDataLoaded = true;
-
-                        Log.d("path_ url:", image_path[i]);
                         //지도 객체 생성
                         FragmentManager fm = getSupportFragmentManager();
                         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
@@ -371,6 +369,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.d( "TAG", "else문 수행");
                 }
                 leftoverarr.put(placeName[i], leftover[i]);
+                img_patharr.put(placeName[i],img_path[i]);
             }
             Log.d( "TAG", "onMapReady2");
 
@@ -418,7 +417,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // 상세 정보 띄워주는 코드
     public void showAlertDialog(Marker marker) {
-
         // 클릭 시 다이얼로그 생성
         AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
         View view = LayoutInflater.from(MainActivity.this).inflate(
@@ -431,21 +429,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ((TextView)view.findViewById(R.id.textTitle)).setText((CharSequence) marker.getTag());
         //상세 내용
         ((TextView)view.findViewById(R.id.textContent)).setText("주소: "+(CharSequence) marker.getSubCaptionText()+"\n\n주차 잔여 자리: "+leftoverarr.get((CharSequence)marker.getTag())+"\n");
-        //버튼 - 취소
-        cancelButton = (Button) view.findViewById(R.id.cancel);
-        bookButton = (Button) view.findViewById(R.id.book);
-
         //이미지
         ImageView iv = (ImageView) view.findViewById(R.id.parkimage);
         // 이미지를 가져올 서버의 URL
-
-        for(int i =0;i<markerList.length; i++){
+        if (img_patharr.containsKey(marker.getTag())) {
+            String img_url = img_patharr.get(marker.getTag());
+            // 이미지를 로드하는 코드
             Picasso.get()
-                    .load(image_path[i])
+                    .load(img_url)
                     .into(iv);
         }
-
-        Picasso.get().load(image_path[marker.get])
+        //버튼 - 취소
+        cancelButton = (Button) view.findViewById(R.id.cancel);
+        bookButton = (Button) view.findViewById(R.id.book);
 
         // 다이얼로그 창
         AlertDialog alertDialog = d.create();
@@ -476,8 +472,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         String[] time = new String[]{"0","08:00", " ", "10:00", " ",
-                                     "12:00", " ", "14:00", " ",
-                                     "16:00", " ", "18:00", " ", "20:00"};
+                "12:00", " ", "14:00", " ",
+                "16:00", " ", "18:00", " ", "20:00"};
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.ip))

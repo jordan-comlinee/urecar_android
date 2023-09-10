@@ -59,7 +59,7 @@ public class crud_Post {
     public int getAvailable_space(){
         return available_space;
     }
-    public String getImage_Path(){
+    public String getImage_path(){
         return image_path;
     }
     public String getUserid(){

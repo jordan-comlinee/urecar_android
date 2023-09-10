@@ -10,25 +10,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="60dp"
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/dark_black"
+            app:tabIndicatorColor="@color/highlight_green"
+            app:tabTextAppearance="@style/tab_text">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/item1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="주차 현황" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/item2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="상세 정보" />
+                android:text="   주차 현황   " />
 
         </com.google.android.material.tabs.TabLayout>
 

@@ -15,15 +15,23 @@
     <LinearLayout
         android:id="@+id/alertDialog_background"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         android:background="@drawable/alertdialog_shape"
         android:orientation="vertical"
         android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/icon_dialog_hotplace2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginBottom="15dp"
+            app:srcCompat="@drawable/ic_heart" />
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/alertdialog_shape"
             android:fontFamily="@font/the_gothic_b"
             android:paddingBottom="10dp"
@@ -37,19 +45,16 @@
             android:layout_height="2px"
             android:background="@color/dark_black" />
 
-        <ImageView
-            android:id="@+id/icon_dialog_hotplace"
+        <TextView
+            android:id="@+id/textView10"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="15dp"
-            app:srcCompat="@drawable/ic_heart" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
-            android:background="@color/dark_black" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/the_gothic_b"
+            android:text="유형"
+            android:textColor="@color/dark_black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/typeText"
@@ -61,7 +66,7 @@
             android:layout_marginTop="15dp"
             android:textAlignment="center"
             android:textColor="@color/light_grey"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -72,7 +77,7 @@
             android:fontFamily="@font/the_gothic_b"
             android:text="주소"
             android:textColor="@color/dark_black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/addressText"
@@ -86,7 +91,7 @@
             android:paddingBottom="10dp"
             android:textAlignment="center"
             android:textColor="@color/dark_black"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
 
@@ -105,6 +110,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/the_gothic_b"
             android:background="@color/transparent"
+            android:textSize="20sp"
             android:text="닫기" />
     </LinearLayout>
 

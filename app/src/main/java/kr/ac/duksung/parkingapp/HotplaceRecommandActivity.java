@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -151,13 +152,15 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                 t.printStackTrace();
             }
         });
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotplace_recommand);
+
         slidingUpPanelLayout = findViewById(R.id.sliding_layout);
         final ListView listView = findViewById(R.id.listView);
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
                 placeName));
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -177,6 +180,21 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                 }
             }
         });
+        // 어댑터 선언 및 리스트 뷰에 지정
+        /*
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,placeName){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                tv.setTextColor(getResources().getColor(R.color.dark_black));
+                return view;
+            }
+        };
+
+         */
+
 
         forwardArrow = findViewById(R.id.recommandBar_forwardArrow);
 
@@ -221,6 +239,7 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
                 markerList[i].setOnClickListener(this);
                 markerList[i].setWidth(100);
                 markerList[i].setHeight(100);
+
 
                 // marker2 = 노란색 marker3 = 보라색 none_marker = 회색
                 if(placeProperty[i].equals("핫플"))    {
@@ -277,6 +296,8 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
 
         ImageView icon_image = findViewById(R.id.icon_dialog_hotplace);
 
+        /*
+
         if( propertyarr.get((CharSequence)marker.getTag()).equals("음식점") ){
             icon_image.setImageResource(R.drawable.m_restaurant);
         } else if ( propertyarr.get((CharSequence)marker.getTag()).equals("핫플") ) {
@@ -284,6 +305,8 @@ public class HotplaceRecommandActivity extends AppCompatActivity implements OnMa
         } else {
             icon_image.setImageResource(R.drawable.m_oil);
         }
+
+         */
 
 
         //주소

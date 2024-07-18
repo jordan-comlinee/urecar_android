@@ -1,9 +1,23 @@
-![title](https://github.com/jordan-comlinee/parkingAndroid/assets/82654401/52bb2d5d-b4da-4783-a471-c1eee671109c)
-![function1](https://github.com/Half-GA/urecar_android/assets/82654401/06181354-4102-409e-8e65-34a4ef6314f1)
-![function2](https://github.com/Half-GA/urecar_android/assets/82654401/5de394b6-0753-49ce-8ed9-e0f678d21349)
-![contribution](https://github.com/jordan-comlinee/parkingAndroid/assets/82654401/0175b95e-66af-44c7-bd96-cad9bf16ea95)
-<br><br><br><br><br><br>
-2023/03/20 Naver CloudAPI 지도 앱 연결 완료<br>
-2023/03/21 나의 위치 불러오기 완료<br>
-2023/03/23 마커 표시 진행중
-2023/04/05 스플래쉬~로그인~메인 화면까지 연결, 스플래시 이미지 update!
+![Banner](https://github.com/user-attachments/assets/451e0cc2-b0a9-47b2-a589-3b6d323ed00c)   
+
+### 🤔20분씩 주차장을 돌던 어려움이 있으신가요?
+### 🤓혼잡한 주차시간, URECAR로 주차 시간을 아끼세요!
+<br>
+
+## 🛻 Functions
+
+#### 1️⃣ 내 주변 주차장 위치 및 시간대 별 혼잡도 등 정보 제공
+#### 2️⃣ 주차장 자리 예약
+#### 3️⃣ 예약한 주차장 주변 맛집 추천
+
+
+## 🚌 Structure
+![App-Structure](https://github.com/user-attachments/assets/a0518efa-6381-46f4-af41-ae580dd9f4f6)
+
+## 🚙 Contributers
+
+
+| 박상은 | 박세림 | 이나래 | 이소영 |
+| --- | --- | --- | --- |
+| Image1 | Image2 | Image3 | Image4 | 
+| Front-End | Back-End | Back-End | Front-End |

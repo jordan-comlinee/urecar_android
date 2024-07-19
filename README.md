@@ -1,8 +1,8 @@
-![Banner](https://github.com/user-attachments/assets/f5069e26-23ce-4341-bb45-24414f60be13)   
-[시연 영상 보러가기🛵](https://youtu.be/LVkcqOjQRl8)   
+![Banner](https://github.com/user-attachments/assets/f5069e26-23ce-4341-bb45-24414f60be13)    
 
 ### 🤔20분씩 주차장을 돌던 어려움이 있으신가요?
 ### 🤓혼잡한 주차시간, URECAR로 주차 시간을 아끼세요!
+[시연 영상 보러가기🛵](https://youtu.be/LVkcqOjQRl8)  
 <br>
 
 ## 🛻 Functions
@@ -30,7 +30,8 @@
 
 ## 🚙 Contributers
 
-##### 2022.09~2023.09
+##### 개발 기간 : 2022.09~2023.09
+ ***2023.09.15 졸업 전시회 우수상 수상🏆***
 | 박상은 | 박세림 | 이나래 | 이소영 |
 | --- | --- | --- | --- |
 | [pse11](https://github.com/pse11) | [serim14](https://github.com/serim14) | [AlisaYi](https://github.com/AlisaYi) | [Jordan-comlinee](https://github.com/jordan-comlinee) | 
